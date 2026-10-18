@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: #f8f5ef;
+    color: #2b2b2b;
+}
+
+.page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.3rem;
+    color: #3a2f2a;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 180px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    min-height: 420px;
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: #5a463e;
+}
+
+.ask-card textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 140px;
+    padding: 1rem;
+    border: 1px solid #d7d0c7;
+    border-radius: 12px;
+    font: inherit;
+    background: #fcfbf9;
+}
+
+.button {
+    margin-top: 1rem;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 999px;
+    background: #7d5a50;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #65463e;
+}
+
+.column-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 420px;
+}
+
+.ionic-column {
+    max-height: 320px;
+    width: auto;
+}
+
+.answer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.quote {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.philosopher {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #5a463e;
+}
+
+.philosopher-image {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.placeholder-text {
+    color: #6f6a63;
+    font-style: italic;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+@media (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .card,
+    .column-container {
+        min-height: auto;
+    }
+
+    .ionic-column {
+        max-height: 180px;
+    }
+}

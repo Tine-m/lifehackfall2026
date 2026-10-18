@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Filosoffernes hjørne</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/teamteachers/styles.css}">
+</head>
+<body>
+<div class="page-wrapper">
+    <h1>Filosoffernes hjørne</h1>
+
+    <div class="grid-container">
+
+        <section class="card ask-card">
+            <h2>Stil et spørgsmål</h2>
+            <form method="get" action="/philosophers/ask">
+                <label for="ask" class="sr-only">Dit spørgsmål</label>
+                <textarea id="ask"
+                          name="ask"
+                          rows="5"
+                          placeholder="Stil dit spørgsmål om livet her"
+                          required></textarea>
+                <button class="button" type="submit">Gør mig vis</button>
+            </form>
+        </section>
+
+        <div class="column-container">
+            <img class="ionic-column"
+                 th:src="@{/images/teamteachers/greek-ionic-column.svg}"
+                 alt="Ionic Column">
+        </div>
+
+        <section class="card answer-card">
+            <h2>Visdomsord</h2>
+
+            <div th:if="${not #strings.isEmpty(quote)}" class="answer-content">
+                <p class="quote" th:text="${quote}"></p>
+                <p class="philosopher" th:text="${philosopher}"></p>
+
+                <img class="philosopher-image"
+                     th:src="@{/images/teamteachers/kierkegaard.jpg}"
+                     alt="Socrates">
+            </div>
+
+            <div th:if="${#strings.isEmpty(quote)}" class="placeholder-text">
+                Stil et spørgsmål, og modtag et filosofisk svar.
+            </div>
+        </section>
+
+    </div>
+</div>
+</body>
+</html>

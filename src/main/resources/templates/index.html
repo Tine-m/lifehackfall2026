@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Newsletters</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="/css/main-page/styles.css"
+      th:href="@{/css/main-page/styles.css}"/>
+</head>
+
+<body>
+<div class="pagewrapper">
+    <header>
+        <img class="logo" th:src="@{/images/main-page/lifehacklogo.png}" alt="logo"/>
+    </header>
+    <h1>Efterår 2026</h1>
+    <div class="card-grid">
+        <div class="card" th:each="site : ${lifehackSites}">
+
+            <img class="card-image"
+                 th:src="@{${site.thumbnail}}">
+
+            <div class="card-title"
+                 th:text="${site.title}"></div>
+
+            <a class="card-cta"
+               th:href="@{${site.url}}"
+               th:text="${site.cta}">
+            </a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

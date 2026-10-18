@@ -1,0 +1,27 @@
+package app.configuration;
+
+import app.entities.LifehackSite;
+import java.util.List;
+
+public class LifehackRegistry {
+
+    public static List<LifehackSite> getSites() {
+        return List.of(
+                // teamteachers
+                new LifehackSite(
+                        "Filosoffernes hjørne",
+                        "Få et råd",
+                        "/philosophers",
+                        "/images/teamteachers/socrates.jpg"
+                )/*,
+
+                // Team A
+                new LifehackSite(
+                        "Team A's Lifehack",
+                        "Prøv det her",
+                        "/teama",
+                        "/images/teama/logo.png"
+                )*/
+        );
+    }
+}
