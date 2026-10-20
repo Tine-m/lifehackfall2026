@@ -17,8 +17,11 @@
         /* Skrift */
         --pf-skrift: Inter, Helvetica, Arial, sans-serif;
 
+
         /* Runde hjørner */
         --pf-hjoerne-lille: 12px;
         --pf-hjoerne-stor: 22px;
         --pf-hjoerne-knap: 40px;
     }
+
+

@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Newsletters</title>
+    <title>Frontpage</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/teamd/styles.css"/>
-    <link rel="stylesheet" href="/css/teamd/tokens.css"/>
+    <link rel="stylesheet" href="/public/css/teamd/styles.css"/>
+    <link rel="stylesheet" href="/public/css/teamd/tokens.css"/>
+    <link rel="stylesheet" href="/public/css/teamd/frontpage.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<div class="pagewrapper">
 
-</div>
+
+<main class="pagewrapper">
+
+    <!-- Venstre side -->
+    <section class="hero">
+
+        <h1>Perfectfit</h1>
+
+        <p class="tagline">Din perfekte pasform</p>
+
+        <p>Indtast dine mål, og få hurtigt din anbefalede BH-størrelse hos dit mærke.</p>
+
+        <a href="/start" class="knap">Start beregning</a>
+
+        <ul id="ikoner">
+            <li>
+                <img src="/public/images/teamd/maleband.svg" alt="Målebånd">
+                <p>Præcis måling</p>
+            </li>
+            <li>
+                <img src="/public/images/teamd/hjerte.svg" alt="Hjerte">
+                <p>Bedre komfort</p>
+            </li>
+            <li>
+                <img src="/public/images/teamd/bh.svg" alt="BH">
+                <p>Størrelse der passer</p>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Højre side-->
+    <section class="illustration">
+        <img src="/public/images/teamd/dame-gennemsigtig.svg" alt="Illustration af kvinde">
+    </section>
+
+</main>
 
 </body>
 </html>

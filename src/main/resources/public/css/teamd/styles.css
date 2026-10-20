@@ -1,0 +1,126 @@
+
+/* ---------- Grundlæggende ---------- */
+body {
+    margin: 0;
+    background-color: var(--pf-baggrund);
+    color: var(--pf-tekst);
+    font-family: var(--pf-skrift);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ---------- Layout ---------- */
+.pagewrapper {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 8%;
+}
+
+/* ---------- Tekst ---------- */
+
+h1{
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 3.4rem;
+    margin: 10px 0 4px;
+    color: var(--pf-rosa-moerk);
+}
+
+h2{
+    color: var(--pf-rosa-moerk);
+    font-family: Inter;
+    font-size: 38px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+p {
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--pf-tekst);
+    margin: 0 0 16px;
+}
+
+/* ---------- Kvinde illustration ---------- */
+
+.illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustration img {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* ---------- Header ---------- */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    border-bottom: 1px solid var(--pf-kant);
+}
+
+.logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--pf-moerk);
+}
+
+.topbar nav {
+    display: flex;
+    gap: 24px;
+}
+
+.topbar nav a {
+    font-size: 1rem;
+    color: var(--pf-tekst);
+    text-decoration: none;
+}
+
+.topbar nav a:hover {
+    color: var(--pf-rosa-moerk);
+}
+
+/* ---------- Knap ---------- */
+.knap {
+    display: inline-block;
+    margin: 24px 0 40px;
+    padding: 14px 32px;
+    background-color: var(--pf-rosa);
+    color: var(--pf-hvid);
+    text-decoration: none;
+    border-radius: var(--pf-hjoerne-knap);
+    transition: background-color 0.2s;
+}
+
+.knap:hover {
+    background-color: var(--pf-rosa-moerk);
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 768px) {
+    .pagewrapper {
+        grid-template-columns: 1fr;
+        padding: 40px 6%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
