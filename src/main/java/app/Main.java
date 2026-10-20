@@ -2,6 +2,7 @@ package app;
 
 import app.configuration.ThymeleafConfig;
 import app.controllers.MainController;
+import app.controllers.teamd.PerfectFitController;
 import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -22,6 +23,7 @@ public class Main {
             new MainController().setRoutes(config); // Fælles controller
             // TODO: registrér jeres egen controller endpoints herunder
             new QuoteController(connectionPool).setRoutes(config); // Teacher app Controller
+            new PerfectFitController(connectionPool).setRoutes(config);
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 

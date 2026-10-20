@@ -1,6 +1,7 @@
 package app.configuration;
 
 import app.entities.LifehackSite;
+
 import java.util.List;
 
 public class LifehackRegistry {
@@ -13,7 +14,8 @@ public class LifehackRegistry {
                         "Få et råd",
                         "/philosophers",
                         "/images/teamteachers/socrates.jpg"
-                )/*,
+                ),
+                /*,
 
                 // Team A
                 new LifehackSite(
@@ -22,6 +24,14 @@ public class LifehackRegistry {
                         "/teama",
                         "/images/teama/logo.png"
                 )*/
+
+                // Team D
+                new LifehackSite(
+                        "PerfectFit",
+                        "Find din perfekte BH-størrelse",
+                        "/perfectfit",
+                        "/images/teamd/perfectfit-logo.svg"
+                 )
         );
     }
 }
