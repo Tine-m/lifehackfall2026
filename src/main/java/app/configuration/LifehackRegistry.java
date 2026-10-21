@@ -20,6 +20,14 @@ public class LifehackRegistry {
                         "Match a colour",
                         "/rcade",
                         "/images/teama/rcade-logo.svg"
+                ),
+
+                // Team B
+                new LifehackSite(
+                        "Memory game",
+                        "Vend dit hack",
+                        "/memo",
+                        "/images/teamb/memo-logo.png"
                 )/*,
 
                 // Team A
