@@ -2,8 +2,10 @@ package app.controllers.teamd;
 
 import app.entities.teamd.Brand;
 import app.exceptions.DatabaseException;
+import app.exceptions.teamd.ValidationException;
 import app.persistence.ConnectionPool;
 import app.persistence.teamd.BrandMapper;
+import app.services.teamd.SizeService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
@@ -41,13 +43,19 @@ public class PerfectFitController {
         ctx.render("teamd/calculate.html");
     }
 
-    // Tager imod formularen (midlertidig test: viser de modtagne værdier)
+    // Tager imod formularen og validerer målene
     private void calculate(Context ctx) {
         String brandId = ctx.formParam("brandId");
         String underbust = ctx.formParam("underbust");
         String bust = ctx.formParam("bust");
 
-        ctx.attribute("message", "Modtaget: " + brandId + ", " + underbust + ", " + bust);
+        try {
+            SizeService.validateInput(brandId, underbust, bust);
+            // Her skal Louises calculateSize kaldes (US3). Indtil da:
+            ctx.attribute("message", "Målene er gyldige ✓");
+        } catch (ValidationException e) {
+            ctx.attribute("message", e.getMessage());
+        }
         showCalculator(ctx);
     }
 
