@@ -12,9 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrandMapper {
+    private final ConnectionPool connectionPool;
+
+    public BrandMapper(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
 
     // Henter alle mærker fra databasen, sorteret efter navn
-    public static List<Brand> getAllBrands(ConnectionPool connectionPool) throws DatabaseException {
+    public List<Brand> getAllBrands() throws DatabaseException {
         List<Brand> brands = new ArrayList<>();
         String sql = "SELECT brand_id, name FROM teamd_brand ORDER BY name";
 

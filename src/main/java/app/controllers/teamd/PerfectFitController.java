@@ -14,11 +14,12 @@ import java.util.List;
 
 public class PerfectFitController {
     private final ConnectionPool connectionPool;
+    private final BrandMapper brandMapper;
 
     public PerfectFitController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
+        this.brandMapper = new BrandMapper(connectionPool);
     }
-
     // Alle Perfect Fit-routes
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
@@ -35,7 +36,7 @@ public class PerfectFitController {
     // Viser beregn-siden med mærkerne fra databasen i dropdown'en
     private void showCalculator(Context ctx) {
         try {
-            List<Brand> brands = BrandMapper.getAllBrands(connectionPool);
+            List<Brand> brands = brandMapper.getAllBrands();
             ctx.attribute("brands", brands);
         } catch (DatabaseException e) {
             ctx.attribute("message", "Mærkerne kunne ikke hentes. Prøv igen senere.");
