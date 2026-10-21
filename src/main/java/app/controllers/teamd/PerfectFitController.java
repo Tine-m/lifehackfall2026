@@ -49,6 +49,10 @@ public class PerfectFitController {
         String underbust = ctx.formParam("underbust");
         String bust = ctx.formParam("bust");
 
+        ctx.attribute("selectedBrandId", brandId);
+        ctx.attribute("underbust", underbust);
+        ctx.attribute("bust", bust);
+
         try {
             SizeService.validateInput(brandId, underbust, bust);
             // Her skal Louises calculateSize kaldes (US3). Indtil da:

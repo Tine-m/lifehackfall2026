@@ -16,7 +16,7 @@
     <span class="logo">PERFECTFIT</span>
     <nav>
         <a href="/perfectfit">Forside</a>
-        <a href="/perfectfit/calculate">Beregn</a>
+        <a href="/perfectfit/calculate" class="aktiv">Beregn</a>
         <a href="/perfectfit/measure">Sådan måler du dig</a>
     </nav>
 </header>
@@ -27,26 +27,26 @@
     <section class="indhold">
         <h2>Beregn din størrelse</h2>
         <p>Vælg et mærke, og indtast dine mål i cm.</p>
-        <p th:if="${message}" th:text="${message}"></p>
 
-        <!-- "kort" = den hvide boks (brug Louises klassenavn, hvis det er et andet) -->
-        <form class="kort" method="post" action="/perfectfit/calculate">
+        <form class="hvid-boks" method="post" action="/perfectfit/calculate">
+            <p class="fejl" th:if="${message}" th:text="${message}"></p>
             <label for="brand">Mærke</label>
             <select id="brand" name="brandId" required>
                 <option value="">Vælg et mærke</option>
                 <option th:each="brand : ${brands}"
                         th:value="${brand.brandId}"
-                        th:text="${brand.name}"></option>
+                        th:text="${brand.name}"
+                        th:selected="${#strings.toString(brand.brandId) == selectedBrandId}"></option>
             </select>
 
-            <div class="maal">
+            <div class="maal-felter">
                 <div>
                     <label for="underbust">Undermål</label>
-                    <input type="number" id="underbust" name="underbust" step="0.1" placeholder="fx 75 cm" required>
+                    <input type="number" id="underbust" name="underbust" step="0.1" th:value="${underbust}" placeholder="fx 75 cm" required>
                 </div>
                 <div>
                     <label for="bust">Brystmål</label>
-                    <input type="number" id="bust" name="bust" step="0.1" placeholder="fx 90 cm" required>
+                    <input type="number" id="bust" name="bust" step="0.1" th:value="${bust}" placeholder="fx 90 cm" required>
                 </div>
             </div>
 
