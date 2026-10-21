@@ -24,9 +24,22 @@
 
     <!-- Venstre side -->
     <section class="indhold">
-        <h2></h2>
-        <p></p>
-        <section></section>
+        <p>Din størrelse hos</p>
+        <h2 th:text="${brandName}">Hunkemøller</h2>
+        <section class="hvid-boks centreret">
+            <p class="label">DIN STØRRELSE</p>
+            <p class="storrelse" th:text="${size}">75C</p>
+            <span class="badge" th:text="|${sizeSystem}-størrelse|">EU-størrelse</span>
+            <p class="maal" th:text="|Undermål ${underbust} cm · Brystmål ${bust} cm|">Undermål 75 cm · Brystmål 90 cm</p>
+        </section>
+        <section class="hvid-boks">
+            <p class="label">SØSTERSTØRRELSER</p>
+            <div class="soster-liste">
+                <span class="soster" th:each="s : ${sisterSizes}" th:text="${s}">70D</span>
+            </div>
+            <p>Skålen rummer det samme. Prøv dem, hvis din størrelse er udsolgt.</p>
+        </section>
+        <a href="/perfectfit/beregn" class="knap">← Beregn igen</a>
     </section>
 
     <!-- Højre side-->
