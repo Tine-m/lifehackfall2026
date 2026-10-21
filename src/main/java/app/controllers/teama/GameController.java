@@ -1,6 +1,8 @@
 package app.controllers.teama;
 
+import app.entities.teama.Colour;
 import app.persistence.ConnectionPool;
+import app.services.teama.ColourService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
@@ -40,7 +42,7 @@ public class GameController {
         int blueGuess = Integer.parseInt(ctx.formParam("blueGuess"));
 
         Colour guessColour = new Colour(redGuess, greenGuess, blueGuess);
-        ctx.attribute("targetColour", colourService.getCurrentTargetColour);
+        ctx.attribute("targetColour", colourService.getCurrentTargetColour());
         ctx.attribute("guessColour", guessColour);
         ctx.attribute("guessScore", colourService.getScore(guessColour));
 

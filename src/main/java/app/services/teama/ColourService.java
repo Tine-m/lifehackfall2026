@@ -13,10 +13,10 @@ public class ColourService {
         this.connectionPool = connectionPool;
     }
 
-    public int getScore(Colour guess, Colour target){
-        int distR = target.getR()-guess.getR();
-        int distG = target.getG()-guess.getG();
-        int distB = target.getB()-guess.getB();
+    public int getScore(Colour guess){
+        int distR = currentTargetColour.getR()-guess.getR();
+        int distG = currentTargetColour.getG()-guess.getG();
+        int distB = currentTargetColour.getB()-guess.getB();
         double dist3D = Math.sqrt((distR*distR)+(distG*distG)+(distB*distB));
         double score = (Math.sqrt(195075)-dist3D)*1000;
         return (int)Math.round(score);
