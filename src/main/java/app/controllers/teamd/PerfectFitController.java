@@ -7,10 +7,7 @@ import app.persistence.teamd.BrandMapper;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
-    import java.util.List;
 
-    public class PerfectFitController {
-        private ConnectionPool connectionPool;
 import java.util.List;
 
 public class PerfectFitController {
@@ -20,13 +17,6 @@ public class PerfectFitController {
         this.connectionPool = connectionPool;
     }
 
-        public void setRoutes(JavalinConfig config){
-
-            config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
-            config.routes.post("/perfectfit/resultat", ctx -> showResult(ctx));
-            config.routes.get("/perfectfit/calculate", ctx -> showCalculate(ctx));
-            config.routes.get("/perfectfit/measure", ctx -> showMeasure(ctx));
-        }
     // Alle Perfect Fit-routes
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
@@ -40,20 +30,6 @@ public class PerfectFitController {
         ctx.render("teamd/frontpage.html");
     }
 
-        private void showResult(Context ctx){
-            // Testværdier: skal erstattes med data fra formularen og mapperen
-            ctx.attribute("brandName", "Hunkemøller");
-            ctx.attribute("size", "75C");
-            ctx.attribute("sizeSystem", "EU");
-            ctx.attribute("underbust", 75);
-            ctx.attribute("bust", 90);
-            ctx.attribute("sisterSizes", List.of("70D", "80B"));
-            ctx.render("teamd/result.html");
-        }
-
-        private void showCalculate(Context ctx) {
-            ctx.render("teamd/calculate.html");
-        }
     // Viser beregn-siden med mærkerne fra databasen i dropdown'en
     private void showCalculator(Context ctx) {
         try {
