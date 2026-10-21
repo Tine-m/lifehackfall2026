@@ -1,0 +1,86 @@
+package app.entities.team.c;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
+public class userEvent {
+
+
+    private UUID event_id;
+    private User user;
+    private String eventName;
+    private LocalDateTime creationDate;
+    private LocalDateTime startDate;
+    private LocalDateTime finishDate;
+    private commentList commentList;
+    private List<invitation> invitiation;
+    private boolean commentVisibility;
+
+
+    public userEvent(UUID event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
+        this.event_id = event_id;
+        this.user = user;
+        this.eventName = eventName;
+        this.creationDate = creationDate;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.commentVisibility = commentVisibility;
+    }
+
+    public UUID getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(UUID event_id) {
+        this.event_id = event_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(LocalDateTime finishDate) {
+        this.finishDate = finishDate;
+    }
+
+    public boolean isCommentVisibility() {
+        return commentVisibility;
+    }
+
+    public void setCommentVisibility(boolean commentVisibility) {
+        this.commentVisibility = commentVisibility;
+    }
+}

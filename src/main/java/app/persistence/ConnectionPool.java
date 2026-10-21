@@ -34,9 +34,9 @@ public static ConnectionPool getInstance()
     /***
      * Getting a singleton instance of a Hikari Connection Pool with specific credentials
      * and connection string. If an environment variable "DEPLOYED" exists then local
-     * environment variables will be inserted with user credentials and DB connection string
-     * @param user for Postgresql database user
-     * @param password for Postgresql database user
+     * environment variables will be inserted with User credentials and DB connection string
+     * @param user for Postgresql database User
+     * @param password for Postgresql database User
      * @param url connection string for postgresql database. Remember to add currentSchema to string
      * @param db database name for connection
      * @return A ConnectionPool object
@@ -82,8 +82,8 @@ public static ConnectionPool getInstance()
 
     /***
      * Configuring a Hikari DataSource ConnectionPool. Default pool size is 3.
-     * @param user for Postgresql database user
-     * @param password for Postgresql database user
+     * @param user for Postgresql database User
+     * @param password for Postgresql database User
      * @param url connection string for postgresql database. Remember to add currentSchema to string
      * @param db database name for connection
      * @return a Hikari DataSource
