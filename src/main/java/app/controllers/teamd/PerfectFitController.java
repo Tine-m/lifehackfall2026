@@ -14,11 +14,15 @@
         }
 
         public void setRoutes(JavalinConfig config){
+
             config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
             config.routes.post("/perfectfit/resultat", ctx -> showResult(ctx));
+            config.routes.get("/perfectfit/calculate", ctx -> showCalculate(ctx));
+            config.routes.get("/perfectfit/measure", ctx -> showMeasure(ctx));
         }
 
         private void showFrontpage(Context ctx) {
+
             ctx.render("teamd/frontpage.html");
         }
 
@@ -32,4 +36,13 @@
             ctx.attribute("sisterSizes", List.of("70D", "80B"));
             ctx.render("teamd/result.html");
         }
+
+        private void showCalculate(Context ctx) {
+            ctx.render("teamd/calculate.html");
+        }
+
+        private void showMeasure(Context ctx) {
+            ctx.render("teamd/measure.html");
+        }
+
     }
