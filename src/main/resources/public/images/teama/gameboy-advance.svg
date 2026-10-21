@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500">
+  <defs>
+    <linearGradient id="stripes" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#D60E3A"/><stop offset=".2" stop-color="#D60E3A"/>
+      <stop offset=".2" stop-color="#D17200"/><stop offset=".4" stop-color="#D17200"/>
+      <stop offset=".4" stop-color="#D3A801"/><stop offset=".6" stop-color="#D3A801"/>
+      <stop offset=".6" stop-color="#019589"/><stop offset=".8" stop-color="#019589"/>
+      <stop offset=".8" stop-color="#02696E"/><stop offset="1" stop-color="#02696E"/>
+    </linearGradient>
+    <pattern id="lcdgrid" width="6" height="6" patternUnits="userSpaceOnUse">
+      <path d="M6 0H0V6" fill="none" stroke="#3E5228" stroke-opacity=".08" stroke-width=".8"/>
+    </pattern>
+  </defs>
+
+  <!-- Shell: warm cream and slightly hand-drawn contours to match the reference -->
+  <g id="body">
+    <path d="M72 82 Q77 43 117 42 L883 42 Q925 44 931 82 L963 354 Q966 396 924 415 L775 466 Q741 477 702 477 L298 477 Q259 477 225 466 L76 415 Q34 400 38 354 Z"
+      fill="#E9DCCB" stroke="#211B16" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M81 84 Q86 51 119 51 L879 51 Q916 53 921 86" fill="none" stroke="#FFFFFF" stroke-opacity=".62" stroke-width="4" stroke-linecap="round"/>
+    <path d="M47 355 Q43 391 81 405 L228 456 Q261 468 299 468 L701 468 Q739 468 772 456 L919 405 Q953 391 954 356" fill="none" stroke="#CBB9A4" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <!-- Shoulder buttons -->
+  <g fill="#E9DCCB" stroke="#211B16" stroke-width="4">
+    <path d="M127 44 Q139 14 170 14 H275 Q301 15 311 43 L313 49 H124 Z"/>
+    <path d="M689 43 Q700 15 728 14 H833 Q864 15 875 44 L878 49 H687 Z"/>
+  </g>
+  <g font-family="Archivo, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="2" fill="#6B5E52" text-anchor="middle">
+    <text x="218" y="35">L</text><text x="781" y="35">R</text>
+  </g>
+
+  <!-- Screen surround, same charcoal and muted accent strip as the reference -->
+  <g id="bezel">
+    <path d="M282 72 Q282 61 296 61 H704 Q718 61 718 75 V292 Q718 306 704 306 H296 Q282 306 282 292 Z" fill="#33363D"/>
+    <text x="304" y="88" font-family="Archivo, Helvetica, Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="2.3" fill="#CBB9A4">DOT MATRIX WITH STEREO SOUND</text>
+    <rect x="604" y="76" width="95" height="6" rx="3" fill="url(#stripes)"/>
+  </g>
+
+  <!-- Empty screen: no game or other graphic on the LCD -->
+  <g id="lcd">
+    <rect x="302" y="101" width="396" height="184" rx="2" fill="#B9C579"/>
+    <rect x="302" y="101" width="396" height="184" rx="2" fill="url(#lcdgrid)"/>
+  </g>
+
+  <!-- Wordmark in the same blue treatment -->
+  <text x="500" y="333" font-size="27" fill="#25357A" font-style="italic" text-anchor="middle">
+    <tspan font-family="Archivo, Helvetica, Arial, sans-serif" font-weight="900">Rcade</tspan><tspan font-family="'Instrument Serif', 'Times New Roman', serif" font-weight="400"> GB</tspan><tspan font-family="Archivo, Helvetica, sans-serif" font-size="11" font-weight="900" font-style="normal" dy="-11">TM</tspan>
+  </text>
+
+  <!-- D-pad -->
+  <g id="dpad" fill="#16110E">
+    <rect x="108" y="276" width="44" height="111" rx="7"/>
+    <rect x="75" y="309" width="110" height="44" rx="7"/>
+    <circle cx="130" cy="331" r="7" fill="#2C2622"/>
+  </g>
+
+  <!-- A and B buttons -->
+  <g id="action-buttons" stroke="#211B16" stroke-width="4">
+    <circle cx="826" cy="326" r="34" fill="#D60E3A"/>
+    <circle cx="899" cy="293" r="34" fill="#25357A"/>
+  </g>
+  <g font-family="Archivo, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#E9DCCB" text-anchor="middle">
+    <text x="826" y="333">B</text><text x="899" y="300">A</text>
+  </g>
+
+  <!-- Select / Start pill buttons and labels -->
+  <g fill="#6B5E52">
+    <rect x="383" y="373" width="64" height="14" rx="7" transform="rotate(-20 415 380)"/>
+    <rect x="473" y="373" width="64" height="14" rx="7" transform="rotate(-20 505 380)"/>
+  </g>
+  <g font-family="Archivo, Helvetica, Arial, sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="#25357A" text-anchor="middle">
+    <text x="415" y="411" transform="rotate(-20 415 407)">SELECT</text>
+    <text x="505" y="411" transform="rotate(-20 505 407)">START</text>
+  </g>
+
+  <!-- Speaker slots -->
+  <g fill="#CBB9A4" transform="rotate(-25 682 380)">
+    <rect x="644" y="350" width="9" height="62" rx="4.5"/>
+    <rect x="663" y="350" width="9" height="62" rx="4.5"/>
+    <rect x="682" y="350" width="9" height="62" rx="4.5"/>
+    <rect x="701" y="350" width="9" height="62" rx="4.5"/>
+    <rect x="720" y="350" width="9" height="62" rx="4.5"/>
+  </g>
+</svg>

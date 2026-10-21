@@ -7,8 +7,7 @@ body{
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 4px solid black;
-
+    border: 2px dashed black;
 
 }
 
@@ -19,7 +18,7 @@ body{
     align-items: center; /*centrer item box vertikalt*/
 
 
-    grid-template-columns: 1fr 500px 1fr;
+    grid-template-columns: 290px 1fr 290px;
     grid-template-rows: 200px 780px;
 
 
@@ -54,13 +53,17 @@ body{
     display: flex;
     justify-content: center;
 }
+.game img{
+    width: 100%;
+
+}
 
 .highscore-context {
     display: flex;
-    justify-content: flex-end;    /* billedet til højre */
+    justify-content: center;    /* billedet til højre */
 }
 
 .highscore {
     display: flex;
-    justify-content: flex-start;  /* billedet til venstre */
+    justify-content: center;  /* billedet til venstre */
 }
