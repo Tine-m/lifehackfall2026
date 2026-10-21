@@ -13,15 +13,16 @@ public class LifehackRegistry {
                         "Få et råd",
                         "/philosophers",
                         "/images/teamteachers/socrates.jpg"
-                )/*,
+                ),
 
-                // Team A
                 new LifehackSite(
-                        "Team A's Lifehack",
-                        "Prøv det her",
-                        "/teama",
-                        "/images/teama/logo.png"
-                )*/
+                        "Team c's Lifehack",
+                        "EventPlanner",
+                        "/eventPlanner",
+                        "/images/team.c/event-kort.png"
+
+
+                )
         );
     }
 }
