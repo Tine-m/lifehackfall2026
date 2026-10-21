@@ -20,7 +20,18 @@ public class LifehackRegistry {
                         "Match a colour",
                         "/rcade",
                         "/images/teama/rcade-logo.svg"
-                )/*,
+                ),
+                // Team E
+                new LifehackSite(
+                        "SecurePass",
+                        "Skab stærkere passwords",
+                        "/securepass",
+                        "/images/teame/securepass-logo.svg"
+                )
+
+
+
+                /*,
 
                 // Team A
                 new LifehackSite(
@@ -29,6 +40,9 @@ public class LifehackRegistry {
                         "/teama",
                         "/images/teama/logo.png"
                 )*/
+
+
+
         );
     }
 }
