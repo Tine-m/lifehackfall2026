@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>game</title>
-    <link rel="stylesheet" href="colours.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/teama/colours.css">
+    <link rel="stylesheet" href="css/teama/style.css">
 
 </head>
 <body>
@@ -13,23 +13,41 @@
 <div class="grid-one">
 
     <div class="grid-one-item header" style="grid-area: box-1">
-        <img class="header-item home-button" src="images/teama-homebutton.svg">
-        <img class="header-item header-logo" src="images/RcadeGB-logo.svg">
+        <img class="header-item home-button" src="images/teama/homebutton.svg">
+        <img class="header-item header-logo" src="images/teama/RcadeGB-logo.svg">
     </div>
 
     <div class="grid-one-item highscore-context"style="grid-area: box-2"> <!-- th:each alle highscores på listen -->
-        <img src="images/rcadegb-scoreboard.svg">
+        <img src="images/teama/rcadegb-scoreboard.svg">
     </div>
 
     <div class="grid-one-item game" style="grid-area: box-3">
-        <img src="images/gameboy-advance-2.svg">
+        <img src="images/teama/gameboy-advance-2.svg">
     </div>
 
     <div class="grid-one-item highscore" style="grid-area: box-4"> <!-- th:each alle highscores på listen -->
-        <img src="images/rcadegb-scoreboard.svg">
+        <img src="images/teama/rcadegb-scoreboard.svg">
     </div>
 
+    <div class="levelSelectorContainer" style="grid-area: box-3">
+        <div id="niveau1Button">
+            <a class="activeButton" href="niveau1.html">Niveau 1</a>
+        </div>
 
+        <div id="niveau2Button">
+            <a class="lockedButton">Niveau 2 <img src="images/teama/locked.svg"></a>
+        </div>
+
+        <div id="niveau3Button">
+            <a class="lockedButton">Niveau 3 <img src="images/teama/locked.svg"></a>
+
+        </div>
+
+        <div id="attackModeButton">
+            <a class="pendingButton">Attack Mode <img src="images/teama/pending.svg"></a>
+
+        </div>
+    </div>
 </div>
 
 
