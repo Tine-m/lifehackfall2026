@@ -5,6 +5,9 @@ import app.exceptions.DatabaseException;
 import app.exceptions.teamd.ValidationException;
 import app.persistence.teamd.SizeGuideMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SizeService {
 
     private static final double MIN_CM = 55;
@@ -55,5 +58,22 @@ public class SizeService {
             throw new ValidationException("Vi fandt ingen størrelse til dine mål hos dette mærke");
         }
         return size;
+    }
+    // Søsterstørrelser: ét bånd ned + én skål op, og ét bånd op + én skål ned
+    public static List<String> getSisterSizes(SizeGuide sizeGuide) {
+        List<String> cups = List.of("AA", "A", "B", "C", "D", "E", "F", "G", "H");
+        int step = sizeGuide.getSizeSystem().equals("UK") || sizeGuide.getSizeSystem().equals("US") ? 2 : 5;
+
+        int band = sizeGuide.getBandSize();
+        int cupIndex = cups.indexOf(sizeGuide.getCupSize());
+        List<String> sisterSizes = new ArrayList<>();
+
+        if (cupIndex >= 0 && cupIndex < cups.size() - 1) {
+            sisterSizes.add((band - step) + cups.get(cupIndex + 1));
+        }
+        if (cupIndex > 0) {
+            sisterSizes.add((band + step) + cups.get(cupIndex - 1));
+        }
+        return sisterSizes;
     }
 }

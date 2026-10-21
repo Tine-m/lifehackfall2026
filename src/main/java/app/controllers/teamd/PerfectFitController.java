@@ -64,7 +64,7 @@ public class PerfectFitController {
             ctx.attribute("brandName", brand.getName());
             ctx.attribute("size", sizeGuide.getSize());
             ctx.attribute("sizeSystem", sizeGuide.getSizeSystem());
-            ctx.attribute("sisterSizes", List.of());
+            ctx.attribute("sisterSizes", SizeService.getSisterSizes(sizeGuide));
             ctx.render("teamd/result.html");
         } catch (ValidationException e) {
             ctx.attribute("message", e.getMessage());
