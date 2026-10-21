@@ -13,6 +13,8 @@ public class SizeService {
     private static final double MIN_CM = 55;
     private static final double MAX_CM = 150;
 
+    private static final List<String> CUPS = List.of("AA", "A", "B", "C", "D", "E", "F", "G", "H");
+
     private final SizeGuideMapper sizeGuideMapper;
 
     public SizeService(SizeGuideMapper sizeGuideMapper) {
@@ -59,21 +61,45 @@ public class SizeService {
         }
         return size;
     }
-    // Søsterstørrelser: ét bånd ned + én skål op, og ét bånd op + én skål ned
-    public static List<String> getSisterSizes(SizeGuide sizeGuide) {
-        List<String> cups = List.of("AA", "A", "B", "C", "D", "E", "F", "G", "H");
-        int step = sizeGuide.getSizeSystem().equals("UK") || sizeGuide.getSizeSystem().equals("US") ? 2 : 5;
 
-        int band = sizeGuide.getBandSize();
-        int cupIndex = cups.indexOf(sizeGuide.getCupSize());
+    // Henter mærkets størrelser og finder søsterstørrelserne
+    public List<String> getSisterSizes(SizeGuide sizeGuide) throws DatabaseException {
+        List<SizeGuide> brandSizes = sizeGuideMapper.getSizesByBrand(sizeGuide.getBrandId());
+        return findSisterSizes(sizeGuide, brandSizes);
+    }
+
+    // Søsterstørrelser: bånd ned + skål op, bånd op + skål ned.
+        public static List<String> findSisterSizes(SizeGuide sizeGuide, List<SizeGuide> brandSizes) {
         List<String> sisterSizes = new ArrayList<>();
+        if (sizeGuide == null) {
+            return sisterSizes;
+        }
 
-        if (cupIndex >= 0 && cupIndex < cups.size() - 1) {
-            sisterSizes.add((band - step) + cups.get(cupIndex + 1));
+        int step = sizeGuide.getSizeSystem().equals("UK") || sizeGuide.getSizeSystem().equals("US") ? 2 : 5;
+        int band = sizeGuide.getBandSize();
+        int cupIndex = CUPS.indexOf(sizeGuide.getCupSize());
+        if (cupIndex < 0) {
+            return sisterSizes;
+        }
+
+        if (cupIndex < CUPS.size() - 1) {
+            addIfBrandHasSize(sisterSizes, brandSizes, band - step, CUPS.get(cupIndex + 1));
         }
         if (cupIndex > 0) {
-            sisterSizes.add((band + step) + cups.get(cupIndex - 1));
+            addIfBrandHasSize(sisterSizes, brandSizes, band + step, CUPS.get(cupIndex - 1));
         }
         return sisterSizes;
     }
+
+    private static void addIfBrandHasSize(List<String> result, List<SizeGuide> brandSizes, int band, String cup) {
+        for (SizeGuide size : brandSizes) {
+            if (size.getBandSize() == band && size.getCupSize().equals(cup)) {
+                result.add(band + cup);
+                return;
+            }
+        }
+    }
+
+
+
 }

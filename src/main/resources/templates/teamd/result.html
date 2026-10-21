@@ -32,7 +32,7 @@
             <span class="badge" th:text="|${sizeSystem}-størrelse|">EU-størrelse</span>
             <p class="maal" th:text="|Undermål ${underbust} cm · Brystmål ${bust} cm|">Undermål 75 cm · Brystmål 90 cm</p>
         </section>
-        <section class="hvid-boks">
+               <section class="hvid-boks" th:if="${not #lists.isEmpty(sisterSizes)}">
             <p class="label">SØSTERSTØRRELSER</p>
             <div class="soster-liste">
                 <span class="soster" th:each="s : ${sisterSizes}" th:text="${s}">70D</span>
