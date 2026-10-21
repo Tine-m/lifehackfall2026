@@ -28,8 +28,8 @@ public class GameController {
     }
 
     public void renderNiveau1(Context ctx){
-        Colour colourTarget = colourService.getRandomColour();
-        ctx.attribute("colourTarget", colourTarget);
+        Colour targetColour = colourService.getNewTargetColour();
+        ctx.attribute("targetColour", targetColour);
 
         ctx.render("teama/niveau1.html");
     }
@@ -39,8 +39,10 @@ public class GameController {
         int greenGuess = Integer.parseInt(ctx.formParam("greenGuess"));
         int blueGuess = Integer.parseInt(ctx.formParam("blueGuess"));
 
-        Colour colourGuess = new Colour(redGuess, greenGuess, blueGuess);
-        ctx.attribute("colourGuess", colourService.getScore(colourGuess));
+        Colour guessColour = new Colour(redGuess, greenGuess, blueGuess);
+        ctx.attribute("targetColour", colourService.getCurrentTargetColour);
+        ctx.attribute("guessColour", guessColour);
+        ctx.attribute("guessScore", colourService.getScore(guessColour));
 
         ctx.render("teama/niveau1.html");
     }
