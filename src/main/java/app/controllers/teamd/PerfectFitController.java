@@ -1,25 +1,27 @@
 package app.controllers.teamd;
 
 import app.entities.teamd.Brand;
+import app.entities.teamd.SizeGuide;
 import app.exceptions.DatabaseException;
 import app.exceptions.teamd.ValidationException;
 import app.persistence.ConnectionPool;
 import app.persistence.teamd.BrandMapper;
+import app.persistence.teamd.SizeGuideMapper;
 import app.services.teamd.SizeService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
-
 import java.util.List;
 
 public class PerfectFitController {
-    private final ConnectionPool connectionPool;
     private final BrandMapper brandMapper;
+    private final SizeService sizeService;
 
     public PerfectFitController(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
         this.brandMapper = new BrandMapper(connectionPool);
+        this.sizeService = new SizeService(new SizeGuideMapper(connectionPool));
     }
+
     // Alle Perfect Fit-routes
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
@@ -44,7 +46,7 @@ public class PerfectFitController {
         ctx.render("teamd/calculate.html");
     }
 
-    // Tager imod formularen og validerer målene
+    // Tager imod formularen, validerer målene og viser resultatet
     private void calculate(Context ctx) {
         String brandId = ctx.formParam("brandId");
         String underbust = ctx.formParam("underbust");
@@ -56,12 +58,16 @@ public class PerfectFitController {
 
         try {
             SizeService.validateInput(brandId, underbust, bust);
-            // Her skal Louises calculateSize kaldes (US3). Indtil da:
-            ctx.attribute("message", "Målene er gyldige ✓");
+            SizeGuide size = sizeService.calculateSize(brandId, underbust, bust);
+            ctx.attribute("size", size);
+            ctx.render("teamd/result.html");
         } catch (ValidationException e) {
             ctx.attribute("message", e.getMessage());
+            showCalculator(ctx);
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Noget gik galt. Prøv igen senere.");
+            showCalculator(ctx);
         }
-        showCalculator(ctx);
     }
 
     // Viser "Sådan måler du"-siden

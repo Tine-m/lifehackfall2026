@@ -11,12 +11,18 @@ import java.sql.SQLException;
 
 public class SizeGuideMapper {
 
+    private final ConnectionPool connectionPool;
+
+    public SizeGuideMapper(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
+
     // Finder størrelsen hos et mærke ud fra undermål og brystmål. Returnerer null, hvis der ikke er et match.
-    public static SizeGuide findSize(int brandId, double underbust, double bust, ConnectionPool connectionPool) throws DatabaseException {
+    public SizeGuide findSize(int brandId, double underbust, double bust) throws DatabaseException {
         String sql = "SELECT * FROM teamd_size_guide " +
                 "WHERE brand_id = ? " +
-                "AND ? >= underbust_min_cm AND ? < underbust_max_cm " +
-                "AND ? >= bust_min_cm AND ? < bust_max_cm";
+                "AND ? >= underbust_min_cm AND ? <= underbust_max_cm " +
+                "AND ? >= bust_min_cm AND ? <= bust_max_cm";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
