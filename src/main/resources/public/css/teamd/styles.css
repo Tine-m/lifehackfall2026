@@ -59,6 +59,10 @@ p {
 }
 
 /* ---------- Header ---------- */
+.aktiv{
+    color: var(--pf-rosa-moerk) !important;
+}
+
 .topbar {
     display: flex;
     justify-content: space-between;
