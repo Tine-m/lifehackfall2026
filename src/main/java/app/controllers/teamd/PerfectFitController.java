@@ -1,17 +1,24 @@
-    package app.controllers.teamd;
+package app.controllers.teamd;
 
-    import app.persistence.ConnectionPool;
-    import io.javalin.config.JavalinConfig;
-    import io.javalin.http.Context;
+import app.entities.teamd.Brand;
+import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
+import app.persistence.teamd.BrandMapper;
+import io.javalin.config.JavalinConfig;
+import io.javalin.http.Context;
 
     import java.util.List;
 
     public class PerfectFitController {
         private ConnectionPool connectionPool;
+import java.util.List;
 
-        public PerfectFitController(ConnectionPool connectionPool){
-            this.connectionPool = connectionPool;
-        }
+public class PerfectFitController {
+    private final ConnectionPool connectionPool;
+
+    public PerfectFitController(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
 
         public void setRoutes(JavalinConfig config){
 
@@ -20,11 +27,18 @@
             config.routes.get("/perfectfit/calculate", ctx -> showCalculate(ctx));
             config.routes.get("/perfectfit/measure", ctx -> showMeasure(ctx));
         }
+    // Alle Perfect Fit-routes
+    public void setRoutes(JavalinConfig config) {
+        config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
+        config.routes.get("/perfectfit/calculate", ctx -> showCalculator(ctx));
+        config.routes.post("/perfectfit/calculate", ctx -> calculate(ctx));
+        config.routes.get("/perfectfit/measure", ctx -> showMeasure(ctx));
+    }
 
-        private void showFrontpage(Context ctx) {
-
-            ctx.render("teamd/frontpage.html");
-        }
+    // Viser forsiden
+    private void showFrontpage(Context ctx) {
+        ctx.render("teamd/frontpage.html");
+    }
 
         private void showResult(Context ctx){
             // Testværdier: skal erstattes med data fra formularen og mapperen
@@ -40,9 +54,29 @@
         private void showCalculate(Context ctx) {
             ctx.render("teamd/calculate.html");
         }
-
-        private void showMeasure(Context ctx) {
-            ctx.render("teamd/measure.html");
+    // Viser beregn-siden med mærkerne fra databasen i dropdown'en
+    private void showCalculator(Context ctx) {
+        try {
+            List<Brand> brands = BrandMapper.getAllBrands(connectionPool);
+            ctx.attribute("brands", brands);
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Mærkerne kunne ikke hentes. Prøv igen senere.");
         }
-
+        ctx.render("teamd/calculate.html");
     }
+
+    // Tager imod formularen (midlertidig test: viser de modtagne værdier)
+    private void calculate(Context ctx) {
+        String brandId = ctx.formParam("brandId");
+        String underbust = ctx.formParam("underbust");
+        String bust = ctx.formParam("bust");
+
+        ctx.attribute("message", "Modtaget: " + brandId + ", " + underbust + ", " + bust);
+        showCalculator(ctx);
+    }
+
+    // Viser "Sådan måler du"-siden
+    private void showMeasure(Context ctx) {
+        ctx.render("teamd/measure.html");
+    }
+}
