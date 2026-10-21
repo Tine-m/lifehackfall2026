@@ -38,4 +38,22 @@ public class BrandMapper {
         }
         return brands;
     }
+    // Henter ét mærke ud fra id
+    public Brand getBrandById(int brandId) throws DatabaseException {
+        String sql = "SELECT brand_id, name FROM teamd_brand WHERE brand_id = ?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, brandId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Brand(rs.getInt("brand_id"), rs.getString("name"));
+            }
+            throw new DatabaseException("Mærket blev ikke fundet");
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Kunne ikke hente mærket: " + e.getMessage());
+        }
+    }
 }

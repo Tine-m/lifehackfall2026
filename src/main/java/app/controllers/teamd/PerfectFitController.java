@@ -58,8 +58,13 @@ public class PerfectFitController {
 
         try {
             SizeService.validateInput(brandId, underbust, bust);
-            SizeGuide size = sizeService.calculateSize(brandId, underbust, bust);
-            ctx.attribute("size", size);
+            SizeGuide sizeGuide = sizeService.calculateSize(brandId, underbust, bust);
+            Brand brand = brandMapper.getBrandById(sizeGuide.getBrandId());
+
+            ctx.attribute("brandName", brand.getName());
+            ctx.attribute("size", sizeGuide.getSize());
+            ctx.attribute("sizeSystem", sizeGuide.getSizeSystem());
+            ctx.attribute("sisterSizes", List.of());
             ctx.render("teamd/result.html");
         } catch (ValidationException e) {
             ctx.attribute("message", e.getMessage());
