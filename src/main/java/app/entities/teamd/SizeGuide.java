@@ -93,5 +93,8 @@ public class SizeGuide {
     public void setBustMaxCm(double bustMaxCm) {
         this.bustMaxCm = bustMaxCm;
     }
+    public String getSize() {
+        return bandSize + cupSize;
+    }
 }
 
