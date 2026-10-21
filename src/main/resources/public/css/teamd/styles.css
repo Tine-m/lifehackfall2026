@@ -1,4 +1,3 @@
-
 /* ---------- Grundlæggende ---------- */
 body {
     margin: 0;
@@ -21,8 +20,7 @@ body {
 }
 
 /* ---------- Tekst ---------- */
-
-h1{
+h1 {
     font-family: 'Jost', sans-serif;
     font-weight: 300;
     letter-spacing: 0.3em;
@@ -32,27 +30,23 @@ h1{
     color: var(--pf-rosa-moerk);
 }
 
-h2{
+h2 {
     color: var(--pf-rosa-moerk);
-    font-family: Inter;
+    font-family: var(--pf-skrift);
     font-size: 38px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    margin: 0 0 12px;
 }
 
 p {
-    font-family: Inter;
+    font-family: var(--pf-skrift);
     font-size: 18px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
     color: var(--pf-tekst);
     margin: 0 0 16px;
 }
 
 /* ---------- Kvinde illustration ---------- */
-
 .illustration {
     display: flex;
     justify-content: center;
@@ -65,7 +59,6 @@ p {
 }
 
 /* ---------- Header ---------- */
-
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -113,6 +106,69 @@ p {
     background-color: var(--pf-rosa-moerk);
 }
 
+/* ---------- Formular ---------- */
+.indhold form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 420px;
+}
+
+.indhold label {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.indhold select,
+.indhold input {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--pf-felt);
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+.maal {
+    display: flex;
+    gap: 16px;
+}
+
+.maal div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.maal input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.indhold button {
+    align-self: flex-start;
+    margin-top: 16px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    color: var(--pf-hvid);
+    background-color: var(--pf-rosa);
+    border: none;
+    border-radius: var(--pf-hjoerne-knap);
+    cursor: pointer;
+}
+
+.indhold button:hover {
+    background-color: var(--pf-rosa-moerk);
+}
+
+.guide-link {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--pf-rosa);
+}
+
 /* ---------- Mobil ---------- */
 @media (max-width: 768px) {
     .pagewrapper {
@@ -122,5 +178,9 @@ p {
 
     h1 {
         font-size: 2rem;
+    }
+
+    .maal {
+        flex-direction: column;
     }
 }
