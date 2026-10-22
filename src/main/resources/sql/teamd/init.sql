@@ -242,3 +242,5 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 70, 'A', 'EU'
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'E', 'EU', 98, 103, 120, 122),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'F', 'EU', 98, 103, 122, 124),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'G', 'EU', 98, 103, 124, 126);
+
+
