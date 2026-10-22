@@ -30,18 +30,6 @@ public class LifehackRegistry {
                         "/memorygame",
                         "/images/teamb/memo-logo.png"
                 ),
-                // Team E
-                new LifehackSite(
-                        "SecurePass",
-                        "Skab stærkere passwords",
-                        "/securepass",
-                        "/images/teame/securepass-logo.svg"
-                )
-
-
-
-                /*,
-                ),
                 /*,
 
                 // Team A
@@ -58,10 +46,16 @@ public class LifehackRegistry {
                         "Find din perfekte BH-størrelse",
                         "/perfectfit",
                         "/images/teamd/perfectfit-logo.svg"
-                 )
+                 ),
 
-
-
+                // Team E
+                new LifehackSite(
+                        "SecurePass",
+                        "Skab stærkere passwords",
+                        "/securepass",
+                        "/images/teame/securepass-logo.svg"
+                )
         );
+
     }
 }

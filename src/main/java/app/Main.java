@@ -5,6 +5,7 @@ import app.controllers.MainController;
 import app.controllers.teamd.PerfectFitController;
 import app.controllers.teama.GameController;
 import app.controllers.teamb.MemoController;
+import app.controllers.teame.PasswordController;
 import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -28,6 +29,7 @@ public class Main {
             new GameController(connectionPool).setRoutes(config); //Team a app Controller
             new PerfectFitController(connectionPool).setRoutes(config);
             new MemoController(connectionPool).setRoutes(config); //Team b app Controller
+            new PasswordController(connectionPool).setRoutes(config);//team e app Controller
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 
