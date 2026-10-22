@@ -2,6 +2,7 @@ package app;
 
 import app.configuration.ThymeleafConfig;
 import app.controllers.MainController;
+import app.controllers.teama.GameController;
 import app.controllers.team.c.eventController;
 import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
@@ -25,6 +26,7 @@ public class Main {
             new QuoteController(connectionPool).setRoutes(config); // Teacher app Controller
 
             new eventController(connectionPool).setRoutes(config);
+            new GameController(connectionPool).setRoutes(config); //Team a app Controller
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 

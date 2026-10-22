@@ -14,6 +14,14 @@ public class LifehackRegistry {
                         "/philosophers",
                         "/images/teamteachers/socrates.jpg"
                 ),
+                ),
+                //Team A
+                new LifehackSite(
+                        "RcadeGB",
+                        "Match a colour",
+                        "/rcade",
+                        "/images/teama/rcade-logo.svg"
+                )/*,
 
                 new LifehackSite(
                         "Team c's Lifehack",
