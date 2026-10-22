@@ -19,9 +19,9 @@ public class EventController {
 
     public void setRoutes(JavalinConfig config) {
 
-        config.routes.get("/eventPlanner", ctx -> ctx.render("team.c/login.html"));
+        config.routes.get("/eventPlanner", ctx -> ctx.render("teamc/login.html"));
 
-        config.routes.post("/eventPlanner", ctx -> ctx.render("team.c/login.html"));
+        config.routes.post("/eventPlanner", ctx -> ctx.render("teamc/login.html"));
 
 
 
@@ -35,22 +35,22 @@ public class EventController {
     }
 
 public void events(Context ctx ){
-        ctx.render("/team.c/login.html");
+        ctx.render("/teamc/login.html");
 
 
 }
 
 public void login (Context ctx) {
-        ctx.render("/team.c/mainpage.html");
+        ctx.render("/teamc/mainpage.html");
 
 }
 
 public void register (Context ctx) {
-        ctx.render("/team.c/register.html");
+        ctx.render("/teamc/register.html");
 
     }
 public void mainpage(Context ctx){
-        ctx.render("/team.c/mainpage.html");
+        ctx.render("/teamc/mainpage.html");
 
 }
 
