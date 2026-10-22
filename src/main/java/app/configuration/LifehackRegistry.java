@@ -1,6 +1,7 @@
 package app.configuration;
 
 import app.entities.LifehackSite;
+
 import java.util.List;
 
 public class LifehackRegistry {
@@ -20,7 +21,8 @@ public class LifehackRegistry {
                         "Match a colour",
                         "/rcade",
                         "/images/teama/rcade-logo.svg"
-                )/*,
+                ),
+                /*,
 
                 // Team A
                 new LifehackSite(
@@ -29,6 +31,14 @@ public class LifehackRegistry {
                         "/teama",
                         "/images/teama/logo.png"
                 )*/
+
+                // Team D
+                new LifehackSite(
+                        "PerfectFit",
+                        "Find din perfekte BH-størrelse",
+                        "/perfectfit",
+                        "/images/teamd/perfectfit-logo.svg"
+                 )
         );
     }
 }
