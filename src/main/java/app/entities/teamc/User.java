@@ -3,13 +3,13 @@ package app.entities.teamc;
 import java.util.UUID;
 
 public class User {
-    private UUID user_id;
+    private int user_id;
     private String username;
     private String email;
     private String sex;
     private String password;
 
-    public User(UUID user_id, String username, String email, String sex, String password) {
+    public User(int user_id, String username, String email, String sex, String password) {
         this.user_id = user_id;
         this.username = username;
         this.email = email;
@@ -18,15 +18,17 @@ public class User {
     }
 
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
-
-
-
-    public UUID getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(UUID user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 

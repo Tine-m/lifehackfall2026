@@ -20,7 +20,7 @@
     <div class="register-card">
         <h2>Register</h2>
 
-        <form class="register-form" action="/eventPlanner" method="post">
+        <form class="register-form" action="/eventPlanner/register/userInsert" method="post">
 
 
             <label for="mail">Username:</label>
@@ -43,6 +43,7 @@
 
         <a class="btn login-link" href="/eventPlanner">Til log ind</a>
 
+        <p style="color:red;" th:if="${msg != null}" th:text="${msg}"></p>
 
 
     </div>

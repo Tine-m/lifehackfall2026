@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Comment {
-    private UUID comment_id;
+    private int comment_id;
     private String comment_body;
     private LocalDateTime creationDate;
     private User user;
     private UserEvent userEvent;
 
 
-    public Comment(UUID comment_id, String comment_body, LocalDateTime creationDate ) {
+    public Comment(int comment_id, String comment_body, LocalDateTime creationDate ) {
         this.comment_id = comment_id;
         this.comment_body = comment_body;
         this.creationDate = creationDate;
@@ -20,11 +20,11 @@ public class Comment {
 
 
 
-    public UUID getComment_id() {
+    public int getComment_id() {
         return comment_id;
     }
 
-    public void setComment_id(UUID comment_id) {
+    public void setComment_id(int comment_id) {
         this.comment_id = comment_id;
     }
 

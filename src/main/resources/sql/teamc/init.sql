@@ -143,6 +143,7 @@ VALUES
     (1, 1, 'Yes, that sounds good.', '2026-10-19'),
     (3, 2, 'I will bring snacks.', '2026-10-20'),
     (1, 2, 'Great, thank you!', '2026-10-20'),
+
     (5, 3, 'Which room will it be?', '2026-10-21');
 
 END;

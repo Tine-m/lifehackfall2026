@@ -7,7 +7,7 @@ import java.util.UUID;
 public class UserEvent {
 
 
-    private UUID event_id;
+    private int event_id;
     private User user;
     private String eventName;
     private LocalDateTime creationDate;
@@ -18,7 +18,7 @@ public class UserEvent {
     private boolean commentVisibility;
 
 
-    public UserEvent(UUID event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
+    public UserEvent(int event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
         this.event_id = event_id;
         this.user = user;
         this.eventName = eventName;
@@ -28,11 +28,11 @@ public class UserEvent {
         this.commentVisibility = commentVisibility;
     }
 
-    public UUID getEvent_id() {
+    public int getEvent_id() {
         return event_id;
     }
 
-    public void setEvent_id(UUID event_id) {
+    public void setEvent_id(int event_id) {
         this.event_id = event_id;
     }
 
