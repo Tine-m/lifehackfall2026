@@ -68,6 +68,18 @@
     border-radius: var(--pf-hjoerne-lille);
 }
 
+/* ---------- Fjern op/ned-pile i talfelterne ---------- */
+.maal-felter input::-webkit-inner-spin-button,
+.maal-felter input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.maal-felter input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 /* ---------- Mobil ---------- */
 @media (max-width: 768px) {
     .maal-felter {

@@ -44,11 +44,11 @@
             <div class="maal-felter">
                 <div>
                     <label for="underbust">Undermål</label>
-                    <input type="number" id="underbust" name="underbust" step="0.1" th:value="${underbust}" placeholder="fx 75 cm" required>
+                    <input type="number" id="underbust" name="underbust" step="0.1" min="55" max="150" th:value="${underbust}" placeholder="fx 75 cm" required>
                 </div>
                 <div>
                     <label for="bust">Brystmål</label>
-                    <input type="number" id="bust" name="bust" step="0.1" th:value="${bust}" placeholder="fx 90 cm" required>
+                    <input type="number" id="bust" name="bust" step="0.1" min="55" max="150" th:value="${bust}" placeholder="fx 90 cm" required>
                 </div>
             </div>
 
