@@ -13,7 +13,7 @@ public class MemoController {
     }
 
     public void setRoutes(JavalinConfig config){
-    config.routes.get("/memo", ctx -> renderFrontpage(ctx));
+    config.routes.get("memorygame/memo", ctx -> renderFrontpage(ctx));
     }
 
     public void renderFrontpage(Context ctx){
