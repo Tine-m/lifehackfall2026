@@ -29,6 +29,23 @@ public class LifehackRegistry {
                         "/images/teama/rcade-logo.svg"
                 ),
 
+                // Team B
+                new LifehackSite(
+                        "Memory game",
+                        "Vend dit hack",
+                        "/memorygame",
+                        "/images/teamb/memo-logo.png"
+                ),
+                /*,
+
+                // Team A
+                new LifehackSite(
+                        "Team A's Lifehack",
+                        "Prøv det her",
+                        "/teama",
+                        "/images/teama/logo.png"
+                )*/
+
                 // Team D
                 new LifehackSite(
                         "PerfectFit",
