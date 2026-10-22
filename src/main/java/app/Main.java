@@ -2,6 +2,7 @@ package app;
 
 import app.configuration.ThymeleafConfig;
 import app.controllers.MainController;
+import app.controllers.teamd.PerfectFitController;
 import app.controllers.teama.GameController;
 import app.controllers.teamc.EventController;
 import app.controllers.teamteachers.QuoteController;
@@ -27,6 +28,7 @@ public class Main {
 
             new EventController(connectionPool).setRoutes(config);
             new GameController(connectionPool).setRoutes(config); //Team a app Controller
+            new PerfectFitController(connectionPool).setRoutes(config);
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 

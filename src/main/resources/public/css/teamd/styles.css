@@ -1,0 +1,257 @@
+/* ---------- Grundlæggende ---------- */
+body {
+    margin: 0;
+    background-color: var(--pf-baggrund);
+    color: var(--pf-tekst);
+    font-family: var(--pf-skrift);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ---------- Layout ---------- */
+.pagewrapper {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 8%;
+}
+
+/* ---------- Tekst ---------- */
+h1 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 3.4rem;
+    margin: 10px 0 4px;
+    color: var(--pf-rosa-moerk);
+}
+
+h2 {
+    color: var(--pf-rosa-moerk);
+    font-family: var(--pf-skrift);
+    font-size: 38px;
+    font-weight: 400;
+    margin: 0 0 12px;
+}
+
+p {
+    font-family: var(--pf-skrift);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--pf-tekst);
+    margin: 0 0 16px;
+}
+
+/* ---------- Kvinde illustration ---------- */
+.illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustration img {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* ---------- Header ---------- */
+.aktiv{
+    color: var(--pf-rosa-moerk) !important;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    border-bottom: 1px solid var(--pf-kant);
+}
+
+.logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--pf-moerk);
+}
+
+.topbar nav {
+    display: flex;
+    gap: 24px;
+}
+
+.topbar nav a {
+    font-size: 1rem;
+    color: var(--pf-tekst);
+    text-decoration: none;
+}
+
+.topbar nav a:hover {
+    color: var(--pf-rosa-moerk);
+}
+
+/* ---------- Knap ---------- */
+.knap {
+    display: inline-block;
+    margin: 24px 0 40px;
+    padding: 14px 32px;
+    background-color: var(--pf-rosa);
+    color: var(--pf-hvid);
+    text-decoration: none;
+    border-radius: var(--pf-hjoerne-knap);
+    transition: background-color 0.2s;
+}
+
+.knap:hover {
+    background-color: var(--pf-rosa-moerk);
+}
+
+/* ---------- Boks (hvide bokse) ---------- */
+.hvid-boks {
+    background-color: var(--pf-hvid);
+    border-radius: var(--pf-hjoerne-stor);
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+/* ---------- Resultat ---------- */
+.centreret {
+    text-align: center;
+}
+
+.label {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.storrelse {
+    font-family: 'Jost', sans-serif;
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--pf-rosa);
+    margin: 0;
+    line-height: 1;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--pf-cirkel);
+    color: var(--pf-rosa-moerk);
+    font-size: 0.85rem;
+    padding: 4px 16px;
+    border-radius: var(--pf-hjoerne-knap);
+    margin: 16px 0;
+}
+
+.maal {
+    font-size: 0.95rem;
+    color: var(--pf-rosa-moerk);
+    margin: 0;
+}
+.soster-liste {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0 16px;
+}
+
+.soster {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--pf-rosa);
+    padding: 8px 28px;
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+/* ---------- Formular ---------- */
+.indhold form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 420px;
+}
+
+.indhold label {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.indhold select,
+.indhold input {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--pf-felt);
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+.maal-felter {
+    display: flex;
+    gap: 16px;
+}
+
+.maal-felter div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.maal-felter input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.indhold button {
+    align-self: flex-start;
+    margin-top: 16px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    color: var(--pf-hvid);
+    background-color: var(--pf-rosa);
+    border: none;
+    border-radius: var(--pf-hjoerne-knap);
+    cursor: pointer;
+}
+
+.indhold button:hover {
+    background-color: var(--pf-rosa-moerk);
+}
+
+.guide-link {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--pf-rosa);
+}
+
+.fejl {
+    padding: 12px 16px;
+    color: var(--pf-fejl);
+    background-color: var(--pf-fejl-baggrund);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 768px) {
+    .pagewrapper {
+        grid-template-columns: 1fr;
+        padding: 40px 6%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .maal-felter {
+        flex-direction: column;
+    }
+
+}
