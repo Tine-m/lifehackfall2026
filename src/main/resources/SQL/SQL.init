@@ -94,6 +94,8 @@ ALTER TABLE IF EXISTS public.userevent
     ON DELETE NO ACTION;
 
 
+ALTER TABLE public."user" ADD CONSTRAINT user_email_unique    UNIQUE (email);
+
 INSERT INTO public."user"
     (user_id, username, email, gender, password)
 VALUES
