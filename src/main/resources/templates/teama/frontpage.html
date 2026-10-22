@@ -31,7 +31,7 @@
 
     <div class="levelSelectorContainer" style="grid-area: box-3">
         <div id="niveau1Button" th:switch="${session.niveau1Status}">
-            <a th:case="active" class="activeButton">Niveau 1</a>
+            <a th:case="active" class="activeButton" href="/rcade/niveau1">Niveau 1</a>
             <a th:case="locked" class="lockedButton">Niveau 1 <img src="images/teama/locked.svg"></a>
             <a th:case="null" class="pendingButton">Niveau 1 <img src="images/teama/pending.svg"></a>
         </div>
