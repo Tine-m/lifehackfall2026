@@ -20,23 +20,14 @@ public class LifehackRegistry {
                         "Team c's Lifehack",
                         "EventPlanner",
                         "/eventPlanner",
-                        "/images/team.c/event-kort.png"
+                        "/images/team.c/event-kort.png" ) ,
+
+                new LifehackSite(
                         "RcadeGB",
                         "Match a colour",
                         "/rcade",
                         "/images/teama/rcade-logo.svg"
                 ),
-                /*,
-
-
-                )
-                // Team A
-                new LifehackSite(
-                        "Team A's Lifehack",
-                        "Prøv det her",
-                        "/teama",
-                        "/images/teama/logo.png"
-                )*/
 
                 // Team D
                 new LifehackSite(
