@@ -7,7 +7,6 @@ import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
-import app.controllers.teame.PasswordController;
 
 // Starter Javalin, konfigurerer applikationen og registrerer controllers
 public class Main {
@@ -25,7 +24,6 @@ public class Main {
             // TODO: registrér jeres egen controller endpoints herunder
             new QuoteController(connectionPool).setRoutes(config); // Teacher app Controller
             new GameController(connectionPool).setRoutes(config); //Team a app Controller
-            new PasswordController().setRoutes(config); // TeamE SecurePass
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 
