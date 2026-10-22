@@ -27,7 +27,7 @@ public class LifehackRegistry {
                 new LifehackSite(
                         "Memory game",
                         "Vend dit hack",
-                        "memorygame/memo",
+                        "/memorygame",
                         "/images/teamb/memo-logo.png"
                 ),
                 /*,
