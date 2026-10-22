@@ -58,3 +58,13 @@
     line-height: 1.3;
     text-align: center;
 }
+
+/* ---------- Animation: damen drejer én gang, når forsiden åbner ---------- */
+.illustration img {
+    animation: drej 1.5s ease-in-out 1;
+}
+
+@keyframes drej {
+    from { transform: rotateY(0deg); }
+    to   { transform: rotateY(360deg); }
+}
