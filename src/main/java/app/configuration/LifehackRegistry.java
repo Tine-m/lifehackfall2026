@@ -29,7 +29,6 @@ public class LifehackRegistry {
                         "Vend dit hack",
                         "/memo",
                         "/images/teamb/memo-logo.png"
-                )/*,
                 ),
                 /*,
 
