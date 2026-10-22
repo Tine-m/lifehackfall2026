@@ -1,4 +1,4 @@
-package app.entities.team.c;
+package app.entities.teamc;
 
 import java.util.UUID;
 

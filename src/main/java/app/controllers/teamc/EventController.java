@@ -1,4 +1,4 @@
-package app.controllers.team.c;
+package app.controllers.teamc;
 
 import app.persistence.ConnectionPool;
 import app.services.teamteachers.QuoteService;
@@ -7,12 +7,12 @@ import io.javalin.http.Context;
 
 
 //Håndterer teamteachers' funktionalitet
-public class eventController {
+public class EventController {
 
     private ConnectionPool connectionPool;
     private QuoteService quoteService;
 
-    public eventController(ConnectionPool connectionPool) {
+    public EventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.quoteService = new QuoteService(connectionPool);
     }

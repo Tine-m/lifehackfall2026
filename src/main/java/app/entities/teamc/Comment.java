@@ -1,17 +1,17 @@
-package app.entities.team.c;
+package app.entities.teamc;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class comment {
+public class Comment {
     private UUID comment_id;
     private String comment_body;
     private LocalDateTime creationDate;
     private User user;
-    private userEvent userEvent;
+    private UserEvent userEvent;
 
 
-    public comment(UUID comment_id, String comment_body, LocalDateTime creationDate ) {
+    public Comment(UUID comment_id, String comment_body, LocalDateTime creationDate ) {
         this.comment_id = comment_id;
         this.comment_body = comment_body;
         this.creationDate = creationDate;

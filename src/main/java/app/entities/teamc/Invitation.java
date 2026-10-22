@@ -1,16 +1,16 @@
-package app.entities.team.c;
+package app.entities.teamc;
 
 import java.util.UUID;
 
-public class invitation {
+public class Invitation {
     private UUID inviteList_id;
     private User user;
-    private userEvent userEvent;
-    private response response;
+    private UserEvent userEvent;
+    private Response response;
 
 
 
-    public invitation(UUID inviteList_id, User user, userEvent userEvent, response response) {
+    public Invitation(UUID inviteList_id, User user, UserEvent userEvent, Response response) {
         this.inviteList_id = inviteList_id;
         this.user = user;
         this.userEvent = userEvent;
@@ -33,19 +33,19 @@ public class invitation {
         this.user = user;
     }
 
-    public userEvent getUserEvent() {
+    public UserEvent getUserEvent() {
         return userEvent;
     }
 
-    public void setUserEvent(userEvent userEvent) {
+    public void setUserEvent(UserEvent userEvent) {
         this.userEvent = userEvent;
     }
 
-    public response getResponse() {
+    public Response getResponse() {
         return response;
     }
 
-    public void setResponse(response response) {
+    public void setResponse(Response response) {
         this.response = response;
     }
 }

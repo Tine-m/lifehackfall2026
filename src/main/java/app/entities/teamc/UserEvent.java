@@ -1,10 +1,10 @@
-package app.entities.team.c;
+package app.entities.teamc;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class userEvent {
+public class UserEvent {
 
 
     private UUID event_id;
@@ -13,12 +13,12 @@ public class userEvent {
     private LocalDateTime creationDate;
     private LocalDateTime startDate;
     private LocalDateTime finishDate;
-    private commentList commentList;
-    private List<invitation> invitiation;
+    private CommentList commentList;
+    private List<Invitation> invitiation;
     private boolean commentVisibility;
 
 
-    public userEvent(UUID event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
+    public UserEvent(UUID event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
         this.event_id = event_id;
         this.user = user;
         this.eventName = eventName;
