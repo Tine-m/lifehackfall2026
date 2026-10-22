@@ -3,7 +3,7 @@
 BEGIN;
 
 
-CREATE TABLE IF NOT EXISTS public.comment
+CREATE TABLE IF NOT EXISTS public.teamc_comment
 (
     comment_id serial NOT NULL,
     user_id integer NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS public.comment
     CONSTRAINT comment_pkey PRIMARY KEY (comment_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.invitation
+CREATE TABLE IF NOT EXISTS public.teamc_invitation
 (
     invitation_id serial NOT NULL,
     user_id integer NOT NULL,
@@ -22,24 +22,25 @@ CREATE TABLE IF NOT EXISTS public.invitation
     CONSTRAINT invitation_pkey PRIMARY KEY (invitation_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.response
+CREATE TABLE IF NOT EXISTS public.teamc_response
 (
     response_id serial NOT NULL,
     response character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT response_pkey PRIMARY KEY (response_id)
 );
 
-CREATE TABLE IF NOT EXISTS public."user"
+CREATE TABLE IF NOT EXISTS public.teamc_user
 (
     user_id serial NOT NULL,
     username character varying COLLATE pg_catalog."default" NOT NULL,
     email character varying COLLATE pg_catalog."default" NOT NULL,
     gender character varying COLLATE pg_catalog."default",
     password character varying COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT user_pkey PRIMARY KEY (user_id)
+    CONSTRAINT user_pkey PRIMARY KEY (user_id),
+    CONSTRAINT user_email_unique UNIQUE (email)
 );
 
-CREATE TABLE IF NOT EXISTS public.userevent
+CREATE TABLE IF NOT EXISTS public.teamc_userevent
 (
     event_id serial NOT NULL,
     user_id integer NOT NULL,
@@ -51,52 +52,50 @@ CREATE TABLE IF NOT EXISTS public.userevent
     CONSTRAINT userevent_pkey PRIMARY KEY (event_id)
 );
 
-ALTER TABLE IF EXISTS public.comment
+ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_user FOREIGN KEY (user_id)
-    REFERENCES public."user" (user_id) MATCH SIMPLE
+    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
-ALTER TABLE IF EXISTS public.comment
+ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_userevent FOREIGN KEY (event_id)
-    REFERENCES public.userevent (event_id) MATCH SIMPLE
+    REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
-ALTER TABLE IF EXISTS public.invitation
+ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_response FOREIGN KEY (response_id)
-    REFERENCES public.response (response_id) MATCH SIMPLE
+    REFERENCES public.teamc_response (response_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.invitation
+ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_user FOREIGN KEY (user_id)
-    REFERENCES public."user" (user_id) MATCH SIMPLE
+    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
-ALTER TABLE IF EXISTS public.invitation
+ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_userevent FOREIGN KEY (event_id)
-    REFERENCES public.userevent (event_id) MATCH SIMPLE
+    REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
-ALTER TABLE IF EXISTS public.userevent
+ALTER TABLE IF EXISTS public.teamc_userevent
     ADD CONSTRAINT userevent_user FOREIGN KEY (user_id)
-    REFERENCES public."user" (user_id) MATCH SIMPLE
+    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
-ALTER TABLE public."user" ADD CONSTRAINT user_email_unique    UNIQUE (email);
-
-INSERT INTO public."user"
+INSERT INTO teamc_user
     (user_id, username, email, gender, password)
 VALUES
     (1, 'Cezary', 'cezary@gmail.com', 'Male', '12345'),
@@ -106,7 +105,7 @@ VALUES
     (5, 'Anna', 'anna@gmail.com', 'Female', '12345');
 
 
-INSERT INTO public.userevent
+INSERT INTO teamc_userevent
     (event_id, user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
 VALUES
     (1, 1, 'Go to the cinema', '2026-10-19', '2026-10-27', '2026-10-27', FALSE),
@@ -114,7 +113,7 @@ VALUES
     (3, 3, 'Play football', '2026-10-21', '2026-11-01', '2026-11-01', FALSE);
 
 
-INSERT INTO public.response
+INSERT INTO teamc_response
 	(response_id, response)
 VALUES
     (1, 'YES'),
@@ -123,7 +122,7 @@ VALUES
     (4, 'NOT_RESPONDED');
 
 
-INSERT INTO public.invitation
+INSERT INTO teamc_invitation
     (invitation_id, user_id, event_id, response_id)
 VALUES
     (1, 2, 1, 1),
@@ -136,7 +135,7 @@ VALUES
     (8, 1, 3, 1),
     (9, 5, 3, 1);
 
-INSERT INTO public.comment
+INSERT INTO teamc_comment
     (user_id, event_id, content, create_date)
 VALUES
     (2, 1, 'I will bring my notes.', '2026-10-19'),
