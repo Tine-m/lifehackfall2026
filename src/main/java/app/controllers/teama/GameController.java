@@ -21,14 +21,18 @@ public class GameController {
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/rcade", ctx -> renderFrontpage(ctx));
         config.routes.get("/rcade/niveau1", ctx -> renderNiveau1(ctx));
+        config.routes.get("/rcade/niveau2", ctx -> renderNiveau2(ctx));
+        config.routes.get("/rcade/niveau3", ctx -> renderNiveau3(ctx));
+        config.routes.get("/rcade/attackmode", ctx -> renderAttackmode(ctx));
 
         config.routes.post("/rcade/niveau1", ctx -> submitGuess(ctx));
     }
 
     public void renderFrontpage(Context ctx){
         ctx.sessionAttribute("niveau1Status", "active");
-        ctx.sessionAttribute("niveau2Status", "locked");
+        ctx.sessionAttribute("niveau2Status", null);
         ctx.sessionAttribute("niveau3Status", null);
+        ctx.sessionAttribute("attackModeStatus", null);
         ctx.render("teama/frontpage.html");
     }
 
@@ -37,6 +41,27 @@ public class GameController {
         ctx.attribute("targetColour", targetColour);
 
         ctx.render("teama/niveau1.html");
+    }
+
+    public void renderNiveau2(Context ctx){
+        Colour targetColour = colourService.getNewTargetColour();
+        ctx.attribute("targetColour", targetColour);
+
+        ctx.render("teama/niveau2.html");
+    }
+
+    public void renderNiveau3(Context ctx){
+        Colour targetColour = colourService.getNewTargetColour();
+        ctx.attribute("targetColour", targetColour);
+
+        ctx.render("teama/niveau3.html");
+    }
+
+    public void renderAttackmode(Context ctx){
+        Colour targetColour = colourService.getNewTargetColour();
+        ctx.attribute("targetColour", targetColour);
+
+        ctx.render("teama/attackmode.html");
     }
 
     public void submitGuess(Context ctx){
