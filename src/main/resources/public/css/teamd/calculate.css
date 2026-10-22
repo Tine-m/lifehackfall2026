@@ -1,0 +1,76 @@
+/* ---------- Formular ---------- */
+.indhold form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 420px;
+}
+
+.indhold label {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.indhold select,
+.indhold input {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--pf-felt);
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+.maal-felter {
+    display: flex;
+    gap: 16px;
+}
+
+.maal-felter div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.maal-felter input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.indhold button {
+    align-self: flex-start;
+    margin-top: 16px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    color: var(--pf-hvid);
+    background-color: var(--pf-rosa);
+    border: none;
+    border-radius: var(--pf-hjoerne-knap);
+    cursor: pointer;
+}
+
+.indhold button:hover {
+    background-color: var(--pf-rosa-moerk);
+}
+
+.guide-link {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--pf-rosa);
+}
+
+.fejl {
+    padding: 12px 16px;
+    color: var(--pf-fejl);
+    background-color: var(--pf-fejl-baggrund);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 768px) {
+    .maal-felter {
+        flex-direction: column;
+    }
+}

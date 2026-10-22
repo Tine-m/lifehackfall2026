@@ -1,0 +1,51 @@
+/* ---------- Resultat ---------- */
+.centreret {
+    text-align: center;
+}
+
+.label {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.storrelse {
+    font-family: 'Jost', sans-serif;
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--pf-rosa);
+    margin: 0;
+    line-height: 1;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--pf-cirkel);
+    color: var(--pf-rosa-moerk);
+    font-size: 0.85rem;
+    padding: 4px 16px;
+    border-radius: var(--pf-hjoerne-knap);
+    margin: 16px 0;
+}
+
+.maal {
+    font-size: 0.95rem;
+    color: var(--pf-rosa-moerk);
+    margin: 0;
+}
+
+.soster-liste {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0 16px;
+}
+
+.soster {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--pf-rosa);
+    padding: 8px 28px;
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
