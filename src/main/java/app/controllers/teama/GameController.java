@@ -26,6 +26,9 @@ public class GameController {
     }
 
     public void renderFrontpage(Context ctx){
+        ctx.sessionAttribute("niveau1Status", "active");
+        ctx.sessionAttribute("niveau2Status", "locked");
+        ctx.sessionAttribute("niveau3Status", null);
         ctx.render("teama/frontpage.html");
     }
 
