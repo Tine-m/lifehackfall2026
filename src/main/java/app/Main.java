@@ -10,7 +10,7 @@ import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
-// Starter Javalin, konfigurerer applikationen og registrerer controllers..
+// Starter Javalin, konfigurerer applikationen og registrerer controllers...
 public class Main {
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
