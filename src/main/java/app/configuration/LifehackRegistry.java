@@ -21,7 +21,6 @@ public class LifehackRegistry {
                         "Match a colour",
                         "/rcade",
                         "/images/teama/rcade-logo.svg"
-                )/*,
                 ),
                 /*,
 
