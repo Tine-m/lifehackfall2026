@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Beregn</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/teamd/tokens.css"/>
+    <link rel="stylesheet" href="/css/teamd/styles.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topbar">
+    <span class="logo">PERFECTFIT</span>
+    <nav>
+        <a href="/perfectfit">Forside</a>
+        <a href="/perfectfit/calculate" class="aktiv">Beregn</a>
+        <a href="/perfectfit/measure">Sådan måler du dig</a>
+    </nav>
+</header>
+
+<main class="pagewrapper">
+
+    <!-- Venstre side -->
+    <section class="indhold">
+        <h2>Beregn din størrelse</h2>
+        <p>Vælg et mærke, og indtast dine mål i cm.</p>
+
+        <form class="hvid-boks" method="post" action="/perfectfit/calculate">
+            <p class="fejl" th:if="${message}" th:text="${message}"></p>
+            <label for="brand">Mærke</label>
+            <select id="brand" name="brandId" required>
+                <option value="">Vælg et mærke</option>
+                <option th:each="brand : ${brands}"
+                        th:value="${brand.brandId}"
+                        th:text="${brand.name}"
+                        th:selected="${#strings.toString(brand.brandId) == selectedBrandId}"></option>
+            </select>
+
+            <div class="maal-felter">
+                <div>
+                    <label for="underbust">Undermål</label>
+                    <input type="number" id="underbust" name="underbust" step="0.1" th:value="${underbust}" placeholder="fx 75 cm" required>
+                </div>
+                <div>
+                    <label for="bust">Brystmål</label>
+                    <input type="number" id="bust" name="bust" step="0.1" th:value="${bust}" placeholder="fx 90 cm" required>
+                </div>
+            </div>
+
+            <button type="submit">Beregn →</button>
+            <a class="guide-link" href="/perfectfit/measure">Ved du ikke, hvordan du måler? Se guiden</a>
+        </form>
+    </section>
+
+    <!-- Højre side-->
+    <section class="illustration">
+        <img src="/images/teamd/dame-gennemsigtig.svg" alt="Illustration af kvinde">
+    </section>
+
+</main>
+
+</body>
+</html>

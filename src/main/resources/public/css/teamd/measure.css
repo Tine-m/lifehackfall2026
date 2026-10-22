@@ -1,0 +1,58 @@
+.side {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-top {
+    padding: 40px 0 24px;
+}
+
+.side-top {
+    padding: 40px 8% 24px;
+}
+
+
+.kort {
+    background-color: var(--pf-hvid);
+    border-radius: var(--pf-hjoerne-stor);
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+.kort h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    color: var(--pf-moerk);
+}
+
+.kort p {
+    margin: 0;
+}
+.kort--trin {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.nummer {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--pf-rosa);
+    color: var(--pf-hvid);
+    font-size: 0.9rem;
+}
+
+.kort--trin h3 {
+    margin: 0 0 6px;
+}
+
+
+
+.indhold .knap {
+    margin-top: 8px;
+}
