@@ -95,45 +95,46 @@ ALTER TABLE IF EXISTS public.teamc_userevent
     ON DELETE NO ACTION;
 
 
+
 INSERT INTO teamc_user
-    (user_id, username, email, gender, password)
+    (username, email, gender, password)
 VALUES
-    (1, 'Cezary', 'cezary@gmail.com', 'Male', '12345'),
-    (2, 'Daud', 'daud@gmail.com', 'Male', '12345'),
-    (3, 'Feyzullah', 'feyzullah@gmail.com', 'Male', 'test123'),
-    (4, 'Henrik', 'henrik@gmail.com', 'Male', '12345'),
-    (5, 'Anna', 'anna@gmail.com', 'Female', '12345');
+    ('Cezary', 'cezary@gmail.com', 'Male', '12345'),
+    ('Daud', 'daud@gmail.com', 'Male', '12345'),
+    ('Feyzullah', 'feyzullah@gmail.com', 'Male', 'test123'),
+    ('Henrik', 'henrik@gmail.com', 'Male', '12345'),
+    ('Anna', 'anna@gmail.com', 'Female', '12345');
 
 
 INSERT INTO teamc_userevent
-    (event_id, user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
+    (user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
 VALUES
-    (1, 1, 'Go to the cinema', '2026-10-19', '2026-10-27', '2026-10-27', FALSE),
-    (2, 2, 'Walk in FÃ¦lledparken', '2026-10-20', '2026-10-30', '2026-10-30', TRUE),
-    (3, 3, 'Play football', '2026-10-21', '2026-11-01', '2026-11-01', FALSE);
+    (1, 'Go to the cinema', '2026-10-19', '2026-10-27', '2026-10-27', FALSE),
+    (2, 'Walk in FÃ¦lledparken', '2026-10-20', '2026-10-30', '2026-10-30', TRUE),
+    (3, 'Play football', '2026-10-21', '2026-11-01', '2026-11-01', FALSE);
 
 
 INSERT INTO teamc_response
-	(response_id, response)
+	( response)
 VALUES
-    (1, 'YES'),
-    (2, 'UNSURE'),
-    (3, 'NO'),
-    (4, 'NOT_RESPONDED');
+    ('YES'),
+    ('UNSURE'),
+    ('NO'),
+    ('NOT_RESPONDED');
 
 
 INSERT INTO teamc_invitation
-    (invitation_id, user_id, event_id, response_id)
+    (user_id, event_id, response_id)
 VALUES
-    (1, 2, 1, 1),
-    (2, 3, 1, 2),
-    (3, 4, 1, 3),
-    (4, 5, 1, 4),
-    (5, 1, 2, 1),
-    (6, 3, 2, 1),
-    (7, 4, 2, 3),
-    (8, 1, 3, 1),
-    (9, 5, 3, 1);
+    (2, 1, 1),
+    (3, 1, 2),
+    (4, 1, 3),
+    (5, 1, 4),
+    (1, 2, 1),
+    (3, 2, 1),
+    (4, 2, 3),
+    (1, 3, 1),
+    (5, 3, 1);
 
 INSERT INTO teamc_comment
     (user_id, event_id, content, create_date)
@@ -143,7 +144,6 @@ VALUES
     (1, 1, 'Yes, that sounds good.', '2026-10-19'),
     (3, 2, 'I will bring snacks.', '2026-10-20'),
     (1, 2, 'Great, thank you!', '2026-10-20'),
-
     (5, 3, 'Which room will it be?', '2026-10-21');
 
 END;
