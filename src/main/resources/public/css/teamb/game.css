@@ -1,0 +1,120 @@
+/* Universal selector, og gælder for alle elementer på siden */
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    color: #a855f7;
+    text-align: center;
+}
+
+/* Layout: gitter til venstre, sidebar til højre */
+.layout {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.board-area {
+    width: 430px;
+}
+
+/* 4 kolonner med kort */
+.board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 12px;
+}
+
+/* Et kort: 100 x 100 pixels */
+.card {
+    width: 100px;
+    height: 100px;
+    perspective: 600px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s;
+    transform-style: preserve-3d;
+}
+
+/* Når kortet er vendt, drejes det */
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Forsiden: lilla med LH */
+.card-front {
+    background: #a855f7;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Bagsiden: hvid */
+.card-back {
+    background: white;
+    border: 2px solid #a855f7;
+    transform: rotateY(180deg);
+}
+
+/* Fundet par får grøn baggrund */
+.card.matched .card-back {
+    background: #bbf7d0;
+}
+
+/* Hover: blå ramme kun på kort, der ikke er vendt */
+.card:not(.flipped):hover {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+}
+
+.stat,
+.finish-button {
+    width: 100%;
+}
+
+.stat {
+    background: #d8b4fe;
+    padding: 10px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.hack-panel {
+    width: 100%;
+    background: #d8b4fe;
+    padding: 10px;
+    min-height: 150px;
+}
+
+.finish-button {
+    padding: 10px;
+}

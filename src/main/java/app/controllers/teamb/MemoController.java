@@ -14,10 +14,16 @@ public class MemoController {
 
     public void setRoutes(JavalinConfig config){
     config.routes.get("/memorygame", ctx -> renderFrontpage(ctx));
+    config.routes.get("/game", ctx -> renderGame(ctx));
     }
+
 
     public void renderFrontpage(Context ctx){
         ctx.render("teamb/frontpage.html");
+    }
+
+    public void renderGame(Context ctx){
+        ctx.render("teamb/game.html");
     }
     //test
 
