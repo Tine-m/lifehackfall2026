@@ -2,7 +2,7 @@
 -- Please log an issue at https://github.com/pgadmin-org/pgadmin4/issues/new/choose if you find any bugs, including reproduction steps.
 BEGIN;
 
-
+DROP TABLE IF EXISTS public.teamc_comment CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_comment
 (
     comment_id serial NOT NULL,
@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_comment
     CONSTRAINT comment_pkey PRIMARY KEY (comment_id)
 );
 
+DROP TABLE IF EXISTS public.teamc_invitation CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_invitation
 (
     invitation_id serial NOT NULL,
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_invitation
     CONSTRAINT invitation_pkey PRIMARY KEY (invitation_id)
 );
 
+DROP TABLE IF EXISTS public.teamc_response CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_response
 (
     response_id serial NOT NULL,
@@ -29,6 +31,8 @@ CREATE TABLE IF NOT EXISTS public.teamc_response
     CONSTRAINT response_pkey PRIMARY KEY (response_id)
 );
 
+
+DROP TABLE IF EXISTS public.teamc_user CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_user
 (
     user_id serial NOT NULL,
@@ -40,6 +44,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_user
     CONSTRAINT user_email_unique UNIQUE (email)
 );
 
+DROP TABLE IF EXISTS public.teamc_userevent CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_userevent
 (
     event_id serial NOT NULL,
