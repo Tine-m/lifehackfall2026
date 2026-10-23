@@ -400,3 +400,4 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'A', 'EU', 62
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'D', 'EU', 82.5, 87.5, 103, 105),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'E', 'EU', 82.5, 87.5, 105, 107),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'F', 'EU', 82.5, 87.5, 107, 109);
+
