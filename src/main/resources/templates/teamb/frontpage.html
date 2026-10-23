@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lifehack Memory Game</title>
-</head>
-<body>
-<h1>Lifehack Memory Spil</h1>
 
-<!--<img src="/images/teamb/memo-logo.png">-->
-<img class="memo-logo" th:src="@{/images/teamb/memo-logo.png}" alt="logo"/>
+    <link rel="stylesheet" th:href="@{/css/teamb/frontpage.css}">
+</head>
+
+<body>
+
+<main class="game-container">
+
+    <div class="background"></div>
+
+    <div class="game-content">
+
+        <h1 class="game-title">
+            <span class="title-word">
+                <span class="blue">M</span><span class="red">e</span><span class="green">m</span><span class="yellow">o</span><span class="blue">r</span><span class="red">y</span>
+            </span>
+
+            <span class="title-word">
+                <span class="green">G</span><span class="yellow">a</span><span class="blue">m</span><span class="red">e</span>
+            </span>
+        </h1>
+
+        <nav class="menu-buttons">
+
+            <button type="button"
+                    class="menu-button"
+                    onclick="location.href='game.html'">
+                Start spil
+            </button>
+
+            <button type="button"
+                    class="menu-button"
+                    onclick="location.href='leaderboard'">
+                Leaderboard
+            </button>
+
+            <button type="button"
+                    class="menu-button lifehack-button"
+                    onclick="location.href='lifehacks'">
+                Se unlocked<br>lifehacks
+            </button>
+
+        </nav>
+
+    </div>
+
+</main>
+
 </body>
 </html>
