@@ -229,7 +229,7 @@ body{
 
 }
 
-.slidecontainer {
+.slideform {
     width: 100%; /* Width of the outside container */
     grid-column: span 2;
 }
