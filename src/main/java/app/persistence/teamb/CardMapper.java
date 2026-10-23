@@ -38,8 +38,8 @@ public class CardMapper {
                     cards.add(new Card(
                             rs.getInt("card_id"),
                             rs.getInt("pair_id"),
-                            rs.getString("text_content"),
                             rs.getString("image_url"),
+                            rs.getString("text_content"),
                             rs.getString("description")
                     ));
                 }
