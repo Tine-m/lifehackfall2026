@@ -34,7 +34,10 @@ CREATE TABLE teamd_size_guide
 INSERT INTO teamd_brand (name)
 VALUES ('Hunkemøller'),
        ('Lindex'),
-       ('Triumph');
+       ('Triumph'),
+       ('Victoria''s Secret'),
+       ('Lounge'),
+       ('H&M');
 
 -- Hunkemøller (71 størrelser)
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
@@ -243,4 +246,157 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 70, 'A', 'EU'
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'F', 'EU', 98, 103, 122, 124),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'G', 'EU', 98, 103, 124, 126);
 
+-- Victoria's Secret (42 størrelser), udledt af VS' måleguide 22/10-2026:
+-- https://www.victoriassecret.co.uk/measure-your-bra-size
+-- VS viser ingen cm-tabel, kun en regel i tommer, så tallene er regnet om (1" = 2,54 cm):
+--   Bånd: undermålet i tommer, ulige tal rundes ned til lige (fx 31" -> 30).
+--   Skål: brystmål minus bånd, 1" = A, 2" = B, 3" = C, 4" = D, 5" = DD, 6" = DDD, 7" = G.
+-- Gemt som EU via VS' omregningstabel: US 32 -> 70 ... 40 -> 90 (30 -> 65 er forlænget), DD -> E, DDD -> F.
+INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
+VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'A', 'EU', 76.2, 81.3, 78.7, 81.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'B', 'EU', 76.2, 81.3, 81.3, 83.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'C', 'EU', 76.2, 81.3, 83.8, 86.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'D', 'EU', 76.2, 81.3, 86.4, 88.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'E', 'EU', 76.2, 81.3, 88.9, 91.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'F', 'EU', 76.2, 81.3, 91.4, 94),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'G', 'EU', 76.2, 81.3, 94, 96.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'A', 'EU', 81.3, 86.4, 83.8, 86.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'B', 'EU', 81.3, 86.4, 86.4, 88.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'C', 'EU', 81.3, 86.4, 88.9, 91.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'D', 'EU', 81.3, 86.4, 91.4, 94),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'E', 'EU', 81.3, 86.4, 94, 96.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'F', 'EU', 81.3, 86.4, 96.5, 99.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 70, 'G', 'EU', 81.3, 86.4, 99.1, 101.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'A', 'EU', 86.4, 91.4, 88.9, 91.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'B', 'EU', 86.4, 91.4, 91.4, 94),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'C', 'EU', 86.4, 91.4, 94, 96.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'D', 'EU', 86.4, 91.4, 96.5, 99.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'E', 'EU', 86.4, 91.4, 99.1, 101.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'F', 'EU', 86.4, 91.4, 101.6, 104.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 75, 'G', 'EU', 86.4, 91.4, 104.1, 106.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'A', 'EU', 91.4, 96.5, 94, 96.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'B', 'EU', 91.4, 96.5, 96.5, 99.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'C', 'EU', 91.4, 96.5, 99.1, 101.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'D', 'EU', 91.4, 96.5, 101.6, 104.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'E', 'EU', 91.4, 96.5, 104.1, 106.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'F', 'EU', 91.4, 96.5, 106.7, 109.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 80, 'G', 'EU', 91.4, 96.5, 109.2, 111.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'A', 'EU', 96.5, 101.6, 99.1, 101.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'B', 'EU', 96.5, 101.6, 101.6, 104.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'C', 'EU', 96.5, 101.6, 104.1, 106.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'D', 'EU', 96.5, 101.6, 106.7, 109.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'E', 'EU', 96.5, 101.6, 109.2, 111.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'F', 'EU', 96.5, 101.6, 111.8, 114.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 85, 'G', 'EU', 96.5, 101.6, 114.3, 116.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'A', 'EU', 101.6, 106.7, 104.1, 106.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'B', 'EU', 101.6, 106.7, 106.7, 109.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'C', 'EU', 101.6, 106.7, 109.2, 111.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'D', 'EU', 101.6, 106.7, 111.8, 114.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'E', 'EU', 101.6, 106.7, 114.3, 116.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'F', 'EU', 101.6, 106.7, 116.8, 119.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'G', 'EU', 101.6, 106.7, 119.4, 121.9);
 
+-- Lounge (60 størrelser), udledt af Lounges måleguide 22/10-2026:
+-- https://helphub.loungeunderwear.com/hc/da/articles/28724273433617
+-- Lounge viser ingen cm-tabel, kun en regel i tommer, så tallene er regnet om (1" = 2,54 cm):
+--   Bånd: undermålet i hele tommer, ulige tal rundes op til lige (fx 31" -> 32).
+--   Skål: brystmål minus bånd, 1" = A, 2" = B, 3" = C, 4" = D, 5" = DD, 6" = E, 7" = F, 8" = FF, 9" = G.
+-- Resultatet er en UK-størrelse. Gemt som EU via Lounges størrelsesguide (dk.lounge.com/pages/size-guide):
+--   UK 28 -> 60 ... 40 -> 90, DD -> E, E -> F, F -> G, FF -> H, G -> J. Kun størrelser Lounge fører.
+INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
+VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'A', 'EU', 67.3, 72.4, 72.4, 74.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'B', 'EU', 67.3, 72.4, 74.9, 77.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'C', 'EU', 67.3, 72.4, 77.5, 80),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'D', 'EU', 67.3, 72.4, 80, 82.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'E', 'EU', 67.3, 72.4, 82.5, 85.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'F', 'EU', 67.3, 72.4, 85.1, 87.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'G', 'EU', 67.3, 72.4, 87.6, 90.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'H', 'EU', 67.3, 72.4, 90.2, 92.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'J', 'EU', 67.3, 72.4, 92.7, 95.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'A', 'EU', 72.4, 77.5, 77.5, 80),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'B', 'EU', 72.4, 77.5, 80, 82.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'C', 'EU', 72.4, 77.5, 82.5, 85.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'D', 'EU', 72.4, 77.5, 85.1, 87.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'E', 'EU', 72.4, 77.5, 87.6, 90.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'F', 'EU', 72.4, 77.5, 90.2, 92.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'G', 'EU', 72.4, 77.5, 92.7, 95.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'H', 'EU', 72.4, 77.5, 95.2, 97.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 65, 'J', 'EU', 72.4, 77.5, 97.8, 100.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'A', 'EU', 77.5, 82.5, 82.5, 85.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'B', 'EU', 77.5, 82.5, 85.1, 87.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'C', 'EU', 77.5, 82.5, 87.6, 90.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'D', 'EU', 77.5, 82.5, 90.2, 92.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'E', 'EU', 77.5, 82.5, 92.7, 95.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'F', 'EU', 77.5, 82.5, 95.2, 97.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'G', 'EU', 77.5, 82.5, 97.8, 100.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'H', 'EU', 77.5, 82.5, 100.3, 102.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 70, 'J', 'EU', 77.5, 82.5, 102.9, 105.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'A', 'EU', 82.5, 87.6, 87.6, 90.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'B', 'EU', 82.5, 87.6, 90.2, 92.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'C', 'EU', 82.5, 87.6, 92.7, 95.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'D', 'EU', 82.5, 87.6, 95.2, 97.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'E', 'EU', 82.5, 87.6, 97.8, 100.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'F', 'EU', 82.5, 87.6, 100.3, 102.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'G', 'EU', 82.5, 87.6, 102.9, 105.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'H', 'EU', 82.5, 87.6, 105.4, 108),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 75, 'J', 'EU', 82.5, 87.6, 108, 110.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'A', 'EU', 87.6, 92.7, 92.7, 95.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'B', 'EU', 87.6, 92.7, 95.2, 97.8),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'C', 'EU', 87.6, 92.7, 97.8, 100.3),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'D', 'EU', 87.6, 92.7, 100.3, 102.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'E', 'EU', 87.6, 92.7, 102.9, 105.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'F', 'EU', 87.6, 92.7, 105.4, 108),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'G', 'EU', 87.6, 92.7, 108, 110.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'H', 'EU', 87.6, 92.7, 110.5, 113),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 80, 'J', 'EU', 87.6, 92.7, 113, 115.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'B', 'EU', 92.7, 97.8, 100.3, 102.9),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'C', 'EU', 92.7, 97.8, 102.9, 105.4),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'D', 'EU', 92.7, 97.8, 105.4, 108),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'E', 'EU', 92.7, 97.8, 108, 110.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'F', 'EU', 92.7, 97.8, 110.5, 113),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'G', 'EU', 92.7, 97.8, 113, 115.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'H', 'EU', 92.7, 97.8, 115.6, 118.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 85, 'J', 'EU', 92.7, 97.8, 118.1, 120.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'C', 'EU', 97.8, 102.9, 108, 110.5),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'D', 'EU', 97.8, 102.9, 110.5, 113),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'E', 'EU', 97.8, 102.9, 113, 115.6),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'F', 'EU', 97.8, 102.9, 115.6, 118.1),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'G', 'EU', 97.8, 102.9, 118.1, 120.7),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'H', 'EU', 97.8, 102.9, 120.7, 123.2),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'J', 'EU', 97.8, 102.9, 123.2, 125.7);
+
+-- H&M (30 størrelser), fra H&Ms størrelsesguide 22/10-2026 (hm.com/.../customer-service/sizeguide/ladies):
+--   Bånd: tallet er undermålet i cm, rundet til nærmeste størrelse (fx 72,5-77,5 cm -> 75). H&M fører bånd 65-85 og skål A-F.
+--   Skål: H&M giver ingen cm for brystmålet, så skålene følger EU-standarden EN 13402
+--   (brystmål minus bånd: A = 12-14 cm, B = 14-16 cm, osv. 2 cm pr. skål, samme som Lindex og Triumph).
+INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
+VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'A', 'EU', 62.5, 67.5, 77, 79),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'B', 'EU', 62.5, 67.5, 79, 81),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'C', 'EU', 62.5, 67.5, 81, 83),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'D', 'EU', 62.5, 67.5, 83, 85),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'E', 'EU', 62.5, 67.5, 85, 87),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'F', 'EU', 62.5, 67.5, 87, 89),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 70, 'A', 'EU', 67.5, 72.5, 82, 84),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 70, 'B', 'EU', 67.5, 72.5, 84, 86),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 70, 'C', 'EU', 67.5, 72.5, 86, 88),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 70, 'D', 'EU', 67.5, 72.5, 88, 90),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 70, 'E', 'EU', 67.5, 72.5, 90, 92),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 70, 'F', 'EU', 67.5, 72.5, 92, 94),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 75, 'A', 'EU', 72.5, 77.5, 87, 89),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 75, 'B', 'EU', 72.5, 77.5, 89, 91),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 75, 'C', 'EU', 72.5, 77.5, 91, 93),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 75, 'D', 'EU', 72.5, 77.5, 93, 95),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 75, 'E', 'EU', 72.5, 77.5, 95, 97),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 75, 'F', 'EU', 72.5, 77.5, 97, 99),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 80, 'A', 'EU', 77.5, 82.5, 92, 94),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 80, 'B', 'EU', 77.5, 82.5, 94, 96),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 80, 'C', 'EU', 77.5, 82.5, 96, 98),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 80, 'D', 'EU', 77.5, 82.5, 98, 100),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 80, 'E', 'EU', 77.5, 82.5, 100, 102),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 80, 'F', 'EU', 77.5, 82.5, 102, 104),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'A', 'EU', 82.5, 87.5, 97, 99),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'B', 'EU', 82.5, 87.5, 99, 101),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'C', 'EU', 82.5, 87.5, 101, 103),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'D', 'EU', 82.5, 87.5, 103, 105),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'E', 'EU', 82.5, 87.5, 105, 107),
+       ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'F', 'EU', 82.5, 87.5, 107, 109);
