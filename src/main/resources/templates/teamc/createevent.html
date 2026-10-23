@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>createEvent</title>
+    <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+
+</head>
+<body>
+
+<div class="page-wrapper">
+    <div class="hero-tagline">
+        <h2><span th:text="${user.username}">Bruger</span>Hvad skal i lave?</h2>
+    </div>
+
+    <div class="register-card">
+        <h2>Opret event</h2>
+
+        <form class="register-form" action="/eventPlanner/createEvent" method="post">
+
+            <label for="eventName">Navn på event:</label>
+            <input type="text" id="eventName" name="eventName" placeholder="Fx Biograftur"
+                   th:value="${eventName}" required>
+
+            <label for="startDate">Startdato:</label>
+            <input type="date" id="startDate" name="startDate" th:value="${startDate}" required>
+
+            <label for="finishDate">Slutdato (valgfri):</label>
+            <input type="date" id="finishDate" name="finishDate" th:value="${finishDate}">
+
+            <label class="checkbox-label">
+                <input type="checkbox" name="restrictComments" th:checked="${restrictComments}">
+                Begræns kommentarer
+            </label>
+
+            <input class="btn" type="submit" value="Opret event">
+        </form>
+
+        <a class="btn login-link" href="/eventPlanner/myEvents">Mine events</a>
+
+        <p style="color:red;" th:if="${msg != null}" th:text="${msg}"></p>
+    </div>
+</div>
+
+</body>
+</html>

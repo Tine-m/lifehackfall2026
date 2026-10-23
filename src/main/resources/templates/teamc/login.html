@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventPlanner — Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <div class="hero-tagline">
+        <h2>Opret arrangementer, inviter dine venner og se hvem der kommer</h2>
+    </div>
+
+    <div class="login-card">
+        <h2>Log ind</h2>
+
+        <form class="login-form" action="/eventPlanner/mainpage" method="post">
+            <label for="mail">E-mail:</label>
+            <input type="email" id="mail" name="mail" placeholder="navn@skolemail.dk">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="********">
+
+            <input class="btn" type="submit" value="Log ind">
+        </form>
+
+        <a class="btn register-link" href="/eventPlanner/register">Opret konto</a><br>
+        <a class="login-form" href="/">Back Lifehack</a>
+
+        <p style="color:red;" th:if="${msg != null}" th:text="${msg}"></p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
