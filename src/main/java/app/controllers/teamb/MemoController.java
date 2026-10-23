@@ -19,9 +19,7 @@ public class MemoController {
 
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/cards", ctx -> getCards(ctx));
-
         config.routes.get("/memorygame", ctx -> renderFrontpage(ctx));
-        config.routes.get("/game", ctx -> ctx.redirect("/game.html"));
         config.routes.get("/results", ctx -> resultsPage(ctx));
         config.routes.get("/game", ctx -> renderGame(ctx));
     }
