@@ -1,6 +1,7 @@
 package app.controllers.teama;
 
 import app.entities.teama.Colour;
+import app.entities.teama.Game;
 import app.persistence.ConnectionPool;
 import app.services.teama.ColourService;
 import io.javalin.config.JavalinConfig;
@@ -39,8 +40,8 @@ public class GameController {
     }
 
     public void renderNiveau1(Context ctx){
-        Colour targetColour = colourService.getNewTargetColour();
-        ctx.attribute("targetColour", targetColour.toRgb());
+        Game game = new Game(colourService.getNewTargetColour());
+        ctx.attribute("targetColour", game.getTarget().toRgb());
 
         Map<String, Object> model = new HashMap<>();
         model.put("redGuess", 0);
