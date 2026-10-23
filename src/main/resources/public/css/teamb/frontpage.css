@@ -91,7 +91,7 @@ body {
 
 .menu-buttons {
     position: absolute;
-    top: 52.3%;
+    top: 57%;
     left: 50%;
     transform: translateX(-50%);
 
@@ -130,10 +130,6 @@ body {
     transform: scale(1.04);
 }
 
-.lifehack-button {
-    min-height: 68px;
-    line-height: 1.4;
-}
 
 @media (max-width: 500px) {
 
@@ -142,14 +138,11 @@ body {
     }
 
     .menu-buttons {
-        gap: 12px;
+        gap: 15px;
     }
 
     .menu-button {
         min-height: 38px;
     }
 
-    .lifehack-button {
-        min-height: 48px;
-    }
 }
