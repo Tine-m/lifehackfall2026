@@ -12,7 +12,6 @@ import java.util.List;
 
 public class EventMapper {
 
-
     ConnectionPool connectionPool;
     private static final Logger logger =
             LoggerFactory.getLogger(EventMapper.class);
@@ -29,7 +28,6 @@ public class EventMapper {
         }
         else return null;
     }
-
 
     public User createUser(User user) throws DatabaseException {
 
@@ -102,5 +100,4 @@ public class EventMapper {
         }
         return users;
     }
-
 }

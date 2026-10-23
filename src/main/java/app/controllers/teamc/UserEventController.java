@@ -21,7 +21,6 @@ public class UserEventController {
     public UserEventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.userEventService = new UserEventService(connectionPool);
-
     }
 
     public void setRoutes(JavalinConfig config){

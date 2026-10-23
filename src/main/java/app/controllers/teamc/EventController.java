@@ -4,10 +4,8 @@ import app.entities.teamc.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.services.teamc.EventService;
-import app.services.teamteachers.QuoteService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
-
 
 //Håndterer teamteachers' funktionalitet
 public class EventController {
@@ -27,7 +25,6 @@ public class EventController {
         config.routes.get("/eventPlanner/register", ctx -> ctx.render("teamc/register.html"));
         config.routes.post("/eventPlanner/register/userInsert", ctx  -> register(ctx));
 
-
     }
 
     public void loginController (Context ctx) throws DatabaseException {
@@ -36,7 +33,6 @@ public class EventController {
         String password = ctx.formParam("password");
 
         User user = eventService.login(email,password);
-        System.out.println(user);
 
         if (user != null){
             ctx.sessionAttribute("user", user);

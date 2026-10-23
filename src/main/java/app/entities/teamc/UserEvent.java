@@ -6,7 +6,6 @@ import java.util.UUID;
 
 public class UserEvent {
 
-
     private int event_id;
     private User user;
     private String eventName;
@@ -16,7 +15,6 @@ public class UserEvent {
     private CommentList commentList;
     private List<Invitation> invitiation;
     private boolean commentVisibility;
-
 
     public UserEvent(int event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
         this.event_id = event_id;

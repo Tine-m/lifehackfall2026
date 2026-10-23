@@ -16,8 +16,6 @@ public class User {
         this.sex = sex;
         this.password = password;
     }
-
-
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;

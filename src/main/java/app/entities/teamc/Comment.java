@@ -10,15 +10,11 @@ public class Comment {
     private User user;
     private UserEvent userEvent;
 
-
     public Comment(int comment_id, String comment_body, LocalDateTime creationDate ) {
         this.comment_id = comment_id;
         this.comment_body = comment_body;
         this.creationDate = creationDate;
     }
-
-
-
 
     public int getComment_id() {
         return comment_id;

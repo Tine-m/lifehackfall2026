@@ -8,8 +8,6 @@ public class Invitation {
     private UserEvent userEvent;
     private Response response;
 
-
-
     public Invitation(int inviteList_id, User user, UserEvent userEvent, Response response) {
         this.inviteList_id = inviteList_id;
         this.user = user;

@@ -25,7 +25,6 @@ public class EventService {
         return eventMapper.getUserByUserName(mail);
     }
 
-
     public User login(String username, String password) throws DatabaseException {
         return eventMapper.login(username, password);
     }
@@ -60,5 +59,4 @@ public class EventService {
         String regex = "^(?=.*[A-Z])(?=.*[0-9]).{8,15}$";
         return password.matches(regex);
     }
-
 }

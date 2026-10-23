@@ -44,7 +44,6 @@ public class UserEventService {
         }
 
         return userEventMapper.createEvent(owner, eventName.trim(), start, finish, restrictComments);
-
     }
 
     public List<UserEvent> getMyEvents(User owner) throws DatabaseException {
@@ -62,5 +61,4 @@ public class UserEventService {
     public List<Invitation> getParticipants(UserEvent event) throws DatabaseException {
         return userEventMapper.getInvitationsForEvent(event);
     }
-
 }
