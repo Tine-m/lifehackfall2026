@@ -9,6 +9,81 @@
 </head>
 <body>
 
+<div class="grid-one">
+
+    <div class="grid-one-item home-button" style="grid-area: box-1">
+
+        <a href="/templates/index.html">
+            <img src="images/teama/homebutton.svg" alt="">
+        </a>
+
+    </div>
+
+    <div class="grid-one-item header-logo" style="grid-area: logo">
+        <img  src="images/teama/RcadeGB-logo.svg">
+    </div>
+
+    <div class="grid-one-item" style="grid-area: box-2"></div>
+
+    <div class="grid-one-item scoreboard" style="grid-area: box-3"> <!-- th:each alle highscores på listen -->
+        <img src="images/teama/rcadegb-scoreboard.svg">
+    </div>
+
+    <div class="grid-one-item game" style="grid-area: box-4">
+
+        <div class="gameboy-grid">
+            <img id="gameboy-image" src="images/teama/gameboy-advance-2.svg">
+            <div class="child-1 child"></div>
+            <div class="child-2 child"></div>
+            <div class="child-3 child"></div>
+            <div class="child-4 child"></div>
+
+            <div class="child-5 child"> <!-- SCREEN -->
+                <div class="levelSelectorContainer">
+                    <div id="niveau1Button" th:switch="${session.niveau1Status}">
+                        <a th:case="active" class="activeButton" href="/rcade/niveau1">Niveau 1</a>
+                        <a th:case="locked" class="lockedButton">Niveau 1 <img src="images/teama/locked.svg"></a>
+                        <a th:case="null" class="pendingButton">Niveau 1 <img src="images/teama/pending.svg"></a>
+                    </div>
+
+                    <div id="niveau2Button" th:switch="${session.niveau2Status}">
+                        <a th:case="active" class="activeButton" href="/rcade/niveau2">Niveau 2</a>
+                        <a th:case="locked" class="lockedButton">Niveau 2 <img src="images/teama/locked.svg"></a>
+                        <a th:case="null" class="pendingButton">Niveau 2 <img src="images/teama/pending.svg"></a>
+                    </div>
+
+                    <div id="niveau3Button" th:switch="${session.niveau3Status}">
+                        <a th:case="active" class="activeButton" href="/rcade/niveau3">Niveau 3</a>
+                        <a th:case="locked" class="lockedButton">Niveau 3 <img src="images/teama/locked.svg"></a>
+                        <a th:case="null" class="pendingButton">Niveau 3 <img src="images/teama/pending.svg"></a>
+                    </div>
+
+                    <div id="attackModeButton" th:switch="${session.attackModeStatus}">
+                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Niveau 4</a>
+                        <a th:case="locked" class="lockedButton">Niveau 4 <img src="images/teama/locked.svg"></a>
+                        <a th:case="null" class="pendingButton">Niveau 4 <img src="images/teama/pending.svg"></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="child-6 child"></div>
+            <div class="child-7 child"></div>
+            <div class="child-8 child"></div>
+            <div class="child-9 child"></div>
+
+        </div>
+
+    </div>
+
+    <div class="grid-one-item scoreboard" style="grid-area: box-5"> <!-- th:each alle highscores på listen -->
+        <img src="images/teama/rcadegb-scoreboard.svg">
+    </div>
+
+</div>
+
+<!-- -----------------
+
 
 <div class="grid-one">
 
@@ -17,7 +92,7 @@
         <img class="header-item header-logo" src="images/teama/RcadeGB-logo.svg">
     </div>
 
-    <div class="grid-one-item highscore-context"style="grid-area: box-2"> <!-- th:each alle highscores på listen -->
+    <div class="grid-one-item highscore-context"style="grid-area: box-2">  th:each alle highscores på listen
         <img src="images/teama/rcadegb-scoreboard.svg">
     </div>
 
@@ -25,7 +100,7 @@
         <img src="images/teama/gameboy-advance-2.svg">
     </div>
 
-    <div class="grid-one-item highscore" style="grid-area: box-4"> <!-- th:each alle highscores på listen -->
+    <div class="grid-one-item highscore" style="grid-area: box-4"> th:each alle highscores på listen
         <img src="images/teama/rcadegb-scoreboard.svg">
     </div>
 
@@ -54,7 +129,7 @@
             <a th:case="null" class="pendingButton">Niveau 4 <img src="images/teama/pending.svg"></a>
         </div>
     </div>
-</div>
+</div> -->
 
 
 
