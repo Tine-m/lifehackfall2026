@@ -203,23 +203,43 @@ body{
         margin-left: 10px;
     }
 }
+
+.gamecontainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: center;
+    padding: 1rem;
+    grid-gap: 1rem;
+}
+
+.gamecontainer div {
+    align-self: center;
+}
+
+.colorboxcontainer h3{
+    text-align: center;
+    margin: 0;
+}
 .colorBox {
-    width: 200px;
-    height: 100px;
+    width: 150px;
+    height: 50px;
     border-style: solid;
     border-width: 1px;
+    border-radius: 5px;
+
 }
 
 .slidecontainer {
-    width: 100% /* Width of the outside container */
+    width: 100%; /* Width of the outside container */
+    grid-column: span 2;
 }
 
 /* The slider itself */
 .slider {
     -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: meter;
+    appearance: auto;
     width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
+    height: 10px; /* Specified height */
     background: #d3d3d3; /* Grey background */
     outline: none; /* Remove outline */
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */

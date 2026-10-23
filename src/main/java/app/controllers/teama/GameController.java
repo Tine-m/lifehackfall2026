@@ -43,9 +43,9 @@ public class GameController {
         ctx.attribute("targetColour", targetColour.toRgb());
 
         Map<String, Object> model = new HashMap<>();
-        model.put("redGuess", 128);
-        model.put("greenGuess", 128);
-        model.put("blueGuess", 128);
+        model.put("redGuess", 0);
+        model.put("greenGuess", 0);
+        model.put("blueGuess", 0);
 
         ctx.render("teama/niveau1.html", model);
     }
