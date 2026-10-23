@@ -60,7 +60,6 @@ public class EventController {
         }
 
         User newUser = eventService.createUser(username, password, email);
-        System.out.println(newUser);
 
         if (newUser != null) {
             ctx.attribute("msg", "Din konto er oprettet. Du kan nu logge ind.");
@@ -71,7 +70,4 @@ public class EventController {
             ctx.render("teamc/register.html");
         }
     }
-
-
-
 }
