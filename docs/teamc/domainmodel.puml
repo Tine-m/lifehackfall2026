@@ -1,0 +1,47 @@
+@startuml
+
+
+class User {
+    username
+    email
+    sex
+}
+
+class userEvent {
+
+    eventName
+
+    startDate
+    finishDate
+    commentAvailablity
+    eventCreationDate
+}
+
+class inviteList{
+    event_id
+    responses
+
+}
+
+class commentlist{
+    event_id
+    kommentar_id
+    commentBody
+    creationDate
+}
+
+User "1" --> "0...*" userEvent : har
+User "0..*" <-- inviteList : har
+User "1.*" <-- "1" commentlist : har
+
+userEvent "1" --> "1" User : har
+userEvent "1" --> "1" commentlist : har
+userEvent "1" --> "1" inviteList : har
+
+
+
+
+
+
+
+@enduml
