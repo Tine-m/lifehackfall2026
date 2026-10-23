@@ -23,7 +23,7 @@ public class MemoController {
         config.routes.get("/memorygame", ctx -> renderFrontpage(ctx));
         config.routes.get("/game", ctx -> ctx.redirect("/game.html"));
         config.routes.get("/results", ctx -> resultsPage(ctx));
-
+        config.routes.get("/game", ctx -> renderGame(ctx));
     }
 
 
@@ -43,6 +43,11 @@ public class MemoController {
         } catch (DatabaseException e) {
             ctx.status(500).json("Kunne ikke hente kort");
         }
+    }
+
+
+    public void renderGame(Context ctx){
+        ctx.render("teamb/game.html");
     }
 
 

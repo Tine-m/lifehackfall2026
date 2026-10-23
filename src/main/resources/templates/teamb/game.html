@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game On</title>
+    <link rel="stylesheet" href="/css/teamb/game.css"/>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Lifehack Memory Spil</h1>
+
+        <div class="layout">
+            <!-- Selve "spillepladen med de 16 kort i gitter -->
+            <section class="board-area">
+                <div class="board" id="board">
+                    <!-- Kortene indsættes via js eller? -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">LH</div>
+                            <div class="card-back"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar med timer, matched pairs og antal moves der alle tæller op -->
+            <aside class="sidebar">
+                <div class="stat" id="timer">Timer: 0 sec</div>
+                <div class="stat" id="matched">Matched pairs: 0/8</div>
+                <div class="stat" id="moves">Moves: 0</div>
+
+                <div class="hack-panel">
+                    <h2>Fundne life hacks</h2>
+                    <ul id="hack-list">
+                        <!-- Beskrivelser indsættes af .js??? -->
+                    </ul>
+                </div>
+
+                <button id="finish-game" class="finish-button" disabled>Afslut spil</button>
+            </aside>
+        </div>
+    </div>
+<script src="/js/teamb/script.js" defer></script>
+</body>
+</html>
