@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deltagere</title>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <div class="register-card">
+    <h2 th:text="${event.eventName}">Biograftur</h2>
+    <p class="muted">
+      <span th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy')}">27-10-2026</span>
+      &middot; <span th:text="${yesCount}">0</span> kommer
+      af <span th:text="${#lists.size(invitations)}">0</span> inviterede
+    </p>
+
+    <p th:if="${#lists.isEmpty(invitations)}">Der er ikke inviteret nogen endnu.</p>
+
+    <table class="participants" th:unless="${#lists.isEmpty(invitations)}">
+      <thead>
+      <tr><th>Navn</th><th>Svar</th></tr>
+      </thead>
+      <tbody>
+      <tr th:each="inv : ${invitations}">
+        <td th:text="${inv.user.username}">Anna</td>
+        <td th:switch="${inv.response.name()}">
+          <span th:case="'YES'" class="svar ja">Kommer</span>
+          <span th:case="'NO'" class="svar nej">Kommer ikke</span>
+          <span th:case="'DONT_KNOW'" class="svar maaske">Måske</span>
+          <span th:case="*" class="svar">Har ikke svaret</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <a class="btn login-link" href="/eventPlanner/myEvents">Tilbage til mine events</a>
+  </div>
+
+</div>
+
+</body>
+</html>

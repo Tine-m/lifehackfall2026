@@ -2,8 +2,10 @@ package app;
 
 import app.configuration.ThymeleafConfig;
 import app.controllers.MainController;
+import app.controllers.teamc.UserEventController;
 import app.controllers.teamd.PerfectFitController;
 import app.controllers.teama.GameController;
+import app.controllers.teamc.EventController;
 import app.controllers.teamb.MemoController;
 import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
@@ -25,9 +27,12 @@ public class Main {
             new MainController().setRoutes(config); // Fælles controller
             // TODO: registrér jeres egen controller endpoints herunder
             new QuoteController(connectionPool).setRoutes(config); // Teacher app Controller
+
+            new EventController(connectionPool).setRoutes(config);
             new GameController(connectionPool).setRoutes(config); //Team a app Controller
             new PerfectFitController(connectionPool).setRoutes(config);
             new MemoController(connectionPool).setRoutes(config); //Team b app Controller
+            new UserEventController(connectionPool).setRoutes(config);
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 
