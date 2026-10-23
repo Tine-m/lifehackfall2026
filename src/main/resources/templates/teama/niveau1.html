@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/teama/colours.css">
+    <link rel="stylesheet" href="/css/teama/style.css">
 </head>
 <body>
-<p>Dette er niveau 1 siden</p>
+<div th:styleappend="|background-color: ${targetColour}|" id="targetBox" class="colorBox">Target</div>
+<div id="guessBox" class="colorBox">Guess</div>
+<div class="slidecontainer">
+    <input type="range" min="0" max="255" value="128" class="slider" id="redSlider">
+    <input type="range" min="0" max="255" value="128" class="slider" id="blueSlider">
+    <input type="range" min="0" max="255" value="128" class="slider" id="greenSlider">
+</div>
+<script src="/js/teama/niveau1.js" defer></script>
 </body>
 </html>

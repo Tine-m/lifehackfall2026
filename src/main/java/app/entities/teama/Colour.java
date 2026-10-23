@@ -34,4 +34,8 @@ public class Colour {
     public void setB(int b) {
         B = b;
     }
+
+    public String toRgb() {
+        return "rgb(" + R + "," + G + "," + B + ")";
+    }
 }

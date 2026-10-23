@@ -7,6 +7,8 @@ import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameController {
 
@@ -38,9 +40,14 @@ public class GameController {
 
     public void renderNiveau1(Context ctx){
         Colour targetColour = colourService.getNewTargetColour();
-        ctx.attribute("targetColour", targetColour);
+        ctx.attribute("targetColour", targetColour.toRgb());
 
-        ctx.render("teama/niveau1.html");
+        Map<String, Object> model = new HashMap<>();
+        model.put("redGuess", 128);
+        model.put("greenGuess", 128);
+        model.put("blueGuess", 128);
+
+        ctx.render("teama/niveau1.html", model);
     }
 
     public void renderNiveau2(Context ctx){
