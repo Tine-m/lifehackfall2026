@@ -19,6 +19,6 @@ public class MemoController {
     public void renderFrontpage(Context ctx){
         ctx.render("teamb/frontpage.html");
     }
-    //test
+
 
 }
