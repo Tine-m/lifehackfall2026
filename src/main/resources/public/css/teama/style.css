@@ -1,5 +1,5 @@
 body{
-    background-color: var(--grey);
+    background-color: var(--background_grey);
 }
 
 .grid-one-item {
@@ -15,59 +15,117 @@ body{
 .grid-one{
     display: grid;
 
-    justify-items: center; /*centrer item box horiontalt*/
-    align-items: center; /*centrer item box vertikalt*/
-
-
-    grid-template-columns: 290px 1fr 290px;
-    grid-template-rows: 200px 780px;
+    grid-template-columns: 20vw 1fr 1fr 1fr 20vw;
+    grid-template-rows: 100px 1fr;
+    grid-auto-rows: 100px;
 
 
     grid-template-areas:
-    "box-1 box-1 box-1"
-    "box-2 box-3 box-4"
-;
-
+    "box-1 logo logo logo box-2"
+    "box-3 box-4 box-4 box-4 box-5";
 }
 
-.header {
-    position: relative;    /* gør headeren til referencepunkt for logoet */
-    display: flex;
-    flex-direction: row;
-    padding: 20px;
+.gameboy-grid{
+    display: grid;
+    width: 100%;
+    aspect-ratio: 1329 / 745;
+
+    outline: 3px solid red;
+
+    grid-template-columns: 28% 44% 28%;
+    grid-template-rows: 22% 49% 29%;
+
+    grid-template-areas:
+    "box-1 box-2 box-3"
+    "box-4 box-5 box-6"
+    "box-7 box-8 box-9";
 }
+
+
+.child{
+    border: 2px dashed blueviolet;
+}
+
+#gameboy-image {
+    height: 100%;
+    grid-column: 1/4;
+    grid-row: 1/4;
+
+    outline: 3px solid blue;
+}
+
+.child-1{
+    grid-column: 1/2;
+    grid-row: 1/2;
+
+}
+.child-2{
+    grid-column: 2/3;
+    grid-row: 1/2;
+
+}
+.child-3{
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+.child-4{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+.child-5{
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+.child-6{
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+.child-7{
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+.child-8{
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+.child-9{
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+
+
 
 .header-logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);   /* centrerer logoet præcist, uanset dets størrelse */
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    img{
+        height: 60px;
+    }
 }
 
 .home-button{
-    width: 100px;
+    align-content: center;
+
+    img {
+        width: 60px;
+        margin-left: 20px;
+    }
 }
 
-.header-item{}
-
-.game {
+.scoreboard {
     display: flex;
+    align-items: center;
     justify-content: center;
-}
-.game img{
-    width: 100%;
+
+    img{
+        max-width: 90%;
+    }
 
 }
 
-.highscore-context {
-    display: flex;
-    justify-content: center;    /* billedet til højre */
-}
-
-.highscore {
-    display: flex;
-    justify-content: center;  /* billedet til venstre */
-}
 
 /* Niveau-selector layout */
 
@@ -78,7 +136,7 @@ body{
     justify-content: center;
 
     /* Responsive størrelser, placeringer og afstande */
-    width: 45%;
+    width: 100%;
     aspect-ratio: 45 / 28;
     margin-left: 3px;
     margin-bottom: 2vw;
@@ -111,33 +169,33 @@ body{
     }
 
     #niveau1Button .activeButton {
-        background-color: #a9c3a5;
-        border-color: #a9c3a5;
+        background-color: var(--green_1);
+        border-color: var(--green_1);
     }
 
     #niveau2Button .activeButton {
-        background-color: #7fa68a;
-        border-color: #7fa68a;
+        background-color: var(--green_2);
+        border-color: var(--green_2);
     }
 
     #niveau3Button .activeButton {
-        background-color: #5f8770;
-        border-color: #5f8770;
+        background-color: var(--green_3);
+        border-color: var(--green_3);
     }
 
     #attackModeButton .activeButton {
-        background-color: #3e6655;
-        border-color: #3e6655;
+        background-color: var(--green_4);
+        border-color: var(--green_4);
     }
 
     .lockedButton {
-        background-color: darkgrey;
-        border-color: darkgrey;
+        background-color: var(--locked_button);
+        border-color: var(--locked_button);
     }
 
     .pendingButton {
-        background-color: grey;
-        border-color: grey;
+        background-color: var(--pending_button);
+        border-color: var(--pending_button);
     }
 
     img {
