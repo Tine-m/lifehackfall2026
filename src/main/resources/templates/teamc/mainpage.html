@@ -1,13 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>mainPage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventPlanner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/teamc/mainpage.css}">
 </head>
 <body>
 
-<a href="/eventPlanner/createEvent">Opret event</a>
-<a href="/eventPlanner/myEvents">Mine events</a>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="/eventPlanner" class="navbar-brand">EventPlanner</a>
+            <div class="navbar-actions">
+                <a href="/eventPlanner/createEvent" class="nav-btn create-btn">Opret arrangement</a>
+                <a href="/eventPlanner/profile" class="nav-btn profile-btn">Profil</a>
+                <a href="/eventPlanner" class="nav-btn logout-btn">Log ud</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+
+        <div class="welcome">
+            <h1 class="welcome-heading">Velkommen</h1>
+            <p class="welcome-username" th:text="${username}"></p>
+        </div>
+
+        <div class="controls">
+            <form class="search-bar" action="/eventPlanner" method="get">
+                <input class="search-input" type="search" name="q" placeholder="Søg arrangementer...">
+            </form>
+
+            <div class="sort-bar">
+                <label for="sort">Sortér efter:</label>
+                <select id="sort" class="sort-select" name="sort">
+                    <option value="date-asc">Dato (nyeste først)</option>
+                    <option value="date-desc">Dato (ældste først)</option>
+                    <option value="name-asc">Navn (A-Z)</option>
+                    <option value="name-desc">Navn (Z-A)</option>
+                    <option value="attendees-desc">Flest deltagere</option>
+                    <option value="attendees-asc">Færrest deltagere</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="events">
+            <h2 class="section-title">Dine kommende arrangementer:</h2>
+
+            <div class="event-list">
+                <article class="event-card" th:each="event : ${events}">
+                    <div class="event-details">
+                        <h3 class="event-name" th:text="${event.eventname}"></h3>
+                        <p>Dato: <span th:text="${event.startdate}"></span></p>
+                        <p class="event-attendees">Deltagere: <span th:text="${event.attending}"></span></p>
+                        <p>Vært: <span th:text="${event.host}"></span></p>
+                        <p>Sted: <span th:text="${event.location}"></span></p>
+                    </div>
+                    <img class="event-image" th:src="@{/images/photo.jpg}" alt="Arrangement">
+                </article>
+            </div>
+        </div>
+
+    </main>
 
 </body>
 </html>
