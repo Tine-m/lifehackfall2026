@@ -10,7 +10,7 @@
 
 <div class="page-wrapper">
     <div class="hero-tagline">
-        <h2><span th:text="${user.username}">Bruger</span>Hvad skal i lave?</h2>
+        <h2><span th:text="${user.username}">Bruger</span> Hvad skal i lave?</h2>
     </div>
 
     <div class="register-card">
@@ -22,11 +22,11 @@
             <input type="text" id="eventName" name="eventName" placeholder="Fx Biograftur"
                    th:value="${eventName}" required>
 
-            <label for="startDate">Startdato:</label>
-            <input type="date" id="startDate" name="startDate" th:value="${startDate}" required>
+            <label for="startDate">Start (dato og tid):</label>
+            <input type="datetime-local" id="startDate" name="startDate" th:value="${startDate}" required>
 
-            <label for="finishDate">Slutdato (valgfri):</label>
-            <input type="date" id="finishDate" name="finishDate" th:value="${finishDate}">
+            <label for="finishDate">Slut (valgfri):</label>
+            <input type="datetime-local" id="finishDate" name="finishDate" th:value="${finishDate}">
 
             <label class="checkbox-label">
                 <input type="checkbox" name="restrictComments" th:checked="${restrictComments}">
@@ -37,10 +37,23 @@
         </form>
 
         <a class="btn login-link" href="/eventPlanner/myEvents">Mine events</a>
+        <a class="btn login-link" href="/eventPlanner/mainpage">Tilbage til forsiden</a>
 
         <p style="color:red;" th:if="${msg != null}" th:text="${msg}"></p>
     </div>
+
+
 </div>
+
+<script>
+// Udfylder slut automatisk med samme dato og tid som start, hvis den er tom
+document.getElementById("startDate").addEventListener("change", function () {
+const finish = document.getElementById("finishDate");
+if (!finish.value) {
+finish.value = this.value;
+}
+});
+</script>
 
 </body>
 </html>

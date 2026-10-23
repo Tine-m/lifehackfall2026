@@ -258,6 +258,7 @@ body {
 
 /* ---------- OPRET EVENT / MINE EVENTS / DELTAGERE ---------- */
 
+.register-form input[type="datetime-local"],
 .register-form input[type="date"] {
     width: 100%;
     padding: 12px 14px;

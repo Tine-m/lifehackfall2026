@@ -6,12 +6,13 @@ import app.entities.teamc.User;
 import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.services.teamc.EventService;
 import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserEventController {
@@ -27,7 +28,14 @@ public class UserEventController {
         config.routes.get("/eventPlanner/createEvent", ctx -> showCreateEvent(ctx));
         config.routes.post("/eventPlanner/createEvent", ctx -> createEvent(ctx));
         config.routes.get("/eventPlanner/myEvents", ctx -> myEvents(ctx));
-        config.routes.get("/eventPlanner/event/{id}/participants", ctx -> participants(ctx)); 
+        config.routes.get("/eventPlanner/event/{id}/participants", ctx -> participants(ctx));
+        config.routes.get("/eventPlanner/mainpage", ctx -> showMainPage(ctx));
+    }
+
+    private void showMainPage(@NotNull Context ctx) {
+        User user = requireLogin(ctx);
+        if (user == null) return;
+        ctx.render("teamc/mainpage");
     }
 
     private User requireLogin(Context ctx) {
@@ -44,7 +52,11 @@ public class UserEventController {
         User user = requireLogin(ctx);
         if (user == null) return;
 
+        // Forslag: i morgen kl. 18-21. Så er året allerede udfyldt, og man skal kun rette dag og tid
+        LocalDateTime start = LocalDate.now().plusDays(1).atTime(18, 0);
         ctx.attribute("user", user);
+        ctx.attribute("startDate", start.toString());               // fx 2026-10-24T18:00
+        ctx.attribute("finishDate", start.plusHours(3).toString()); // fx 2026-10-24T21:00
         ctx.render("teamc/createevent.html");
     }
 

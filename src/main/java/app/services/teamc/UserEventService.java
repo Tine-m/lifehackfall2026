@@ -5,10 +5,8 @@ import app.entities.teamc.User;
 import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.teamc.EventMapper;
 import app.persistence.teamc.UserEventMapper;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -26,16 +24,16 @@ public class UserEventService {
         if (eventName == null || eventName.isBlank()){
             throw new IllegalArgumentException("Eventet skal have et navn");
         }
-        LocalDate start;
-        LocalDate finish;
+        LocalDateTime start;
+        LocalDateTime finish;
         try {
-            start = LocalDate.parse(startDate);  // <input type="date"> sender yyyy-MM-dd
-            finish = (finishDate == null || finishDate.isBlank() ? start : LocalDate.parse(finishDate));
+            start = LocalDateTime.parse(startDate);  // <input type="date"> sender yyyy-MM-dd
+            finish = (finishDate == null || finishDate.isBlank() ? start : LocalDateTime.parse(finishDate));
         } catch (DateTimeParseException | NullPointerException e) {
             throw new IllegalArgumentException("Vælg en gyldige startdato!");
         }
 
-        if (start.isBefore(LocalDate.now())) {
+        if (start.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Startdato kan ikke ligge i fortiden");
         }
 
