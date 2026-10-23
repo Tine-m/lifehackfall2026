@@ -3,16 +3,26 @@ package app.entities.teamb;
 public class Card {
 
     private int cardId;
+    private int pairId;
     private String imageURL;
     private String text;
     private String lifehackDescription;
 
 
-    public Card(int cardId, String text, String imageURL, String lifehackDescription) {
+    public Card(int cardId, int pairId, String imageURL, String text, String lifehackDescription) {
         this.cardId = cardId;
-        this.text = text;
+        this.pairId = pairId;
         this.imageURL = imageURL;
+        this.text = text;
         this.lifehackDescription = lifehackDescription;
+    }
+
+    public int getPairId() {
+        return pairId;
+    }
+
+    public void setPairId(int pairId) {
+        this.pairId = pairId;
     }
 
     public int getCardId() {
