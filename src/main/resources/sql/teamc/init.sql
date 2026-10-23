@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_comment
     content character varying COLLATE pg_catalog."default",
     create_date date,
     CONSTRAINT comment_pkey PRIMARY KEY (comment_id)
-);
+    );
 
 DROP TABLE IF EXISTS public.teamc_invitation CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_invitation
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_invitation
     event_id integer NOT NULL,
     response_id integer,
     CONSTRAINT invitation_pkey PRIMARY KEY (invitation_id)
-);
+    );
 
 DROP TABLE IF EXISTS public.teamc_response CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_response
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_response
     response_id serial NOT NULL,
     response character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT response_pkey PRIMARY KEY (response_id)
-);
+    );
 
 
 DROP TABLE IF EXISTS public.teamc_user CASCADE;
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_user
     password character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (user_id),
     CONSTRAINT user_email_unique UNIQUE (email)
-);
+    );
 
 DROP TABLE IF EXISTS public.teamc_userevent CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_userevent
@@ -51,31 +51,31 @@ CREATE TABLE IF NOT EXISTS public.teamc_userevent
     user_id integer NOT NULL,
     event_name character varying COLLATE pg_catalog."default" NOT NULL,
     creation_date date,
-    start_date date,
-    finish_date date,
+    start_date timestamp,
+    finish_date timestamp,
     restrict_comments boolean,
     CONSTRAINT userevent_pkey PRIMARY KEY (event_id)
-);
+    );
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_user FOREIGN KEY (user_id)
     REFERENCES public.teamc_user (user_id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+       ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_userevent FOREIGN KEY (event_id)
     REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+       ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_response FOREIGN KEY (response_id)
     REFERENCES public.teamc_response (response_id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+       ON DELETE NO ACTION
     NOT VALID;
 
 
@@ -83,26 +83,26 @@ ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_user FOREIGN KEY (user_id)
     REFERENCES public.teamc_user (user_id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+       ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_userevent FOREIGN KEY (event_id)
     REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+       ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_userevent
     ADD CONSTRAINT userevent_user FOREIGN KEY (user_id)
     REFERENCES public.teamc_user (user_id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+       ON DELETE NO ACTION;
 
 
 
 INSERT INTO teamc_user
-    (username, email, gender, password)
+(username, email, gender, password)
 VALUES
     ('Cezary', 'cezary@gmail.com', 'Male', '12345'),
     ('Daud', 'daud@gmail.com', 'Male', '12345'),
@@ -112,15 +112,15 @@ VALUES
 
 
 INSERT INTO teamc_userevent
-    (user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
+(user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
 VALUES
-    (1, 'Go to the cinema', '2026-10-19', '2026-10-27', '2026-10-27', FALSE),
-    (2, 'Walk in FÃ¦lledparken', '2026-10-20', '2026-10-30', '2026-10-30', TRUE),
-    (3, 'Play football', '2026-10-21', '2026-11-01', '2026-11-01', FALSE);
+    (1, 'Go to the cinema', '2026-10-19', '2026-10-27 19:00', '2026-10-27 22:00', FALSE),
+    (2, 'Walk in Fælledparken', '2026-10-20', '2026-10-30 14:00', '2026-10-30 16:00', TRUE),
+    (3, 'Play football', '2026-10-21', '2026-11-01 10:00', '2026-11-01 12:00', FALSE);
 
 
 INSERT INTO teamc_response
-	( response)
+(response)
 VALUES
     ('YES'),
     ('UNSURE'),
@@ -129,7 +129,7 @@ VALUES
 
 
 INSERT INTO teamc_invitation
-    (user_id, event_id, response_id)
+(user_id, event_id, response_id)
 VALUES
     (2, 1, 1),
     (3, 1, 2),
@@ -142,7 +142,7 @@ VALUES
     (5, 3, 1);
 
 INSERT INTO teamc_comment
-    (user_id, event_id, content, create_date)
+(user_id, event_id, content, create_date)
 VALUES
     (2, 1, 'I will bring my notes.', '2026-10-19'),
     (3, 1, 'Can we start at 14:30?', '2026-10-19'),

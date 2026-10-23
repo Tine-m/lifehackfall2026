@@ -25,7 +25,7 @@ public class UserEventMapper {
         this.connectionPool = connectionPool;
     }
 
-    public UserEvent createEvent(User owner, String eventName, LocalDate startDate, LocalDate finishDate, boolean restrictComments) throws DatabaseException {
+    public UserEvent createEvent(User owner, String eventName, LocalDateTime startDate, LocalDateTime finishDate, boolean restrictComments) throws DatabaseException {
         String query = "INSERT INTO teamc_userevent (user_id, event_name, creation_date, start_date, finish_date, restrict_comments) " +
                 "VALUES (?, ?, CURRENT_DATE, ?, ?, ?)";
 
@@ -33,8 +33,8 @@ public class UserEventMapper {
              PreparedStatement stm = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stm.setInt(1, owner.getUser_id());
             stm.setString(2, eventName);
-            stm.setDate(3, Date.valueOf(startDate));
-            stm.setDate(4, Date.valueOf(finishDate));
+            stm.setTimestamp(3, Timestamp.valueOf(startDate));
+            stm.setTimestamp(4, Timestamp.valueOf(finishDate));
             stm.setBoolean(5, restrictComments);
             stm.executeUpdate();
 
@@ -43,8 +43,8 @@ public class UserEventMapper {
                     int eventId = keys.getInt(1);
                     return new UserEvent(eventId, owner, eventName,
                             LocalDate.now().atStartOfDay(),
-                            startDate.atStartOfDay(),
-                            finishDate.atStartOfDay(),
+                            startDate,
+                            finishDate,
                             !restrictComments);
                 }
             }
@@ -128,14 +128,14 @@ public class UserEventMapper {
                 rs.getInt("event_id"),
                 owner,
                 rs.getString("event_name"),
-                toDateTime(rs.getDate("creation_date")),
-                toDateTime(rs.getDate("start_date")),
-                toDateTime(rs.getDate("finish_date")),
+                toDateTime(rs.getTimestamp("creation_date")),
+                toDateTime(rs.getTimestamp("start_date")),
+                toDateTime(rs.getTimestamp("finish_date")),
                 !rs.getBoolean("restrict_comments"));   // commentVisibility er det modsatte af restrict_comments
     }
 
-    private LocalDateTime toDateTime(Date date) {
-        return date == null ? null : date.toLocalDate().atStartOfDay();
+    private LocalDateTime toDateTime(Timestamp timestamp) {
+        return timestamp == null ? null : timestamp.toLocalDateTime();
     }
 
     private Response toResponse(String dbValue) {
