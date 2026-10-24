@@ -52,7 +52,16 @@ public class LifehackRegistry {
                         "Find din perfekte BH-størrelse",
                         "/perfectfit",
                         "/images/teamd/perfectfit-logo.svg"
-                 )
+                 ),
+
+                // Team E
+                new LifehackSite(
+                        "SecurePass",
+                        "Skab stærkere passwords",
+                        "/securepass",
+                        "/images/teame/securepass-logo.svg"
+                )
         );
+
     }
 }
