@@ -31,10 +31,10 @@ h1 {
 }
 
 h2 {
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-rosa);
     font-family: var(--pf-skrift);
     font-size: 38px;
-    font-weight: 400;
+    font-weight: 300;
     margin: 0 0 12px;
 }
 
@@ -55,7 +55,7 @@ p {
 
 .illustration img {
     width: 100%;
-    max-width: 300px;
+    max-width: 360px;
 }
 
 /* ---------- Header ---------- */

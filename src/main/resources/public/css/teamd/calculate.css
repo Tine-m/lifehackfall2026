@@ -1,9 +1,14 @@
+/* ---------- Undertitel ---------- */
+
+.indhold p {
+    margin-bottom: 24px;
+}
+
 /* ---------- Formular ---------- */
 .indhold form {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-width: 420px;
 }
 
 .indhold label {
@@ -42,8 +47,8 @@
 .indhold button {
     align-self: flex-start;
     margin-top: 16px;
-    padding: 12px 28px;
-    font-size: 1rem;
+    padding: 16px 52px;
+    font-size: 1.1rem;
     color: var(--pf-hvid);
     background-color: var(--pf-rosa);
     border: none;
@@ -59,6 +64,7 @@
     margin-top: 8px;
     font-size: 0.85rem;
     color: var(--pf-rosa);
+    text-decoration: none;
 }
 
 .fejl {
@@ -78,6 +84,36 @@
 .maal-felter input {
     -moz-appearance: textfield;
     appearance: textfield;
+}
+
+/* Egen pil i mærke-feltet */
+.indhold select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 44px;
+    background-image: url("../../images/teamd/pil-ned.svg");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+/* "cm" inde i felterne */
+.cm-felt {
+    position: relative;
+    display: block;
+}
+
+.cm-felt span {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--pf-tekst);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.cm-felt input {
+    padding-right: 48px;
 }
 
 /* ---------- Mobil ---------- */

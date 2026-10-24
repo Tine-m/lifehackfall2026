@@ -36,8 +36,6 @@
             <p class="maal" th:text="|Undermål ${underbust} cm · Brystmål ${bust} cm|">Undermål 75 cm · Brystmål 90 cm</p>
         </section>
 
-        <a class="knap" th:if="${website}" th:href="${website}" th:text="|Køb hos ${brandName}|" target="_blank" rel="noopener">Køb hos Hunkemøller</a>
-
         <section class="hvid-boks" th:if="${not #lists.isEmpty(sisterSizes)}">
             <p class="label">SØSTERSTØRRELSER</p>
             <div class="soster-liste">
@@ -46,7 +44,10 @@
             <p>Skålen rummer det samme. Prøv dem, hvis din størrelse er udsolgt.</p>
         </section>
 
-        <a href="/perfectfit/calculate" class="knap">← Beregn igen</a>
+        <div class="knapper">
+            <a class="knap" th:if="${website}" th:href="${website}" th:text="|Køb hos ${brandName}|" target="_blank" rel="noopener">Køb hos Hunkemøller</a>
+            <a href="/perfectfit/calculate" class="knap knap--lys">← Beregn igen</a>
+        </div>
     </section>
 
 

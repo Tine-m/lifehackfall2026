@@ -49,3 +49,26 @@
     border: 1px solid var(--pf-kant);
     border-radius: var(--pf-hjoerne-lille);
 }
+
+/* ---------- Knapper under boksene ---------- */
+.knapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.knapper .knap {
+    margin: 0;
+}
+
+/* Lys knap: kun kant, ingen fyld */
+.knap--lys {
+    background-color: transparent;
+    color: var(--pf-rosa);
+    border: 1px solid var(--pf-rosa);
+}
+
+.knap--lys:hover {
+    color: var(--pf-hvid);
+}
