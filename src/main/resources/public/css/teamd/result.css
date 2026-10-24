@@ -72,3 +72,43 @@
 .knap--lys:hover {
     color: var(--pf-hvid);
 }
+
+/* ---------- Forklaring, når man holder musen over ? ---------- */
+.info {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--pf-rosa);
+    color: var(--pf-rosa);
+    font-size: 0.75rem;
+    cursor: help;
+}
+
+.info-tekst {
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    padding: 12px 14px;
+    background-color: var(--pf-moerk);
+    color: var(--pf-hvid);
+    font-size: 0.85rem;
+    letter-spacing: normal;
+    line-height: 1.4;
+    text-align: left;
+    border-radius: var(--pf-hjoerne-lille);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+}
+
+.info:hover .info-tekst,
+.info:focus .info-tekst {
+    opacity: 1;
+    visibility: visible;
+}

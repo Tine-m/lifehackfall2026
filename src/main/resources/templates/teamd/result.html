@@ -37,11 +37,15 @@
         </section>
 
         <section class="hvid-boks" th:if="${not #lists.isEmpty(sisterSizes)}">
-            <p class="label">SØSTERSTØRRELSER</p>
+            <p class="label">SØSTERSTØRRELSER
+                <span class="info" tabindex="0">?
+                    <span class="info-tekst">Samme skål, andet bånd. Sidder båndet løst, så vælg det mindre tal. Strammer det, så vælg det større.</span>
+                </span>
+            </p>
             <div class="soster-liste">
                 <span class="soster" th:each="s : ${sisterSizes}" th:text="${s}">70D</span>
             </div>
-            <p>Skålen rummer det samme. Prøv dem, hvis din størrelse er udsolgt.</p>
+            <p>Prøv dem, hvis din størrelse er udsolgt.</p>
         </section>
 
         <div class="knapper">

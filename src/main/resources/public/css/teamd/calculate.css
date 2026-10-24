@@ -61,10 +61,21 @@
 }
 
 .guide-link {
+    align-self: flex-start;
     margin-top: 8px;
     font-size: 0.85rem;
     color: var(--pf-rosa);
     text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s, color 0.3s;
+}
+
+.guide-link:hover {
+    color: var(--pf-rosa-moerk);
+    background-size: 100% 1px;
 }
 
 .fejl {
