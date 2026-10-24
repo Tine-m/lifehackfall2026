@@ -26,6 +26,12 @@ public class UserEvent {
         this.commentVisibility = commentVisibility;
     }
 
+    public UserEvent(String eventName, LocalDateTime startDate, LocalDateTime finishDate) {
+        this.eventName = eventName;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+    }
+
     public int getEvent_id() {
         return event_id;
     }

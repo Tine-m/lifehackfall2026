@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserEventController {
@@ -34,10 +35,13 @@ public class UserEventController {
         config.routes.get("/eventPlanner/mainpage", ctx -> showMainPage(ctx));
     }
 
-    private void profil(Context ctx) {
+    private void profil(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
 
+        List<UserEvent> attendedEvents = userEventService.getPastEvents(user);
+
+        ctx.attribute("attendedEvents", attendedEvents);
         ctx.attribute("user", user);
         ctx.render("teamc/profil.html");
     }

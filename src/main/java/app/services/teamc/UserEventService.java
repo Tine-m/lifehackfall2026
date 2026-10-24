@@ -59,4 +59,10 @@ public class UserEventService {
     public List<Invitation> getParticipants(UserEvent event) throws DatabaseException {
         return userEventMapper.getInvitationsForEvent(event);
     }
+
+    public List<UserEvent> getPastEvents(User user) throws DatabaseException {
+        return userEventMapper.getPastEvents(user);
+    }
+
+
 }
