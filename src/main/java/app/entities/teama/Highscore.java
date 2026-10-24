@@ -1,21 +1,32 @@
 package app.entities.teama;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Highscore {
-    private final int score;
+    private final int score1;
+    private final int score2;
+    private final int score3;
     private final String initials;
     private final LocalDate date;
 
-    public Highscore(int score, String initials, LocalDate date) {
-        this.score = score;
+    public Highscore(int score1, int score2, int score3, String initials, LocalDate date) {
+        this.score1 = score1;
+        this.score2 = score2;
+        this.score3 = score3;
         this.initials = initials;
         this.date = date;
     }
 
-    public int getScore() {
-        return score;
+    public int getScore1() {
+        return score1;
+    }
+
+    public int getScore2() {
+        return score2;
+    }
+
+    public int getScore3() {
+        return score3;
     }
 
     public String getInitials() {
