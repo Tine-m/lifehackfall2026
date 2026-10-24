@@ -28,12 +28,16 @@
     <section class="indhold">
         <p>Din størrelse hos</p>
         <h2 th:text="${brandName}">Hunkemøller</h2>
+
         <section class="hvid-boks centreret">
             <p class="label">DIN STØRRELSE</p>
             <p class="storrelse" th:text="${size}">75C</p>
             <span class="badge" th:text="|${sizeSystem}-størrelse|">EU-størrelse</span>
             <p class="maal" th:text="|Undermål ${underbust} cm · Brystmål ${bust} cm|">Undermål 75 cm · Brystmål 90 cm</p>
         </section>
+
+        <a class="knap" th:if="${website}" th:href="${website}" th:text="|Køb hos ${brandName}|" target="_blank" rel="noopener">Køb hos Hunkemøller</a>
+
         <section class="hvid-boks" th:if="${not #lists.isEmpty(sisterSizes)}">
             <p class="label">SØSTERSTØRRELSER</p>
             <div class="soster-liste">
@@ -41,8 +45,10 @@
             </div>
             <p>Skålen rummer det samme. Prøv dem, hvis din størrelse er udsolgt.</p>
         </section>
+
         <a href="/perfectfit/calculate" class="knap">← Beregn igen</a>
     </section>
+
 
     <!-- Højre side-->
     <section class="illustration">

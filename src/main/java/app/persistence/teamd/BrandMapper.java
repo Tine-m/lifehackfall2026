@@ -21,7 +21,7 @@ public class BrandMapper {
     // Henter alle mærker fra databasen, sorteret efter navn
     public List<Brand> getAllBrands() throws DatabaseException {
         List<Brand> brands = new ArrayList<>();
-        String sql = "SELECT brand_id, name FROM teamd_brand ORDER BY name";
+        String sql = "SELECT brand_id, name, website FROM teamd_brand ORDER BY name";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -30,7 +30,8 @@ public class BrandMapper {
             while (rs.next()) {
                 int brandId = rs.getInt("brand_id");
                 String name = rs.getString("name");
-                brands.add(new Brand(brandId, name));
+                String website = rs.getString("website");
+                brands.add(new Brand(brandId, name, website));
             }
 
         } catch (SQLException e) {
@@ -40,7 +41,7 @@ public class BrandMapper {
     }
     // Henter ét mærke ud fra id
     public Brand getBrandById(int brandId) throws DatabaseException {
-        String sql = "SELECT brand_id, name FROM teamd_brand WHERE brand_id = ?";
+        String sql = "SELECT brand_id, name, website FROM teamd_brand WHERE brand_id = ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -48,7 +49,7 @@ public class BrandMapper {
             ps.setInt(1, brandId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new Brand(rs.getInt("brand_id"), rs.getString("name"));
+                return new Brand(rs.getInt("brand_id"), rs.getString("name"), rs.getString("website"));
             }
             throw new DatabaseException("Mærket blev ikke fundet");
 

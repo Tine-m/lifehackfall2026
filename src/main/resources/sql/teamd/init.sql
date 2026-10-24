@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS teamd_brand;
 CREATE TABLE teamd_brand
 (
     brand_id SERIAL PRIMARY KEY,
-    name     VARCHAR(100) NOT NULL UNIQUE
+    name     VARCHAR(100) NOT NULL UNIQUE,
+    website VARCHAR(255)
 );
 
 -- Hvert mærkes størrelsesguide: én række pr. størrelse (fx 75C)
@@ -31,13 +32,13 @@ CREATE TABLE teamd_size_guide
 -- Mapperen bruger >= min og < max, så et mål hører altid til præcis én størrelse.
 
 -- Data: mærker og deres størrelsesguides (tastet ind fra mærkernes egne guides 19/10-2026)
-INSERT INTO teamd_brand (name)
-VALUES ('Hunkemøller'),
-       ('Lindex'),
-       ('Triumph'),
-       ('Victoria''s Secret'),
-       ('Lounge'),
-       ('H&M');
+INSERT INTO teamd_brand (name, website)
+VALUES ('Hunkemøller', 'https://www.hunkemoller.dk/'),
+       ('Lindex', 'https://www.lindex.com/dk/undertoj/bher?hl=da'),
+       ('Triumph', 'https://dk.triumph.com/'),
+       ('Victoria''s Secret', 'https://www.victoriassecret.co.uk/'),
+       ('Lounge', 'https://dk.lounge.com/'),
+       ('H&M', 'https://www2.hm.com/da_dk/dame/produkt/lingeri.html');
 
 -- Hunkemøller (71 størrelser)
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
