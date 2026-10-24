@@ -7,12 +7,13 @@ import app.controllers.teamd.PerfectFitController;
 import app.controllers.teama.GameController;
 import app.controllers.teamc.EventController;
 import app.controllers.teamb.MemoController;
+import app.controllers.teame.PasswordController;
 import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
-// Starter Javalin, konfigurerer applikationen og registrerer controllers
+// Starter Javalin, konfigurerer applikationen og registrerer controllers.
 public class Main {
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
@@ -33,6 +34,7 @@ public class Main {
             new PerfectFitController(connectionPool).setRoutes(config);
             new MemoController(connectionPool).setRoutes(config); //Team b app Controller
             new UserEventController(connectionPool).setRoutes(config);
+            new PasswordController(connectionPool).setRoutes(config);//team e app Controller
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);
 
