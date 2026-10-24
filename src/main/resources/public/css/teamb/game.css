@@ -80,6 +80,14 @@ h1 {
     transform: rotateY(180deg);
 }
 
+/* Emoji tekst størrelse øget */
+.card-back {
+    font-size: 16px;
+    text-align: center;
+    padding: 4px;
+    word-break: break-word;
+}
+
 /* Fundet par får grøn baggrund */
 .card.matched .card-back {
     background: #bbf7d0;

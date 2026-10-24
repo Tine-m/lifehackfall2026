@@ -34,7 +34,7 @@ public class MemoController {
 
     }
 
-    public void getCards(Context ctx) {
+   public void getCards(Context ctx) {
         try {
             List<Card> cards = CardMapper.getRandomCards(8, connectionPool);
             ctx.json(cards);
