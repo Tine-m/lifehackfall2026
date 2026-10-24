@@ -29,3 +29,79 @@ input {
     padding: 10px;
     width: 90%;
 }
+
+/* Passwordfelt og kopiér-knap på samme linje */
+.result {
+    display: flex;
+    gap: 8px;
+}
+
+.result input {
+    flex: 1;
+    font-family: monospace;
+}
+
+/* Knapper */
+button {
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+/* Formularens felter står under hinanden */
+fieldset {
+    border: 1px solid #374151;
+    margin: 12px 0;
+}
+
+fieldset label {
+    display: block;
+    margin: 6px 0;
+}
+
+fieldset input[type="checkbox"],
+fieldset input[type="radio"] {
+    width: auto;
+}
+
+.template-form {
+    margin-top: 16px;
+}
+
+.template-form select {
+    padding: 8px;
+}
+
+/* Beskeder til brugeren */
+.message {
+    color: #fca5a5;
+}
+
+.copied {
+    color: #86efac;
+}
+
+/* Farver til styrkeindikatoren */
+.strength-Svag {
+    color: #f87171;
+}
+
+.strength-Middel {
+    color: #fbbf24;
+}
+
+.strength-Stærk {
+    color: #4ade80;
+}
+
+/* På små skærme står boksene under hinanden */
+@media (max-width: 760px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box {
+        width: auto;
+        max-width: 350px;
+    }
+}
