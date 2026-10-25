@@ -79,7 +79,7 @@ public class UserEventMapper {
         String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
                 "u.user_id, u.username, u.email, u.gender, u.password " +
                 "FROM teamc_userevent e JOIN teamc_user u ON u.user_id = e.user_id " +
-                "WHERE e.event_id = ? and start_date >= now()";
+                "WHERE e.event_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, eventId);

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EventPlanner — Event</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/teamc/comment.css}">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     <h2 th:text="${event.eventName}">Biograftur</h2>
     <p class="muted">
       <span th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026 19:00</span>
-      &middot; oprettet af <span th:text="${event.user.username}">Cezary</span>
+      &middot; oprettet af <span th:text="${event.user.username}"></span>
     </p>
 
     <h3 class="section-title">Kommentarer</h3>
