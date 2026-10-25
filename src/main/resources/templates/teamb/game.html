@@ -73,7 +73,7 @@
             front.className = 'card-front';
             front.textContent = 'LH';
 
-            // Kortets bagside
+            // Kortets bagside (indholdet ses her)
             const back = document.createElement('div');
             back.className = 'card-back';
 
@@ -105,7 +105,9 @@
 
         function handleCardClick(el) {
             //US2: vende to kort ad gangen..
-            return null;
+
+            // toggle flipper elementer ved click
+            el.classList.toggle("flipped");
         }
 
 
