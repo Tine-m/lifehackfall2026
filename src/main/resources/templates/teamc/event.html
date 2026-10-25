@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventPlanner — Event</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <div class="register-card">
+    <h2 th:text="${event.eventName}">Biograftur</h2>
+    <p class="muted">
+      <span th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026 19:00</span>
+      &middot; oprettet af <span th:text="${event.user.username}">Cezary</span>
+    </p>
+
+    <h3 class="section-title">Kommentarer</h3>
+
+    <p class="muted" th:if="${#lists.isEmpty(comments)}">Ingen kommentarer endnu. Skriv den første!</p>
+
+    <ul class="comment-list" th:unless="${#lists.isEmpty(comments)}">
+      <li th:each="comment : ${comments}">
+        <div class="comment-head">
+          <strong th:text="${comment.user.username}">Anna</strong>
+          <span class="muted" th:text="${#temporals.format(comment.creationDate, 'dd-MM-yyyy HH:mm')}">19-10-2026 14:30</span>
+        </div>
+        <p th:text="${comment.comment_body}">Jeg tager snacks med.</p>
+      </li>
+    </ul>
+
+    <form class="register-form" th:action="@{/eventPlanner/event/{id}/comment(id=${event.event_id})}" method="post">
+      <label for="content">Skriv en kommentar:</label>
+      <textarea id="content" name="content" rows="3" maxlength="500"
+                placeholder="Fx Jeg tager snacks med" required></textarea>
+      <input class="btn" type="submit" value="Send kommentar">
+    </form>
+
+    <p style="color:red;" th:if="${msg != null}" th:text="${msg}"></p>
+
+    <a class="btn login-link" href="/eventPlanner/invitedEvents">Tilbage til mine invitationer</a>
+  </div>
+
+</div>
+
+</body>
+</html>
