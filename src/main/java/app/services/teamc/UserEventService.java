@@ -22,7 +22,7 @@ public class UserEventService {
         this.userEventMapper = new UserEventMapper(connectionPool);
     }
 
-    public UserEvent createEvent(User owner, String eventName, String startDate, String finishDate, boolean restrictComments) throws DatabaseException {
+    public UserEvent createEvent(User owner, String eventName, String startDate, String finishDate, boolean restrictComments, List<String> invites) throws DatabaseException {
         if (eventName == null || eventName.isBlank()){
             throw new IllegalArgumentException("Eventet skal have et navn");
         }
@@ -43,7 +43,14 @@ public class UserEventService {
             throw new IllegalArgumentException("Slutdato skal være samme dag eller efter startdatoen");
         }
 
-        return userEventMapper.createEvent(owner, eventName.trim(), start, finish, restrictComments);
+        UserEvent event = userEventMapper.createEvent(owner, eventName.trim(), start, finish, restrictComments);
+        for(String id : invites){
+            int userId = Integer.parseInt(id);
+            if ((userId != owner.getUser_id())) {
+                userEventMapper.inviteUser(userId, event.getEvent_id());
+            }
+        }
+        return event;
     }
 
     public List<UserEvent> getMyEvents(User owner) throws DatabaseException {

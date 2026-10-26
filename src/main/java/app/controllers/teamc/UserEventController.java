@@ -5,6 +5,7 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.teamc.UserEventMapper;
 import app.services.teamc.CommentService;
+import app.services.teamc.EventService;
 import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
@@ -16,11 +17,13 @@ import java.util.List;
 public class UserEventController {
     private ConnectionPool connectionPool;
     private UserEventService userEventService;
+    private EventService eventService;
 
 
     public UserEventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.userEventService = new UserEventService(connectionPool);
+        this.eventService = new EventService(connectionPool);
     }
 
 
@@ -78,7 +81,7 @@ public class UserEventController {
         return user;
     }
 
-    public void showCreateEvent(Context ctx) {
+    public void showCreateEvent(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
 
@@ -86,12 +89,12 @@ public class UserEventController {
                 .withSecond(0)
                 .withNano(0);
 
-        // Forslag: i morgen kl. 18-21. Så er året allerede udfyldt, og man skal kun rette dag og tid
         LocalDateTime start = LocalDate.now().plusDays(1).atTime(18, 0);
         ctx.attribute("user", user);
         ctx.attribute("now", now);
         ctx.attribute("startDate", start.toString());               // fx 2026-10-24T18:00
         ctx.attribute("finishDate", start.plusHours(3).toString()); // fx 2026-10-24T21:00
+        ctx.attribute("users", eventService.getUsers());
         ctx.render("teamc/createevent.html");
     }
 
@@ -103,9 +106,9 @@ public class UserEventController {
         String startDate = ctx.formParam("startDate");
         String finishDate = ctx.formParam("finishDate");
         boolean restrictComments = ctx.formParam("restrictComments") != null;   // checkbox sendes kun når den er sat
-
+        List<String> invites = ctx.formParams("invitees");
         try {
-            UserEvent event = userEventService.createEvent(user, eventName, startDate, finishDate, restrictComments);
+            UserEvent event = userEventService.createEvent(user, eventName, startDate, finishDate, restrictComments, invites);
             ctx.sessionAttribute("flash", "Eventet \"" + event.getEventName() + "\" er oprettet.");
             ctx.redirect("/eventPlanner/myEvents");
         } catch (IllegalArgumentException e) {
@@ -116,6 +119,8 @@ public class UserEventController {
             ctx.attribute("startDate", startDate);
             ctx.attribute("finishDate", finishDate);
             ctx.attribute("restrictComments", restrictComments);
+            ctx.attribute("users", eventService.getUsers());
+            ctx.attribute("invitees", invites);
             ctx.render("teamc/createevent.html");
         }
     }

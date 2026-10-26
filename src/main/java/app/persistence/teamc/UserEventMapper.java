@@ -27,6 +27,21 @@ public class UserEventMapper {
         this.connectionPool = connectionPool;
     }
 
+    public void inviteUser(int userId, int eventId) throws DatabaseException {
+       String query = "INSERT INTO teamc_invitation (user_id, event_id, response_id)" +
+               "VALUES (?, ?, (SELECT response_id FROM teamc_response WHERE response = 'NOT_RESPONDED'))";
+
+       try (Connection conn = connectionPool.getConnection();
+       PreparedStatement stmt = conn.prepareStatement(query)) {
+           stmt.setInt(1, userId);
+           stmt.setInt(2, eventId);
+           stmt.executeUpdate();
+       } catch (SQLException e) {
+           logger.error(e.getMessage(), e);
+           throw new DatabaseException("Invitattionen blev ikke gemt, " + e.getMessage());
+       }
+    }
+
     public UserEvent createEvent(User owner, String eventName, LocalDateTime startDate, LocalDateTime finishDate, boolean restrictComments) throws DatabaseException {
         String query = "INSERT INTO teamc_userevent (user_id, event_name, creation_date, start_date, finish_date, restrict_comments) " +
                 "VALUES (?, ?, CURRENT_DATE, ?, ?, ?)";
