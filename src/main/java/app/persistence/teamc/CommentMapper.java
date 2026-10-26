@@ -3,7 +3,6 @@ package app.persistence.teamc;
 import app.dto.teamc.UserAndInvitation;
 import app.entities.teamc.Comment;
 import app.entities.teamc.User;
-import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import org.slf4j.Logger;
@@ -74,9 +73,7 @@ public class CommentMapper {
             throw new DatabaseException("Kunne ikke tjekke invitationen", e.getMessage());
         }
     }
-
     // ---------- KOMMENTARER ----------
-
     public void addComment(int eventId, User user, String content) throws DatabaseException {
         String query = "INSERT INTO teamc_comment (user_id, event_id, content, create_date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
         try (Connection connection = connectionPool.getConnection();

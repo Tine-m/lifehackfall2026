@@ -1,6 +1,5 @@
 package app.controllers.teamc;
 
-import app.dto.teamc.UserAndInvitation;
 import app.entities.teamc.User;
 import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
@@ -26,7 +25,6 @@ public class EventController {
         this.eventService = new EventService(connectionPool);
         this.userEventService = new UserEventService(connectionPool);
         this.commentService = new CommentService(connectionPool);
-
     }
 
     public void setRoutes(JavalinConfig config) {
@@ -35,7 +33,6 @@ public class EventController {
         config.routes.post("/eventPlanner/mainpage", ctx -> loginController(ctx));
         config.routes.get("/eventPlanner/register", ctx -> ctx.render("teamc/register.html"));
         config.routes.post("/eventPlanner/register/userInsert", ctx  -> register(ctx));
-
 
     }
 
@@ -59,7 +56,6 @@ public class EventController {
                     "E-mail eller adgangskode er forkert.");
             ctx.render("teamc/login.html");
         }
-
     }
 
     public void register(Context ctx) throws DatabaseException {

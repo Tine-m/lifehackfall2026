@@ -10,7 +10,6 @@ import app.persistence.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -113,6 +112,7 @@ public class UserEventMapper {
         }
         return null;
     }
+
     public List<Invitation> getInvitationsForEvent(UserEvent event) throws DatabaseException {
         String query = "SELECT i.invitation_id, r.response, " +
                 "u.user_id, u.username, u.email, u.gender, u.password " +
@@ -396,12 +396,10 @@ public class UserEventMapper {
         return events;
     }
 
-
     public Comment createComment(User author, int eventId, String content) throws DatabaseException{
 
         String query = "INSERT INTO teamc_comment (user_id, event_id, content, create_date) " +
                 "VALUES (?, ?, ?, CURRENT_DATE)";
-
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -415,9 +413,7 @@ public class UserEventMapper {
                     Comment comment = new Comment(keys.getInt(1), content, LocalDate.now().atStartOfDay());
                     comment.setUser(author);
                     return comment;
-
                 }
-
             }
             throw new DatabaseException("Kommentaren blev ikke gemt");
 
@@ -450,7 +446,4 @@ public class UserEventMapper {
         }
         return events;
     }
-
-
-
 }

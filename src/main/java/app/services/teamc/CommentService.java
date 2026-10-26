@@ -14,7 +14,6 @@ import java.util.List;
 public class CommentService {
 
     private static final int MAX_LENGTH = 500;
-
     private ConnectionPool connectionPool;
     private CommentMapper commentMapper;
     private UserEventMapper userEventMapper;
@@ -39,7 +38,6 @@ public class CommentService {
             return event;
         }
         return null;
-
     }
 
     public List<Comment> getComments(UserEvent event) throws DatabaseException {
@@ -59,6 +57,4 @@ public class CommentService {
         }
         commentMapper.addComment(eventId, user, content.trim());
     }
-
-
 }

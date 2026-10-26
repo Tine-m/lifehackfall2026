@@ -1,7 +1,6 @@
 package app.entities.teamc;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Comment {
     private int comment_id;
@@ -23,7 +22,6 @@ public class Comment {
         this.user = user;
         this.userEvent = userEvent;
     }
-
 
     public UserEvent getUserEvent() {
         return userEvent;

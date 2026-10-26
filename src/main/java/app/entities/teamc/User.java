@@ -1,7 +1,5 @@
 package app.entities.teamc;
 
-import java.util.UUID;
-
 public class User {
     private int user_id;
     private String username;
@@ -61,6 +59,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 }

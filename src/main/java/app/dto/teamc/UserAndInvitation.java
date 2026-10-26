@@ -1,14 +1,9 @@
 package app.dto.teamc;
 
-import app.entities.teamc.CommentList;
-import app.entities.teamc.Invitation;
 import app.entities.teamc.User;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class UserAndInvitation {
-
 
     private int event_id;
     private User user;
@@ -29,7 +24,6 @@ public class UserAndInvitation {
         this.commentVisibility = commentVisibility;
         this.response = response;
     }
-
 
     public int getEvent_id() {
         return event_id;

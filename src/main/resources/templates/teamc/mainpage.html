@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
-
-
-<script>
-    function Search () {
-    const input = document.getElementById('search-input').value;
-
-
-    )}
-
-
-
-</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +53,6 @@
         <div class="events">
             <h2 class="section-title">Dine kommende arrangementer:</h2>
 
-
             <div class="event-list">
                 <p th:if="${#lists.isEmpty(events)}">Du har ikke nogle kommende events</p>
                 <ul class="event-list" th:unless="${#lists.isEmpty(events)}">
@@ -81,6 +68,15 @@
         </div>
 
     </main>
+
+    <script>
+        function Search () {
+            const input = document.getElementById('search-input').value;
+
+
+        )}
+
+    </script>
 
 </body>
 </html>

@@ -3,15 +3,10 @@ package app.controllers.teamc;
 import app.entities.teamc.*;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.teamc.UserEventMapper;
-import app.services.teamc.CommentService;
 import app.services.teamc.EventService;
 import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
-import org.jetbrains.annotations.NotNull;
-
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,16 +16,14 @@ public class UserEventController {
     private UserEventService userEventService;
     private EventService eventService;
 
-
     public UserEventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.userEventService = new UserEventService(connectionPool);
         this.eventService = new EventService(connectionPool);
     }
 
-
-
     public void setRoutes(JavalinConfig config){
+
         config.routes.get("/eventPlanner/createEvent", ctx -> showCreateEvent(ctx));
         config.routes.post("/eventPlanner/createEvent", ctx -> createEvent(ctx));
         config.routes.get("/eventPlanner/myEvents", ctx -> myEvents(ctx));
@@ -40,22 +33,16 @@ public class UserEventController {
         config.routes.get("/eventPlanner/inbox", ctx -> inbox(ctx));
         config.routes.post("/eventPlanner/inbox/{invitationId}/accept", ctx -> acceptInvitation(ctx));
         config.routes.post("/eventPlanner/inbox/{invitationId}/decline", ctx -> declineInvitation(ctx));
-
         config.routes.post("/eventPlanner/event/{id}/comments", ctx -> addComment(ctx));
-
-
-
 
     }
 
     private void profil(Context ctx) throws DatabaseException {
+
         User user = requireLogin(ctx);
         if (user == null) return;
 
         List<UserEvent> attendedEvents = userEventService.getPastEvents(user);
-
-
-
         ctx.attribute("attendedEvents", attendedEvents);
         ctx.attribute("user", user);
         ctx.render("teamc/profil.html");
@@ -75,6 +62,7 @@ public class UserEventController {
             ctx.attribute("user", user);
             ctx.attribute("events", events);
             ctx.render("teamc/mainpage");
+
         } else if(search != null){
 
             List<UserEvent> events = userEventService.getAcceptedEvents(user);
@@ -83,22 +71,14 @@ public class UserEventController {
             for (UserEvent event: events){
                 if (event.getEventName().toLowerCase().startsWith(search.toLowerCase())){
 
-
                     ctx.attribute("user", user);
                     ctx.attribute("events", events);
                     ctx.render("teamc/mainpage");
 
                     //contains(search)
-
                 }
-
-
             }
-
-
         }
-
-
     }
 
     private User requireLogin(Context ctx) {
@@ -259,9 +239,5 @@ public class UserEventController {
         }
         ctx.redirect("/eventPlanner/event/" + eventId + "/comments");
     }
-
-
-
-
 }
 
