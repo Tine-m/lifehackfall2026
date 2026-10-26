@@ -63,18 +63,26 @@
 
                 <div class="popUpButtons" style="grid-area: area-3">
 
-                    <button class="popUpButton" id="playAgain" href="/rcade/niveau"+>
-
+                    <!-- Mangler action-->
+                    <form action="/rcade/playAgain">
+                    <button type="submit" class="popUpButton" id="playAgain">
                         Prøv igen?
                     </button>
+                    </form>
 
-                    <button class="popUpButton" id="playNextLevel" th:if="${unlockNextLevel}" onclick="">
-                        Spil næste niveau!
-                    </button>
+                    <!-- Mangler action-->
+                    <form action="/rcade/nextLevel" method="get">
+                        <button type="submit" class="popUpButton" id="playNextLevel" th:classappend="${!isNextLevelOpen} ? 'buttonLocked'" onclick="">
+                            Spil næste niveau!
+                        </button>
+                    </form>
 
-                    <button class="popUpButton" id="backToOverview"  onclick="">
+
+                    <form action="/rcade">
+                    <button type="submit" class="popUpButton" id="backToOverview"  onclick="">
                         tilbage til oversigt
                     </button>
+                    </form>
 
                 </div>
                 </div>

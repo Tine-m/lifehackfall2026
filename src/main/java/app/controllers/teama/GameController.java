@@ -9,6 +9,7 @@ import app.services.teama.ColourService;
 import app.services.teama.ScoreService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
+import org.jetbrains.annotations.NotNull;
 
 public class GameController {
 
@@ -29,9 +30,41 @@ public class GameController {
         config.routes.get("/rcade/niveau2", ctx -> renderNiveau2(ctx));
         config.routes.get("/rcade/niveau3", ctx -> renderNiveau3(ctx));
         config.routes.get("/rcade/attackmode", ctx -> renderAttackmode(ctx));
+        config.routes.get("/rcade/nextLevel", ctx -> renderNextLevel(ctx));
+        config.routes.get("/rcade/playAgain", ctx -> renderSameLevel(ctx));
 
-        config.routes.post("/rcade/niveau1", ctx -> submitGuess(ctx));
+
+        config.routes.post("/rcade/submit", ctx -> submitGuess(ctx));
         config.routes.post("/rcade/savescore", ctx -> saveScore(ctx));
+    }
+
+    private void renderSameLevel(Context ctx) {
+        Game game = ctx.sessionAttribute("game");
+        switch (game.getLevel()) {
+            case 1:
+                ctx.redirect("/rcade/niveau1");
+                System.out.println(game.getLevel());
+            case 2:
+                ctx.redirect("/rcade/niveau2");
+            case 3:
+                ctx.redirect("/rcade/niveau3");
+            default:
+                ctx.redirect("/rcade");
+        }
+
+    }
+
+    private void renderNextLevel(Context ctx) {
+        Game game = ctx.sessionAttribute("game");
+
+        switch (game.getLevel()) {
+            case 1:
+                ctx.redirect("/rcade/niveau2");
+            case 2:
+                ctx.redirect("/rcade/niveau3");
+			default:
+                ctx.redirect("/rcade");
+        }
     }
 
     public void renderFrontpage(Context ctx){
@@ -94,17 +127,16 @@ public class GameController {
 
         game.setScore(colourService.getScore(game.getGuess(), game.getTarget()));
 
-        ctx.attribute("unlockNextLevel", scoreService.unlockNextLevel(game));
-
         //highcore?
 
-        if (game.getScore() >= game.getBenchmarkScore()){
+        if (scoreService.unlockNextLevel(game)){
             switch (game.getLevel()){
                 case 1:
                     ctx.sessionAttribute("niveau2Status", "active");
                 case 2:
                     ctx.sessionAttribute("niveau3Status", "active");
             }
+            ctx.attribute("isNextLevelOpen", true);
         }
 
         ctx.render("teama/result.html");
