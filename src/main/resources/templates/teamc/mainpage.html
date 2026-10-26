@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+
+<script>
+    function Search () {
+    const input = document.getElementById('search-input').value;
+
+
+    )}
+
+
+
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,8 +45,8 @@
         </div>
 
         <div class="controls">
-            <form class="search-bar" action="/eventPlanner" method="get">
-                <input class="search-input" type="search" name="q" placeholder="Søg arrangementer...">
+            <form class="search-bar" action="/eventPlanner/mainpage" method="post" >
+                <input class="search-input" type="search" name="search" placeholder="Søg arrangementer..." oninput="Search()">
             </form>
 
             <div class="sort-bar">

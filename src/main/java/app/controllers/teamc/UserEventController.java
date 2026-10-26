@@ -9,6 +9,8 @@ import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
+
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,14 +62,40 @@ public class UserEventController {
         User user = requireLogin(ctx);
         if (user == null) return;
 
-        List<UserEvent> events = userEventService.getAcceptedEvents(user);
-        events.addAll(userEventService.getMyEvents(user));
+        String search = ctx.formParam("search");
+        ctx.attribute("search", search);
+
+        if (search == null) {
+
+            List<UserEvent> events = userEventService.getAcceptedEvents(user);
+            events.addAll(userEventService.getMyEvents(user));
+            ctx.attribute("user", user);
+            ctx.attribute("events", events);
+            ctx.render("teamc/mainpage");
+        } else if(search != null){
+
+            List<UserEvent> events = userEventService.getAcceptedEvents(user);
+            events.addAll(userEventService.getMyEvents(user));
+
+            for (UserEvent event: events){
+                if (event.getEventName().toLowerCase().startsWith(search.toLowerCase())){
 
 
-        ctx.attribute("user", user);
+                    ctx.attribute("user", user);
+                    ctx.attribute("events", events);
+                    ctx.render("teamc/mainpage");
 
-        ctx.attribute("events", events );
-        ctx.render("teamc/mainpage");
+                    //contains(search)
+
+                }
+
+
+            }
+
+
+        }
+
+
     }
 
     private User requireLogin(Context ctx) {
