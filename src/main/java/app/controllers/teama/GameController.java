@@ -43,10 +43,13 @@ public class GameController {
         switch (game.getLevel()) {
             case 1:
                 ctx.redirect("/rcade/niveau1");
+                break;
             case 2:
                 ctx.redirect("/rcade/niveau2");
+                break;
             case 3:
                 ctx.redirect("/rcade/niveau3");
+                break;
             default:
                 ctx.redirect("/rcade");
         }
@@ -59,8 +62,10 @@ public class GameController {
         switch (game.getLevel()) {
             case 1:
                 ctx.redirect("/rcade/niveau2");
+                break;
             case 2:
                 ctx.redirect("/rcade/niveau3");
+                break;
 			default:
                 ctx.redirect("/rcade");
         }
