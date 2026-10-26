@@ -73,6 +73,8 @@ function handleCardClick(el) {
     if (el.classList.contains('flipped')) return;
     if (el.classList.contains('matched')) return;
 
+    startTimer();
+
     el.classList.add('flipped'); // vi erstatter vores toggle med add
 
     if (!firstCard){
@@ -88,6 +90,7 @@ function checkForMatch() {
     lockBoard = true;
 
     const isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+    increaseMoves();
     console.log("matched cards: ", isMatch);
 
     if (isMatch) {
