@@ -36,7 +36,8 @@
       </tbody>
     </table>
 
-    <a class="btn login-link" href="/eventPlanner/myEvents">Tilbage til mine events</a>
+    <a class="btn login-link" th:if="${isOwner}" href="/eventPlanner/myEvents">Tilbage til mine events</a>
+    <a class="btn login-link" th:unless="${isOwner}" href="/eventPlanner/mainpage">Tilbage til forsiden</a>
   </div>
 
 </div>

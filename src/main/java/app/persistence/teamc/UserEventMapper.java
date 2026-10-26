@@ -220,6 +220,22 @@ public class UserEventMapper {
         return comments;
     }
 
+    // True hvis brugeren er inviteret til eventet, uanset svar (også ikke besvaret)
+    public boolean isInvited(int userId, int eventId) throws DatabaseException {
+        String query = "SELECT 1 FROM teamc_invitation WHERE event_id = ? AND user_id = ?";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, eventId);
+            stm.setInt(2, userId);
+            try (ResultSet rs = stm.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke tjekke invitation", e.getMessage());
+        }
+    }
+
     public  boolean canComment(int userId, int eventId)throws DatabaseException {
         String query = "SELECT 1 " +
                 "FROM teamc_userevent e " +
@@ -245,10 +261,6 @@ public class UserEventMapper {
             throw new DatabaseException("Kunne ikke tjekke kommentar-rettigheder", e.getMessage());
         }
     }
-
-
-
-
 
     // Opdaterer kun hvis invitationen tilhører brugeren. Returnerer antal opdaterede rækker.
     public int respondToInvitation(int invitationId, int userId, Response response) throws DatabaseException {
