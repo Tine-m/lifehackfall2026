@@ -37,7 +37,7 @@
                 <th>Date</th>
                 -->
             </tr>
-            <tr th:each="score, stat : ${todayList}" th:if="${stat.index < 5}">
+            <tr th:each="score, stat : ${session.todayList}" th:if="${stat.index < 5}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>
@@ -56,7 +56,7 @@
                 <th>Date</th>
                 -->
             </tr>
-            <tr th:each="score, stat : ${weekList}" th:if="${stat.index < 5}">
+            <tr th:each="score, stat : ${session.weekList}" th:if="${stat.index < 5}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>
@@ -126,7 +126,7 @@
                 <th>Date</th>
                 -->
             </tr>
-            <tr th:each="score, stat : ${allTimeList}" th:if="${stat.index < 10}">
+            <tr th:each="score, stat : ${session.allTimeList}" th:if="${stat.index < 10}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>

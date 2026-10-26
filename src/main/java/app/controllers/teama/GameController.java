@@ -38,9 +38,9 @@ public class GameController {
 
     public void renderFrontpage(Context ctx){
         try {
-            ctx.attribute("todayList", scoreService.getTopToday(5));
-            ctx.attribute("weekList", scoreService.getTopWeek(5));
-            ctx.attribute("allTimeList", scoreService.getTopAllTime(10));
+            ctx.sessionAttribute("todayList", scoreService.getTopToday(5));
+            ctx.sessionAttribute("weekList", scoreService.getTopWeek(5));
+            ctx.sessionAttribute("allTimeList", scoreService.getTopAllTime(10));
         } catch (DatabaseException e) {
             System.out.println("Highscores kunne ikke loades");
         }
