@@ -2,8 +2,10 @@ package app.controllers.teama;
 
 import app.entities.teama.Colour;
 import app.entities.teama.Game;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.services.teama.ColourService;
+import app.services.teama.ScoreService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
@@ -15,10 +17,12 @@ public class GameController {
 
     private ConnectionPool connectionPool;
     private ColourService colourService;
+    private ScoreService scoreService;
 
     public GameController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.colourService = new ColourService(connectionPool);
+        this.scoreService = new ScoreService(connectionPool);
     }
 
     public void setRoutes(JavalinConfig config) {
@@ -32,6 +36,14 @@ public class GameController {
     }
 
     public void renderFrontpage(Context ctx){
+        try {
+            ctx.attribute("todayList", scoreService.getTopToday(5));
+            ctx.attribute("weekList", scoreService.getTopWeek(5));
+            ctx.attribute("allTimeList", scoreService.getTopAllTime(10));
+        } catch (DatabaseException e) {
+            System.out.println("Highscores kunne ikke loades");
+        }
+
         ctx.sessionAttribute("niveau1Status", "active");
         ctx.sessionAttribute("niveau2Status", null);
         ctx.sessionAttribute("niveau3Status", null);
