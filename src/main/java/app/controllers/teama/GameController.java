@@ -82,6 +82,6 @@ public class GameController {
         ctx.attribute("guessColour", guessColour);
         ctx.attribute("guessScore", colourService.getScore(guessColour));
 
-        ctx.render("teama/popup.html");
+        ctx.render("teama/result.html");
     }
 }
