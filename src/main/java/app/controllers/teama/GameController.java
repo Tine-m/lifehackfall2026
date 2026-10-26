@@ -44,9 +44,6 @@ public class GameController {
         }
 
         ctx.sessionAttribute("niveau1Status", "active");
-        ctx.sessionAttribute("niveau2Status", null);
-        ctx.sessionAttribute("niveau3Status", null);
-        ctx.sessionAttribute("attackModeStatus", null);
         ctx.render("teama/frontpage.html");
     }
 
@@ -101,6 +98,15 @@ public class GameController {
 
         //highcore?
 
+        if (game.getScore() >= game.getBenchmarkScore()){
+            switch (game.getLevel()){
+                case 1:
+                    ctx.sessionAttribute("niveau2Status", "active");
+                case 2:
+                    ctx.sessionAttribute("niveau3Status", "active");
+            }
+        }
+
         ctx.render("teama/result.html");
     }
 
@@ -115,10 +121,8 @@ public class GameController {
             scoreService.saveScore(highscore);
         }
         catch(DatabaseException e){
-            System.out.println("Highscore kunne ikke gemmes " +e.toString());
+            System.out.println("Highscore kunne ikke gemmes " + e);
         }
 
     }
-
-
 }

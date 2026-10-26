@@ -51,4 +51,8 @@ public class Game {
 	public int getBenchmarkScore() {
 		return benchmarkScore;
 	}
+
+	public int getLevel(){
+		return this.level;
+	}
 }
