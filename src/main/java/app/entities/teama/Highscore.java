@@ -29,6 +29,10 @@ public class Highscore {
         return score3;
     }
 
+    public int getTotal() {
+        return score1 + score2 + score3;
+    }
+
     public String getInitials() {
         return initials;
     }

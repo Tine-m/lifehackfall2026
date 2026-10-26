@@ -6,17 +6,16 @@ import app.persistence.ConnectionPool;
 import java.util.Random;
 
 public class ColourService {
-    private Colour currentTargetColour;
     private ConnectionPool connectionPool;
 
     public ColourService(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
-    public int getScore(Colour guess){
-        int distR = currentTargetColour.getR()-guess.getR();
-        int distG = currentTargetColour.getG()-guess.getG();
-        int distB = currentTargetColour.getB()-guess.getB();
+    public int getScore(Colour guess, Colour targetColour){
+        int distR = targetColour.getR()-guess.getR();
+        int distG = targetColour.getG()-guess.getG();
+        int distB = targetColour.getB()-guess.getB();
         double dist3D = Math.sqrt((distR*distR)+(distG*distG)+(distB*distB));
         double score = (Math.sqrt(195075)-dist3D)*1000;
         return (int)Math.round(score);
@@ -29,14 +28,5 @@ public class ColourService {
     private int getRandomRGBValue() {
         Random random = new Random();
         return random.nextInt(1, 256);
-    }
-
-    public Colour getNewTargetColour() {
-        currentTargetColour = getRandomColour();
-        return currentTargetColour;
-    }
-
-    public Colour getCurrentTargetColour() {
-        return currentTargetColour;
     }
 }

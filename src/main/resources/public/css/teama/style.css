@@ -117,8 +117,8 @@ body{
 
 .scoreboard {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     justify-self: center;
 
     position: relative;
@@ -152,24 +152,6 @@ body{
     height: 10px;
     background: #CBB9A4;
 }
-
-
-.scoreboard .divider {
-    position: absolute;
-    top: 7.2vw;
-    left: 0; right: 0;
-    height: 3px;
-    background: repeating-linear-gradient(to right,
-    #211B16 0 5px,
-    transparent 5px 8px);
-}
-
-
-.scoreboard .content {
-    position: absolute;
-    top: 42cqw; left: 4cqw; right: 4cqw; bottom: 5cqw;
-}
-
 
 /* Niveau-selector layout */
 

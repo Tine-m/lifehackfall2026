@@ -26,10 +26,36 @@
     <div class="grid-one-item" style="grid-area: box-2"></div>
 
     <div class="grid-one-item scoreboard" style="grid-area: box-3"> <!-- th:each alle highscores på listen -->
-        <div class="divider"></div>
-        <div class="scoreboardContent">
-            Leaderboard goes here
-        </div>
+        <p>Highest scores today</p>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Score</th>
+                <th>Name</th>
+                <th>Date</th>
+            </tr>
+            <tr th:each="score, stat : ${todayList}" th:if="${stat.index < 5}">
+                <td th:text="${stat.count}">1</td>
+                <td th:text="${score.total}"></td>
+                <td th:text="${score.initials}"></td>
+                <td th:text="${score.date}"></td>
+            </tr>
+        </table>
+        <p>Highest scores this week</p>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Score</th>
+                <th>Name</th>
+                <th>Date</th>
+            </tr>
+            <tr th:each="score, stat : ${weekList}" th:if="${stat.index < 5}">
+                <td th:text="${stat.count}">1</td>
+                <td th:text="${score.total}"></td>
+                <td th:text="${score.initials}"></td>
+                <td th:text="${score.date}"></td>
+            </tr>
+        </table>
     </div>
 
     <div class="grid-one-item game" style="grid-area: box-4">
@@ -80,10 +106,21 @@
     </div>
 
     <div class="grid-one-item scoreboard" style="grid-area: box-5"> <!-- th:each alle highscores på listen -->
-        <div class="divider"></div>
-        <div class="scoreboardContent">
-            Another leaderboard goes here
-        </div>
+        <p>Highest scores of all time</p>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Score</th>
+                <th>Name</th>
+                <th>Date</th>
+            </tr>
+            <tr th:each="score, stat : ${allTimeList}" th:if="${stat.index < 10}">
+                <td th:text="${stat.count}">1</td>
+                <td th:text="${score.total}"></td>
+                <td th:text="${score.initials}"></td>
+                <td th:text="${score.date}"></td>
+            </tr>
+        </table>
     </div>
 
 </div>
