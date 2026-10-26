@@ -135,7 +135,7 @@ h1 {
     outline-offset: 2px;
 }
 
-/* Tastatur-fokus */
+/* Tastatur fokus */
 .card:focus-visible {
     outline: 3px solid #3b82f6;
     outline-offset: 2px;
