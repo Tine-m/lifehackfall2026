@@ -55,8 +55,16 @@
 
 
             <div class="event-list">
-                    <img class="event-image" th:src="@{/images/photo.jpg}" alt="Arrangement">
-                </article>
+                <p th:if="${#lists.isEmpty(events)}">Du har ikke nogle kommende events</p>
+                <ul class="event-list" th:unless="${#lists.isEmpty(events)}">
+                    <li th:each="event : ${events}">
+                        <div>
+                            <strong th:text="${event.eventName}">Biograftur</strong><br>
+                            <span class="muted" th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026</span>
+                        </div>
+                        <a th:href="@{/eventPlanner/event/{id}/participants(id=${event.event_id})}">Se deltagere</a>
+                    </li>
+                </ul>
             </div>
         </div>
 

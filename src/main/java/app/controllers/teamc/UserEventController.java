@@ -4,6 +4,7 @@ import app.entities.teamc.*;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.teamc.UserEventMapper;
+import app.services.teamc.CommentService;
 import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
@@ -15,11 +16,14 @@ import java.util.List;
 public class UserEventController {
     private ConnectionPool connectionPool;
     private UserEventService userEventService;
+    private CommentService commentService;
 
     public UserEventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.userEventService = new UserEventService(connectionPool);
     }
+
+
 
     public void setRoutes(JavalinConfig config){
         config.routes.get("/eventPlanner/createEvent", ctx -> showCreateEvent(ctx));
@@ -28,12 +32,12 @@ public class UserEventController {
         config.routes.get("/eventPlanner/event/{id}/participants", ctx -> participants(ctx));
         config.routes.get("/eventPlanner/profile", ctx -> profil(ctx));
         config.routes.get("/eventPlanner/mainpage", ctx -> showMainPage(ctx));
-
         config.routes.get("/eventPlanner/inbox", ctx -> inbox(ctx));
         config.routes.post("/eventPlanner/inbox/{invitationId}/accept", ctx -> acceptInvitation(ctx));
         config.routes.post("/eventPlanner/inbox/{invitationId}/decline", ctx -> declineInvitation(ctx));
 
         config.routes.post("/eventPlanner/event/{id}/comments", ctx -> addComment(ctx));
+
 
 
 
@@ -50,9 +54,16 @@ public class UserEventController {
         ctx.render("teamc/profil.html");
     }
 
-    private void showMainPage(@NotNull Context ctx) {
+    private void showMainPage(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
+        ctx.attribute("user", user);
+
+
+        commentService.getInvitedEvents(user);
+
+
+        ctx.attribute("events", userEventService.getMyEvents(user));
         ctx.render("teamc/mainpage");
     }
 
@@ -211,6 +222,7 @@ public class UserEventController {
         }
         ctx.redirect("/eventPlanner/event/" + eventId + "/comments");
     }
+
 
 
 

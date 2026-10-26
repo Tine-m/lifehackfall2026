@@ -94,4 +94,16 @@ public class CommentController {
         ctx.attribute("events", commentService.getInvitedEvents(user));
         ctx.render("teamc/invitedevents");
     }
+
+
+    private void invitedAccepted(@NotNull Context ctx) throws DatabaseException {
+        User user = requireLogin(ctx);
+        if(user == null) return;
+
+        ctx.attribute("user", user);
+        ctx.attribute("events", commentService.getInvitedEvents(user));
+        ctx.attribute("");
+
+        ctx.render("teamc/invitedevents");
+    }
 }

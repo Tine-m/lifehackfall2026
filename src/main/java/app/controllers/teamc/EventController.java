@@ -25,6 +25,7 @@ public class EventController {
         config.routes.get("/eventPlanner/register", ctx -> ctx.render("teamc/register.html"));
         config.routes.post("/eventPlanner/register/userInsert", ctx  -> register(ctx));
 
+
     }
 
     public void loginController (Context ctx) throws DatabaseException {
@@ -36,7 +37,7 @@ public class EventController {
 
         if (user != null){
             ctx.sessionAttribute("user", user);
-            ctx.render("/teamc/mainpage.html");
+            ctx.redirect("/eventPlanner/mainpage");
         } else {
             ctx.status(401);
             ctx.attribute("msg",

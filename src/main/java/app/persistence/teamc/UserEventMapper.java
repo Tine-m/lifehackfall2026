@@ -10,6 +10,7 @@ import app.persistence.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -302,6 +303,33 @@ public class UserEventMapper {
         };
     }
 
+
+    public List<UserEvent> getAcceptedEvents(User user) throws DatabaseException {
+        String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
+                "owner.user_id, owner.username, owner.email, owner.gender, owner.password " +
+                "FROM teamc_invitation i " +
+                "JOIN teamc_userevent e ON e.event_id = i.event_id " +
+                "JOIN teamc_user owner ON owner.user_id = e.user_id " +
+                "JOIN teamc_response r ON r.response_id = i.response_id " +
+                "WHERE i.user_id = ? AND r.response = 'YES' AND e.start_date >= now() " +
+                "ORDER BY e.start_date, e.event_id";
+        List<UserEvent> events = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, user.getUser_id());
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    User owner = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("email"), rs.getString("gender"), rs.getString("password"));
+                    events.add(mapEvent(rs, owner));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke hente dine accepterede events", e.getMessage());
+        }
+        return events;
+    }
 
     public List<UserEvent> getPastEvents(User user) throws DatabaseException {
         String query = "SELECT\n" +
