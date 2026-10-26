@@ -57,6 +57,8 @@ public class UserEventController {
     private void showMainPage(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
+
+
         ctx.attribute("user", user);
 
 
