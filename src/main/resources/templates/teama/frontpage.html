@@ -32,13 +32,17 @@
                 <th>Rank</th>
                 <th>Score</th>
                 <th>Name</th>
+                <!--
                 <th>Date</th>
+                -->
             </tr>
             <tr th:each="score, stat : ${todayList}" th:if="${stat.index < 5}">
-                <td th:text="${stat.count}">1</td>
-                <td th:text="${score.total}"></td>
-                <td th:text="${score.initials}"></td>
+                <td class="rank" th:text="${stat.count}">1</td>
+                <td class="score" th:text="${score.total}"></td>
+                <td class="initials" th:text="${score.initials}"></td>
+                <!--
                 <td th:text="${score.date}"></td>
+                -->
             </tr>
         </table>
         <p>Highest scores this week</p>
@@ -47,13 +51,17 @@
                 <th>Rank</th>
                 <th>Score</th>
                 <th>Name</th>
+                <!--
                 <th>Date</th>
+                -->
             </tr>
             <tr th:each="score, stat : ${weekList}" th:if="${stat.index < 5}">
-                <td th:text="${stat.count}">1</td>
-                <td th:text="${score.total}"></td>
-                <td th:text="${score.initials}"></td>
+                <td class="rank" th:text="${stat.count}">1</td>
+                <td class="score" th:text="${score.total}"></td>
+                <td class="initials" th:text="${score.initials}"></td>
+                <!--
                 <td th:text="${score.date}"></td>
+                -->
             </tr>
         </table>
     </div>
@@ -112,13 +120,17 @@
                 <th>Rank</th>
                 <th>Score</th>
                 <th>Name</th>
+                <!--
                 <th>Date</th>
+                -->
             </tr>
             <tr th:each="score, stat : ${allTimeList}" th:if="${stat.index < 10}">
-                <td th:text="${stat.count}">1</td>
-                <td th:text="${score.total}"></td>
-                <td th:text="${score.initials}"></td>
+                <td class="rank" th:text="${stat.count}">1</td>
+                <td class="score" th:text="${score.total}"></td>
+                <td class="initials" th:text="${score.initials}"></td>
+                <!--
                 <td th:text="${score.date}"></td>
+                -->
             </tr>
         </table>
     </div>
