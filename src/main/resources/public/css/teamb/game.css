@@ -48,6 +48,7 @@ h1 {
     transform-style: preserve-3d;
 }
 
+
 /* Når kortet er vendt, drejes det */
 .card.flipped .card-inner {
     transform: rotateY(180deg);
@@ -63,6 +64,15 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+/* Billedet fylder kortet og beholder proportionerne */
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 /* Forsiden: lilla med LH */
@@ -78,14 +88,6 @@ h1 {
     background: white;
     border: 2px solid #a855f7;
     transform: rotateY(180deg);
-}
-
-/* Emoji tekst størrelse øget */
-.card-back {
-    font-size: 16px;
-    text-align: center;
-    padding: 4px;
-    word-break: break-word;
 }
 
 /* Fundet par får grøn baggrund */
