@@ -16,7 +16,7 @@ import java.util.List;
 public class UserEventController {
     private ConnectionPool connectionPool;
     private UserEventService userEventService;
-    private CommentService commentService;
+
 
     public UserEventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
@@ -58,9 +58,13 @@ public class UserEventController {
         User user = requireLogin(ctx);
         if (user == null) return;
 
+        List<UserEvent> events = userEventService.getAcceptedEvents(user);
+        events.addAll(userEventService.getMyEvents(user));
+
 
         ctx.attribute("user", user);
-        ctx.attribute("events", userEventService.getMyEvents(user));
+
+        ctx.attribute("events", events );
         ctx.render("teamc/mainpage");
     }
 

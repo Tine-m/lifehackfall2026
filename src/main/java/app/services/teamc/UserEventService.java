@@ -102,5 +102,7 @@ public class UserEventService {
         }
         return userEventMapper.createComment(user, eventId, content.trim());
         }
-
+    public List<UserEvent> getAcceptedEvents(User user) throws DatabaseException{
+        return userEventMapper.getAcceptedEvents(user);
+    }
 }
