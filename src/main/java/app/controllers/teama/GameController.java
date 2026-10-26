@@ -34,7 +34,7 @@ public class GameController {
         config.routes.get("/rcade/niveau3", ctx -> renderNiveau3(ctx));
         config.routes.get("/rcade/attackmode", ctx -> renderAttackmode(ctx));
 
-        config.routes.post("/rcade/niveau1", ctx -> submitGuess(ctx));
+        config.routes.post("/rcade/submit", ctx -> submitGuess(ctx));
         config.routes.post("/rcade/savescore", ctx -> saveScore(ctx));
     }
 
