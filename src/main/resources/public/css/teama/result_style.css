@@ -68,3 +68,7 @@
 #backToOverview{
     background-color: var(--turquoiselight);
 }
+
+.buttonLocked{
+    cursor: not-allowed;
+}
