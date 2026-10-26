@@ -1,0 +1,72 @@
+
+#result-page{
+    box-sizing: border-box;
+    border: none;
+    padding: 1rem;
+    grid-gap: 1rem;
+
+    width: 100%;
+    aspect-ratio: 1329 / 745;
+
+   /* background-image: url("/public/images/teama/pop_up.svg");  er denne sti forkert?
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent; */
+
+    font-family: monospace;
+    font-size: 10px;
+
+  /*  height: 60vh;
+    aspect-ratio: 939 / 596; */
+
+    align-self: center;
+    justify-items: center;
+
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+    grid-template-areas:
+    "area-1"
+    "area-2"
+    "area-3"
+    "area-4"
+    "area-5";
+
+}
+
+.popUpButtons {
+    box-sizing: border-box;
+    width: 100%;
+
+    padding-left: 20%;
+    padding-right: 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.popUpButton{
+    height: 40%;
+    aspect-ratio: 165 / 65;
+    border-radius: 20px;
+    font-family: Monospace;
+}
+
+
+#submitInitials{
+    background-color: var(--darkred);
+}
+
+#playAgain{
+    background-color: var(--yellow);
+}
+#playNextLevel {
+    background-color: var(--orange);
+}
+#backToOverview{
+    background-color: var(--turquoiselight);
+}
