@@ -43,7 +43,6 @@ public class GameController {
         switch (game.getLevel()) {
             case 1:
                 ctx.redirect("/rcade/niveau1");
-                System.out.println(game.getLevel());
             case 2:
                 ctx.redirect("/rcade/niveau2");
             case 3:
