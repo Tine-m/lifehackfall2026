@@ -48,9 +48,6 @@ public class GameController {
         }
 
         ctx.sessionAttribute("niveau1Status", "active");
-        ctx.sessionAttribute("niveau2Status", null);
-        ctx.sessionAttribute("niveau3Status", null);
-        ctx.sessionAttribute("attackModeStatus", null);
         ctx.render("teama/frontpage.html");
     }
 
@@ -87,10 +84,20 @@ public class GameController {
         int greenGuess = Integer.parseInt(ctx.formParam("greenGuess"));
         int blueGuess = Integer.parseInt(ctx.formParam("blueGuess"));
         currentGame.setGuess(new Colour(redGuess, greenGuess, blueGuess));
+        int score = colourService.getScore(currentGame.getGuess(), currentGame.getTarget());
 
         ctx.attribute("targetColour", currentGame.getTarget());
         ctx.attribute("guessColour", currentGame.getGuess());
-        ctx.attribute("score", colourService.getScore(currentGame.getGuess(), currentGame.getTarget()));
+        ctx.attribute("score", score);
+
+        if (score >= currentGame.getBenchmarkScore()){
+            switch (currentGame.getLevel()){
+                case 1:
+                    ctx.sessionAttribute("niveau2Status", "active");
+                case 2:
+                    ctx.sessionAttribute("niveau3Status", "active");
+            }
+        }
 
         ctx.render("teama/result.html");
     }
@@ -104,7 +111,7 @@ public class GameController {
             scoreService.saveScore(highscore);
         }
         catch(DatabaseException e){
-            System.out.println("Highscore kunne ikke gemmes " +e.toString());
+            System.out.println("Highscore kunne ikke gemmes " + e);
         }
 
     }

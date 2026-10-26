@@ -47,4 +47,12 @@ public class Game {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	public int getBenchmarkScore(){
+		return this.benchmarkScore;
+	}
+
+	public int getLevel(){
+		return this.level;
+	}
 }
