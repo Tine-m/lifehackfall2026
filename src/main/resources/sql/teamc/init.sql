@@ -9,9 +9,9 @@ CREATE TABLE IF NOT EXISTS public.teamc_comment
     user_id integer NOT NULL,
     event_id integer NOT NULL,
     content character varying COLLATE pg_catalog."default",
-    create_date date,
+    create_date timestamp,
     CONSTRAINT comment_pkey PRIMARY KEY (comment_id)
-    );
+);
 
 DROP TABLE IF EXISTS public.teamc_invitation CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_invitation
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_invitation
     event_id integer NOT NULL,
     response_id integer,
     CONSTRAINT invitation_pkey PRIMARY KEY (invitation_id)
-    );
+);
 
 DROP TABLE IF EXISTS public.teamc_response CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_response
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_response
     response_id serial NOT NULL,
     response character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT response_pkey PRIMARY KEY (response_id)
-    );
+);
 
 
 DROP TABLE IF EXISTS public.teamc_user CASCADE;
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_user
     password character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (user_id),
     CONSTRAINT user_email_unique UNIQUE (email)
-    );
+);
 
 DROP TABLE IF EXISTS public.teamc_userevent CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_userevent
@@ -55,49 +55,49 @@ CREATE TABLE IF NOT EXISTS public.teamc_userevent
     finish_date timestamp,
     restrict_comments boolean,
     CONSTRAINT userevent_pkey PRIMARY KEY (event_id)
-    );
+);
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_user FOREIGN KEY (user_id)
-    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-       ON DELETE NO ACTION;
+        REFERENCES public.teamc_user (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_userevent FOREIGN KEY (event_id)
-    REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-       ON DELETE NO ACTION;
+        REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_response FOREIGN KEY (response_id)
-    REFERENCES public.teamc_response (response_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-       ON DELETE NO ACTION
-    NOT VALID;
+        REFERENCES public.teamc_response (response_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_user FOREIGN KEY (user_id)
-    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-       ON DELETE NO ACTION;
+        REFERENCES public.teamc_user (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_userevent FOREIGN KEY (event_id)
-    REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-       ON DELETE NO ACTION;
+        REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_userevent
     ADD CONSTRAINT userevent_user FOREIGN KEY (user_id)
-    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-       ON DELETE NO ACTION;
+        REFERENCES public.teamc_user (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 
