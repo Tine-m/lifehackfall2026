@@ -165,7 +165,7 @@ public class UserEventMapper {
         List<Comment> comments = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {
-            stm.setInt(1, eventId));
+            stm.setInt(1, owner.getUser_id());
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     User commenter = new User(rs.getInt("user_id"), rs.getString("username"),
@@ -376,7 +376,7 @@ public class UserEventMapper {
         String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
                 "owner.user_id, owner.username, owner.email, owner.gender, owner.password " +
                 "FROM teamc_userevent e JOIN teamc_user owner ON owner.user_id = owner.user_id " +
-                "WHERE e.user_id = ? OR e.event_id IN (SELECT event_id FROM teamc_invitation WHERE user_id)";
+                "WHERE e.user_id = ? OR e.event_id IN (SELECT event_id FROM teamc_invitation WHERE user_id = ?)";
         List<UserEvent> events = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {

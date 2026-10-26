@@ -53,15 +53,8 @@
         <div class="events">
             <h2 class="section-title">Dine kommende arrangementer:</h2>
 
+
             <div class="event-list">
-                <article class="event-card" th:each="event : ${events}">
-                    <div class="event-details">
-                        <h3 class="event-name" th:text="${event.eventname}"></h3>
-                        <p>Dato: <span th:text="${event.startdate}"></span></p>
-                        <p class="event-attendees">Deltagere: <span th:text="${event.attending}"></span></p>
-                        <p>Vært: <span th:text="${event.host}"></span></p>
-                        <p>Sted: <span th:text="${event.location}"></span></p>
-                    </div>
                     <img class="event-image" th:src="@{/images/photo.jpg}" alt="Arrangement">
                 </article>
             </div>

@@ -24,13 +24,6 @@ public class Comment {
         this.userEvent = userEvent;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public UserEvent getUserEvent() {
         return userEvent;
