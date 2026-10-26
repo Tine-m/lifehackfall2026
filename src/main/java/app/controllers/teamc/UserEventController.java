@@ -52,6 +52,8 @@ public class UserEventController {
 
         List<UserEvent> attendedEvents = userEventService.getPastEvents(user);
 
+
+
         ctx.attribute("attendedEvents", attendedEvents);
         ctx.attribute("user", user);
         ctx.render("teamc/profil.html");
@@ -152,17 +154,17 @@ public class UserEventController {
             ctx.render("teamc/myevents.html");
             return;
         }
-
-        // Kun den der har oprettet eventet må se deltagerne (acceptkriterie 2)
-        UserEvent event = userEventService.getEventForOwner(eventId, user);
+        // Ejeren og inviterede (uanset svar) må se deltagerne
+        UserEvent event = userEventService.getEventForParticipant(eventId, user);
         if (event == null) {
             ctx.status(403);
             ctx.attribute("user", user);
             ctx.attribute("events", userEventService.getMyEvents(user));
-            ctx.attribute("flash", "Du kan kun se deltagere på dine egne events.");
+            ctx.attribute("flash", "Du kan kun se deltagere på events, du ejer eller er inviteret til.");
             ctx.render("teamc/myevents.html");
             return;
         }
+        boolean isOwner = event.getUser().getUser_id() == user.getUser_id();
 
         List<Invitation> invitations = userEventService.getParticipants(event);
         long yesCount = invitations.stream()
@@ -173,6 +175,7 @@ public class UserEventController {
         ctx.attribute("event", event);
         ctx.attribute("invitations", invitations);
         ctx.attribute("yesCount", yesCount);
+        ctx.attribute("isOwner", isOwner);
         ctx.render("teamc/participants.html");
     }
 

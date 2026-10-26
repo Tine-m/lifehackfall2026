@@ -65,6 +65,19 @@ public class UserEventService {
         return event;
     }
 
+    // Ejeren eller en inviteret (uanset svar) må se deltagerne
+    public UserEvent getEventForParticipant(int eventId, User user) throws DatabaseException {
+        UserEvent event = userEventMapper.getEventById(eventId);
+        if (event == null) {
+            return null;
+        }
+        boolean isOwner = event.getUser().getUser_id() == user.getUser_id();
+        if (isOwner || userEventMapper.isInvited(user.getUser_id(), eventId)) {
+            return event;
+        }
+        return null;
+    }
+
     public List<Invitation> getParticipants(UserEvent event) throws DatabaseException {
         return userEventMapper.getInvitationsForEvent(event);
     }
