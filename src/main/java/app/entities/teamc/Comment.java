@@ -16,6 +16,30 @@ public class Comment {
         this.creationDate = creationDate;
     }
 
+    public Comment(int comment_id, String comment_body, LocalDateTime creationDate, User user, UserEvent userEvent) {
+        this.comment_id = comment_id;
+        this.comment_body = comment_body;
+        this.creationDate = creationDate;
+        this.user = user;
+        this.userEvent = userEvent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UserEvent getUserEvent() {
+        return userEvent;
+    }
+
+    public void setUserEvent(UserEvent userEvent) {
+        this.userEvent = userEvent;
+    }
+
     public int getComment_id() {
         return comment_id;
     }

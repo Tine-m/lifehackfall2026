@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inbox</title>
+    <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="hero-tagline">
+        <h2 class="event-heading">
+            <span class="username" th:text="${user.username}">Bruger</span>
+            <span class="inbox-text">Din indbakke -</span>
+        </h2>
+    </div>
+    <main class="main-wrapper">
+        <h1>Inbox</h1>
+        <a th:href="@{/eventPlanner/mainpage}">Tilbage</a>
+
+        <section>
+            <h2>Invitationer</h2>
+            <p th:if="${#lists.isEmpty(invitations)}">Du har ingen invitationer.</p>
+            <ul th:unless="${#lists.isEmpty(invitations)}">
+                <li th:each="inv : ${invitations}">
+                    <strong th:text="${inv.userEvent.eventName}">Event</strong>
+                    fra <span th:text="${inv.userEvent.user.username}">Vært</span>
+                    -
+                    <span th:text="${#temporals.format(inv.userEvent.startDate, 'dd-MM-yyyy HH:mm')}">Dato</span>
+                    (svar: <span th:text="${inv.response}">NO_RESPONSE</span>)
+                    <form th:action="@{/eventPlanner/inbox/{id}/accept(id=${inv.inviteList_id})}" method="post" style="display:inline">
+                        <button type="submit">Accepter</button>
+                    </form>
+                    <form th:action="@{/eventPlanner/inbox/{id}/decline(id=${inv.inviteList_id})}" method="post" style="display:inline">
+                        <button type="submit">Afvis</button>
+                    </form>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Kommentarer på dine events</h2>
+            <p th:if="${#lists.isEmpty(comments)}">Der er ingen kommentarer på dine events.</p>
+            <ul th:unless="${#lists.isEmpty(comments)}">
+                <li th:each="c : ${comments}">
+                    <strong th:text="${c.userEvent.eventName}">Event</strong>
+                    - <span th:text="${c.user.username}">Forfatter</span>:
+                    <span th:text="${c.comment_body}">Tekst</span>
+                    <small th:if="${c.creationDate != null}"
+                           th:text="${#temporals.format(c.creationDate, 'dd-MM-yyyy')}">Dato</small>
+                </li>
+            </ul>
+        </section>
+    </main>
+</div>
+</body>
+</html>

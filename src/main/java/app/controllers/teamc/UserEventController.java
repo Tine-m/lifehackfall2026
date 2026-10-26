@@ -1,11 +1,9 @@
 package app.controllers.teamc;
 
-import app.entities.teamc.Invitation;
-import app.entities.teamc.Response;
-import app.entities.teamc.User;
-import app.entities.teamc.UserEvent;
+import app.entities.teamc.*;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.teamc.UserEventMapper;
 import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
@@ -33,6 +31,15 @@ public class UserEventController {
         config.routes.get("/eventPlanner/event/{id}/participants", ctx -> participants(ctx));
         config.routes.get("/eventPlanner/profile", ctx -> profil(ctx));
         config.routes.get("/eventPlanner/mainpage", ctx -> showMainPage(ctx));
+
+        config.routes.get("/eventPlanner/inbox", ctx -> inbox(ctx));
+        config.routes.post("/eventPlanner/inbox/{invitationId}/accept", ctx -> acceptInvitation(ctx));
+        config.routes.post("/eventPlanner/inbox/{invitationId}/decline", ctx -> declineInvitation(ctx));
+
+        config.routes.post("/eventPlanner/event/{id}/comments", ctx -> addComment(ctx));
+
+
+
     }
 
     private void profil(Context ctx) throws DatabaseException {
@@ -114,6 +121,8 @@ public class UserEventController {
         ctx.render("teamc/myevents.html");
     }
 
+
+
     public void participants(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
@@ -152,6 +161,61 @@ public class UserEventController {
         ctx.attribute("yesCount", yesCount);
         ctx.render("teamc/participants.html");
     }
+
+
+    public void inbox(Context ctx) throws DatabaseException {
+        User user = requireLogin(ctx);
+        if (user == null) return;
+
+        ctx.attribute("user", user);
+        ctx.attribute("invitations", userEventService.getMyInvitations(user));
+        ctx.attribute("comments", userEventService.getCommentsOnMyEvents(user));
+        ctx.render("teamc/inbox.html");
+    }
+
+    private void acceptInvitation(Context ctx) throws DatabaseException {
+        respond(ctx, Response.YES);
+    }
+
+    private void declineInvitation(Context ctx) throws DatabaseException {
+        respond(ctx, Response.NO);
+    }
+
+    private void respond(Context ctx, Response response) throws DatabaseException {
+        User user = requireLogin(ctx);
+        if (user == null) return;
+
+        try {
+            int invitationId = Integer.parseInt(ctx.pathParam("invitationId"));
+            userEventService.respondToInvitation(user, invitationId, response);
+        } catch (NumberFormatException e) {
+            ctx.status(404);
+        }
+        ctx.redirect("/eventPlanner/inbox");
+    }
+    private void addComment(Context ctx) throws DatabaseException {
+        User user = requireLogin(ctx);
+        if (user == null) return;
+
+        int eventId;
+        try {
+            eventId = Integer.parseInt(ctx.pathParam("id"));
+        } catch (NumberFormatException e) {
+            ctx.redirect("/eventPlanner/events");
+            return;
+        }
+
+        String content = ctx.formParam("content");
+        try {
+            userEventService.addComment(user, eventId, content);
+            ctx.sessionAttribute("flash", "Din kommentar er gemt.");
+        } catch (IllegalArgumentException e) {
+            ctx.sessionAttribute("flash", e.getMessage());
+        }
+        ctx.redirect("/eventPlanner/event/" + eventId + "/comments");
+    }
+
+
 
 }
 

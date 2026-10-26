@@ -1,5 +1,6 @@
 package app.persistence.teamc;
 
+import app.entities.teamc.Comment;
 import app.entities.teamc.Invitation;
 import app.entities.teamc.Response;
 import app.entities.teamc.User;
@@ -96,7 +97,6 @@ public class UserEventMapper {
         }
         return null;
     }
-
     public List<Invitation> getInvitationsForEvent(UserEvent event) throws DatabaseException {
         String query = "SELECT i.invitation_id, r.response, " +
                 "u.user_id, u.username, u.email, u.gender, u.password " +
@@ -121,6 +121,158 @@ public class UserEventMapper {
             throw new DatabaseException("Kunne ikke hente deltagere", e.getMessage());
         }
         return invitations;
+    }
+
+    // Invitationer sendt TIL brugeren (brugeren er gæst)
+    public List<Invitation> getInvitationsForUser(User guest) throws DatabaseException {
+        String query = "SELECT i.invitation_id, r.response, " +
+                "e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
+                "owner.user_id, owner.username, owner.email, owner.gender, owner.password " +
+                "FROM teamc_invitation i " +
+                "JOIN teamc_userevent e ON e.event_id = i.event_id " +
+                "JOIN teamc_user owner ON owner.user_id = e.user_id " +
+                "LEFT JOIN teamc_response r ON r.response_id = i.response_id " +
+                "WHERE i.user_id = ? ORDER BY e.start_date";
+        List<Invitation> invitations = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, guest.getUser_id());
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    User owner = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("email"), rs.getString("gender"), rs.getString("password"));
+                    UserEvent event = mapEvent(rs, owner);
+                    Response response = toResponse(rs.getString("response"));
+                    invitations.add(new Invitation(rs.getInt("invitation_id"), guest, event, response));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke hente dine invitationer", e.getMessage());
+        }
+        return invitations;
+    }
+
+    // Kommentarer skrevet på events som brugeren selv ejer
+    public List<Comment> getCommentsForOwnersEvents(User owner) throws DatabaseException {
+        String query = "SELECT c.comment_id, c.content, c.create_date, " +
+                "e.event_id, e.event_name, e.start_date, e.finish_date, " +
+                "commenter.user_id, commenter.username, commenter.email, commenter.gender, commenter.password " +
+                "FROM teamc_comment c " +
+                "JOIN teamc_userevent e ON e.event_id = c.event_id " +
+                "JOIN teamc_user commenter ON commenter.user_id = c.user_id " +
+                "WHERE e.user_id = ? ORDER BY c.create_date DESC, c.comment_id DESC";
+        List<Comment> comments = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, eventId));
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    User commenter = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("email"), rs.getString("gender"), rs.getString("password"));
+                    UserEvent event = new UserEvent(rs.getString("event_name"),
+                            toDateTime(rs.getTimestamp("start_date")),
+                            toDateTime(rs.getTimestamp("finish_date")));
+                    event.setEvent_id(rs.getInt("event_id"));
+                    comments.add(new Comment(rs.getInt("comment_id"), rs.getString("content"),
+                            toDateTime(rs.getTimestamp("create_date")), commenter, event));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke hente kommentarer", e.getMessage());
+        }
+        return comments;
+    }
+    public List<Comment> getCommentsForEvent(int eventId) throws DatabaseException {
+        String query = "SELECT c.comment_id, c.content, c.create_date, " +
+                "e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
+                "owner.user_id AS owner_id, owner.username AS owner_username, owner.email AS owner_email, " +
+                "owner.gender AS owner_gender, owner.password AS owner_password, " +
+                "commenter.user_id, commenter.username, commenter.email, commenter.gender, commenter.password " +
+                "FROM teamc_comment c " +
+                "JOIN teamc_userevent e ON e.event_id = c.event_id " +
+                "JOIN teamc_user owner ON owner.user_id = e.user_id " +
+                "JOIN teamc_user commenter ON commenter.user_id = c.user_id " +
+                "WHERE c.event_id = ? ORDER BY c.create_date, c.comment_id";
+
+
+        List<Comment> comments = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, eventId);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    User owner = new User(rs.getInt("owner_id"), rs.getString("owner_username"),
+                            rs.getString("owner_email"), rs.getString("owner_gender"), rs.getString("owner_password"));
+                    User commenter = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("email"), rs.getString("gender"), rs.getString("password"));
+                    UserEvent event = mapEvent(rs, owner);
+                    comments.add(new Comment(rs.getInt("comment_id"), rs.getString("content"),
+                            toDateTime(rs.getTimestamp("create_date")), commenter, event));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke hente kommentarer", e.getMessage());
+        }
+        return comments;
+    }
+
+    public  boolean canComment(int userId, int eventId)throws DatabaseException {
+        String query = "SELECT 1 " +
+                "FROM teamc_userevent e " +
+                "WHERE e.event_id = ? " +
+                "AND ( e.user_id = ? " +
+                "OR EXISTS ( " +
+                "SELECT 1 FROM teamc_invitation i " +
+                "LEFT JOIN teamc_response r ON r.response_id = i.response_id " +
+                "WHERE i.event_id = e.event_id " +
+                "AND i.user_id = ? " +
+                "AND ( COALESCE(e.restrict_comments, false) = false " +
+                "OR r.response IN ('YES', 'UNSURE', 'NO') ) ) )";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, eventId);
+            stm.setInt(2, userId);
+            stm.setInt(3, userId);
+            try (ResultSet rs = stm.executeQuery()) {
+                return rs.next();   // en række = må gerne kommentere
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke tjekke kommentar-rettigheder", e.getMessage());
+        }
+    }
+
+
+
+
+
+    // Opdaterer kun hvis invitationen tilhører brugeren. Returnerer antal opdaterede rækker.
+    public int respondToInvitation(int invitationId, int userId, Response response) throws DatabaseException {
+        String query = "UPDATE teamc_invitation " +
+                "SET response_id = (SELECT response_id FROM teamc_response WHERE response = ?) " +
+                "WHERE invitation_id = ? AND user_id = ?";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setString(1, toDbResponse(response));
+            stm.setInt(2, invitationId);
+            stm.setInt(3, userId);
+            return stm.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke gemme dit svar", e.getMessage());
+        }
+    }
+
+    private String toDbResponse(Response response) {
+        return switch (response) {
+            case YES -> "YES";
+            case NO -> "NO";
+            case DONT_KNOW -> "UNSURE";
+            case NO_RESPONSE -> "NOT_RESPONDED";
+        };
     }
 
     private UserEvent mapEvent(ResultSet rs, User owner) throws SQLException {
@@ -188,5 +340,62 @@ public class UserEventMapper {
         }
         return events;
     }
+
+
+    public Comment createComment(User author, int eventId, String content) throws DatabaseException{
+
+        String query = "INSERT INTO teamc_comment (user_id, event_id, content, create_date) " +
+                "VALUES (?, ?, ?, CURRENT_DATE)";
+
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            stm.setInt(1, author.getUser_id());
+            stm.setInt(2, eventId);
+            stm.setString(3, content);
+            stm.executeUpdate();
+
+            try(ResultSet keys = stm.getGeneratedKeys()){
+                if (keys.next()) {
+                    Comment comment = new Comment(keys.getInt(1), content, LocalDate.now().atStartOfDay());
+                    comment.setUser(author);
+                    return comment;
+
+                }
+
+            }
+            throw new DatabaseException("Kommentaren blev ikke gemt");
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kommentaren blev ikke gemt", e.getMessage());
+        }
+    }
+
+    public List<UserEvent> getCommentableEvents(User user) throws DatabaseException{
+        String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
+                "owner.user_id, owner.username, owner.email, owner.gender, owner.password " +
+                "FROM teamc_userevent e JOIN teamc_user owner ON owner.user_id = owner.user_id " +
+                "WHERE e.user_id = ? OR e.event_id IN (SELECT event_id FROM teamc_invitation WHERE user_id)";
+        List<UserEvent> events = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, user.getUser_id());
+            stm.setInt(2, user.getUser_id());
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    User owner = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("email"), rs.getString("gender"), rs.getString("password"));
+                    events.add(mapEvent(rs,owner));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kunne ikke hente eventet", e.getMessage());
+        }
+        return events;
+    }
+
+
 
 }

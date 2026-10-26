@@ -1,6 +1,8 @@
 package app.services.teamc;
 
+import app.entities.teamc.Comment;
 import app.entities.teamc.Invitation;
+import app.entities.teamc.Response;
 import app.entities.teamc.User;
 import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
@@ -64,5 +66,41 @@ public class UserEventService {
         return userEventMapper.getPastEvents(user);
     }
 
+    public List<Invitation> getMyInvitations(User user) throws DatabaseException {
+        return userEventMapper.getInvitationsForUser(user);
+    }
+
+    public List<Comment> getCommentsOnMyEvents(User owner) throws DatabaseException {
+        return userEventMapper.getCommentsForOwnersEvents(owner);
+    }
+
+    public boolean respondToInvitation(User user, int invitationId, Response response) throws DatabaseException {
+        return userEventMapper.respondToInvitation(invitationId, user.getUser_id(), response) > 0;
+    }
+    public List<UserEvent> getCommentableEvents(User user) throws DatabaseException {
+        return userEventMapper.getCommentableEvents(user);
+    }
+    public boolean canComment(User user, int eventId) throws DatabaseException {
+        return userEventMapper.canComment(user.getUser_id(), eventId);
+    }
+    public List<Comment> getComments(User user, int eventId) throws DatabaseException{
+        boolean hasAccess = userEventMapper.canComment(user.getUser_id(), eventId);
+        if (hasAccess) {
+            return userEventMapper.getCommentsForEvent(eventId);
+        } else return null;
+    }
+
+    public Comment addComment(User user, int eventId, String content) throws DatabaseException {
+        if (content == null || content.isBlank()) {
+            throw new IllegalArgumentException("Kommentaren må ikke være tom");
+            }
+        if (content.length() > 500) {
+            throw new IllegalArgumentException("Kommentaren må højst være 500 tegn");
+        }
+        if (!userEventMapper.canComment(user.getUser_id(), eventId)) {
+            throw new IllegalArgumentException("Du skal svare på invitationen før du kan kommentere");
+        }
+        return userEventMapper.createComment(user, eventId, content.trim());
+        }
 
 }
