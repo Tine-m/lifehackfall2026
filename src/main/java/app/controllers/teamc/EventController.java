@@ -2,6 +2,7 @@ package app.controllers.teamc;
 
 import app.dto.teamc.UserAndInvitation;
 import app.entities.teamc.User;
+import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.services.teamc.CommentService;
@@ -47,7 +48,10 @@ public class EventController {
 
         if (user != null){
             ctx.sessionAttribute("user", user);
-            ctx.attribute("events", userEventService.getMyEvents(user));
+            List<UserEvent> events = userEventService.getAcceptedEvents(user);
+            events.addAll(userEventService.getMyEvents(user));
+
+            ctx.attribute("events", events);
             ctx.redirect("/eventPlanner/mainpage");
         } else {
             ctx.status(401);
