@@ -133,8 +133,22 @@ body{
     border-radius: 25px;
     overflow: hidden;
 
+    .scoreboard-title{
+        text-align: center;
+        font-size: 35px;
+        text-shadow: 0 0 3px #D17200;
+        text-transform: uppercase;
+        line-height: 0;
+    }
+    .scoreboard-title-period{
+        text-align: center;
+        font-size: 25px;
+        text-shadow: 0 0 3px #D17200;
+        text-transform: uppercase;
+        line-height: 0;
+    }
     table{
-        width: 90%;
+        width: 80%;
     }
     th{
         font-size: 20px;
@@ -142,7 +156,7 @@ body{
         text-transform: uppercase;
     }
     td{
-        font-size: 15px;
+        font-size: 20px;
         text-align: center;
     }
     .rank{
