@@ -133,7 +133,7 @@ public class UserEventMapper {
                 "JOIN teamc_userevent e ON e.event_id = i.event_id " +
                 "JOIN teamc_user owner ON owner.user_id = e.user_id " +
                 "LEFT JOIN teamc_response r ON r.response_id = i.response_id " +
-                "WHERE i.user_id = ? ORDER BY e.start_date";
+                "WHERE i.user_id = ? ORDER BY e.start_date desc";
         List<Invitation> invitations = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {

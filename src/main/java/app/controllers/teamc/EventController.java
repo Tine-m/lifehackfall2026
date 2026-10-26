@@ -1,21 +1,31 @@
 package app.controllers.teamc;
 
+import app.dto.teamc.UserAndInvitation;
 import app.entities.teamc.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.services.teamc.CommentService;
 import app.services.teamc.EventService;
+import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
+
+import java.util.List;
 
 //Håndterer teamteachers' funktionalitet
 public class EventController {
 
     private ConnectionPool connectionPool;
     private EventService eventService;
+    private UserEventService userEventService;
+    private CommentService commentService;
 
     public EventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.eventService = new EventService(connectionPool);
+        this.userEventService = new UserEventService(connectionPool);
+        this.commentService = new CommentService(connectionPool);
+
     }
 
     public void setRoutes(JavalinConfig config) {
@@ -37,6 +47,7 @@ public class EventController {
 
         if (user != null){
             ctx.sessionAttribute("user", user);
+            ctx.attribute("events", userEventService.getMyEvents(user));
             ctx.redirect("/eventPlanner/mainpage");
         } else {
             ctx.status(401);

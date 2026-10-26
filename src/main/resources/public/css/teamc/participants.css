@@ -1,0 +1,127 @@
+/* Participants page */
+
+.page-wrapper {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 40px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #f4f2ee;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 850px;
+    padding: 35px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0, 46, 109, 0.10);
+}
+
+.register-card h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #002E6D;
+    font-size: 28px;
+}
+
+.muted {
+    color: #687386;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.participants {
+    width: 100%;
+    margin: 25px 0;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.participants th,
+.participants td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e4e9f0;
+}
+
+.participants th {
+    background-color: #002E6D;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.participants th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.participants th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.participants tbody tr:hover {
+    background-color: #f5f8fc;
+}
+
+.svar {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background-color: #edf0f4;
+    color: #465166;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.svar.ja {
+    background-color: #e0f5e8;
+    color: #187443;
+}
+
+.svar.nej {
+    background-color: #fde7e7;
+    color: #b42318;
+}
+
+.svar.maaske {
+    background-color: #fff1d6;
+    color: #946200;
+}
+
+.login-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+    border-radius: 7px;
+    background-color: #002E6D;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.login-link:hover {
+    background-color: #00449e;
+}
+
+@media (max-width: 600px) {
+    .page-wrapper {
+        padding: 25px 12px;
+    }
+
+    .register-card {
+        padding: 20px 15px;
+    }
+
+    .register-card h2 {
+        font-size: 23px;
+    }
+
+    .participants th,
+    .participants td {
+        padding: 12px 10px;
+    }
+}

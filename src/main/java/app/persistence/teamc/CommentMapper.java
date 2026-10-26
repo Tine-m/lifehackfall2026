@@ -1,5 +1,6 @@
 package app.persistence.teamc;
 
+import app.dto.teamc.UserAndInvitation;
 import app.entities.teamc.Comment;
 import app.entities.teamc.User;
 import app.entities.teamc.UserEvent;
@@ -23,14 +24,15 @@ public class CommentMapper {
         this.connectionPool = connectionPool;
     }
 
-    public List<UserEvent> getEventsInvitedTo(User user) throws DatabaseException {
-        String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
-                "u.user_id, u.username, u.email, u.gender, u.password " +
-                "FROM teamc_invitation i " +
-                "JOIN teamc_userevent e ON e.event_id = i.event_id " +
-                "JOIN teamc_user u ON u.user_id = e.user_id " +      // u = den der har oprettet eventet
-                "WHERE i.user_id = ? ORDER BY e.start_date, e.event_id";
-        List<UserEvent> events = new ArrayList<>();
+    public List<UserAndInvitation> getEventsInvitedTo(User user) throws DatabaseException {
+        String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments,\n" +
+                "                u.user_id, u.username, u.email, u.gender, u.password , tr.response\n" +
+                "                FROM teamc_invitation i\n" +
+                "                JOIN teamc_userevent e ON e.event_id = i.event_id\n" +
+                "                JOIN teamc_user u ON u.user_id = e.user_id\n" +
+                "                join public.teamc_response tr on i.response_id = tr.response_id\n" +
+                "                WHERE i.user_id = ? and start_date >= now() ORDER BY e.start_date desc, e.event_id";
+        List<UserAndInvitation> events = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, user.getUser_id());
@@ -38,14 +40,16 @@ public class CommentMapper {
                 while (rs.next()) {
                     User owner = new User(rs.getInt("user_id"), rs.getString("username"),
                             rs.getString("email"), rs.getString("gender"), rs.getString("password"));
-                    events.add(new UserEvent(
+                    events.add(new UserAndInvitation(
                             rs.getInt("event_id"),
                             owner,
                             rs.getString("event_name"),
                             toDateTime(rs.getTimestamp("creation_date")),
                             toDateTime(rs.getTimestamp("start_date")),
                             toDateTime(rs.getTimestamp("finish_date")),
-                            !rs.getBoolean("restrict_comments")));
+                            !rs.getBoolean("restrict_comments"),
+                            rs.getString("response")
+                            ));
                 }
             }
         } catch (SQLException e) {

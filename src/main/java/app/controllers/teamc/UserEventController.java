@@ -60,11 +60,6 @@ public class UserEventController {
 
 
         ctx.attribute("user", user);
-
-
-        commentService.getInvitedEvents(user);
-
-
         ctx.attribute("events", userEventService.getMyEvents(user));
         ctx.render("teamc/mainpage");
     }

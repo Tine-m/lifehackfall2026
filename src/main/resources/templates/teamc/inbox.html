@@ -14,34 +14,44 @@
             <span class="inbox-text">Din indbakke -</span>
         </h2>
     </div>
-    <main class="main-wrapper">
+    <main class="inbox-wrapper">
         <h1>Inbox</h1>
         <a th:href="@{/eventPlanner/mainpage}">Tilbage</a>
 
-        <section>
+        <section class="inbox-section">
             <h2>Invitationer</h2>
             <p th:if="${#lists.isEmpty(invitations)}">Du har ingen invitationer.</p>
-            <ul th:unless="${#lists.isEmpty(invitations)}">
+            <ul class="inbox-list" th:unless="${#lists.isEmpty(invitations)}">
                 <li th:each="inv : ${invitations}">
                     <strong th:text="${inv.userEvent.eventName}">Event</strong>
                     fra <span th:text="${inv.userEvent.user.username}">Vært</span>
                     -
                     <span th:text="${#temporals.format(inv.userEvent.startDate, 'dd-MM-yyyy HH:mm')}">Dato</span>
                     (svar: <span th:text="${inv.response}">NO_RESPONSE</span>)
-                    <form th:action="@{/eventPlanner/inbox/{id}/accept(id=${inv.inviteList_id})}" method="post" style="display:inline">
-                        <button type="submit">Accepter</button>
-                    </form>
-                    <form th:action="@{/eventPlanner/inbox/{id}/decline(id=${inv.inviteList_id})}" method="post" style="display:inline">
-                        <button type="submit">Afvis</button>
-                    </form>
+                    <th:block th:if="${inv.userEvent.upcoming}">
+                        <form th:action="@{/eventPlanner/inbox/{id}/accept(id=${inv.inviteList_id})}"
+                              method="post" style="display:inline">
+                            <button type="submit">Accepter</button>
+                        </form>
+
+                        <form th:action="@{/eventPlanner/inbox/{id}/decline(id=${inv.inviteList_id})}"
+                              method="post" style="display:inline">
+                            <button type="submit">Afvis</button>
+                        </form>
+                    </th:block>
+
+                    <span th:if="${inv.userEvent.startDate != null and !inv.userEvent.upcoming}"
+                          class="muted">
+                        Eventet er afsluttet
+                    </span>
                 </li>
             </ul>
         </section>
 
-        <section>
+        <section class="inbox-section">
             <h2>Kommentarer på dine events</h2>
             <p th:if="${#lists.isEmpty(comments)}">Der er ingen kommentarer på dine events.</p>
-            <ul th:unless="${#lists.isEmpty(comments)}">
+            <ul class="inbox-list" th:unless="${#lists.isEmpty(comments)}">
                 <li th:each="c : ${comments}">
                     <strong th:text="${c.userEvent.eventName}">Event</strong>
                     - <span th:text="${c.user.username}">Forfatter</span>:

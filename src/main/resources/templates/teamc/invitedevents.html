@@ -22,6 +22,7 @@
       <li th:each="event : ${events}">
         <div>
           <strong th:text="${event.eventName}">Biograftur</strong><br>
+          <strong class="svar-status" th:text="${event.response}">Biograftur</strong><br>
           <span class="muted">
                         <span th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026 19:00</span>
                         &middot; af <span th:text="${event.user.username}">Cezary</span>

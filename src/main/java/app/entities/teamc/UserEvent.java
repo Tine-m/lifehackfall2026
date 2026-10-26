@@ -1,5 +1,6 @@
 package app.entities.teamc;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -86,5 +87,10 @@ public class UserEvent {
 
     public void setCommentVisibility(boolean commentVisibility) {
         this.commentVisibility = commentVisibility;
+    }
+
+    public boolean isUpcoming() {
+        return startDate != null &&
+                !startDate.isBefore(LocalDateTime.now());
     }
 }

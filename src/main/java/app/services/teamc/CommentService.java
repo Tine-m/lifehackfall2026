@@ -1,5 +1,6 @@
 package app.services.teamc;
 
+import app.dto.teamc.UserAndInvitation;
 import app.entities.teamc.Comment;
 import app.entities.teamc.User;
 import app.entities.teamc.UserEvent;
@@ -24,7 +25,7 @@ public class CommentService {
         this.userEventMapper = new UserEventMapper(connectionPool);
     }
 
-    public List<UserEvent> getInvitedEvents(User user) throws DatabaseException {
+    public List<UserAndInvitation> getInvitedEvents(User user) throws DatabaseException {
         return commentMapper.getEventsInvitedTo(user);
     }
 
