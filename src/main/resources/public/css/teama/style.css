@@ -121,6 +121,10 @@ body{
     align-items: center;
     justify-self: center;
 
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 15px;
+
     position: relative;
     height: 33vw;
     width: 90%;
@@ -128,6 +132,42 @@ body{
     border: 2px solid #211B16;
     border-radius: 25px;
     overflow: hidden;
+
+    .scoreboard-title{
+        text-align: center;
+        font-size: 35px;
+        text-shadow: 0 0 3px #D17200;
+        text-transform: uppercase;
+        line-height: 0;
+    }
+    .scoreboard-title-period{
+        text-align: center;
+        font-size: 25px;
+        text-shadow: 0 0 3px #D17200;
+        text-transform: uppercase;
+        line-height: 0;
+    }
+    table{
+        width: 80%;
+    }
+    th{
+        font-size: 20px;
+        text-shadow: 0 0 3px #D60E3A;
+        text-transform: uppercase;
+    }
+    td{
+        font-size: 20px;
+        text-align: center;
+    }
+    .rank{
+        text-align: left;
+    }
+    .score{
+        text-align: center;
+    }
+    .initials{
+        text-align: right;
+    }
 }
 
 .scoreboard::before {
