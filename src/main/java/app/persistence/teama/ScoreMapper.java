@@ -34,7 +34,7 @@ public class ScoreMapper {
 
     public List<Highscore> getTopAllTime(int amount) throws DatabaseException {
         List<Highscore> highscores = new ArrayList<>();
-        String query = "SELECT initials, score1, score2, score3, date FROM teama_highscores ORDER BY score DESC LIMIT ?";
+        String query = "SELECT initials, score1, score2, score3, date FROM teama_highscores ORDER BY score1 + score2 + score3 DESC LIMIT ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -57,7 +57,7 @@ public class ScoreMapper {
 
     public List<Highscore> getTopWeek(int amount) throws DatabaseException {
         List<Highscore> highscores = new ArrayList<>();
-        String query = "SELECT initials, score1, score2, score3, date FROM teama_highscores WHERE date >= CURRENT_DATE - INTERVAL '6 days' ORDER BY score LIMIT ?";
+        String query = "SELECT initials, score1, score2, score3, date FROM teama_highscores WHERE date >= CURRENT_DATE - INTERVAL '6 days' ORDER BY score1 + score2 + score3 DESC LIMIT ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -80,7 +80,7 @@ public class ScoreMapper {
 
     public List<Highscore> getTopToday(int amount) throws DatabaseException {
         List<Highscore> highscores = new ArrayList<>();
-        String query = "SELECT initials, score1, score2, score3, date FROM teama_highscores WHERE date = CURRENT_DATE ORDER BY score LIMIT ?";
+        String query = "SELECT initials, score1, score2, score3, date FROM teama_highscores WHERE date = CURRENT_DATE ORDER BY score1 + score2 + score3 DESC LIMIT ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
