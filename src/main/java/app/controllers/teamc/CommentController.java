@@ -73,7 +73,6 @@ public class CommentController {
         } catch (IllegalArgumentException e) {
             renderEvent(ctx, user, event, e.getMessage());
         }
-
     }
 
     private void showEvent(@NotNull Context ctx) throws DatabaseException {
