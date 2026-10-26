@@ -2,6 +2,7 @@ package app.controllers.teama;
 
 import app.entities.teama.Colour;
 import app.entities.teama.Game;
+import app.entities.teama.Highscore;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.services.teama.ColourService;
@@ -34,6 +35,7 @@ public class GameController {
         config.routes.get("/rcade/attackmode", ctx -> renderAttackmode(ctx));
 
         config.routes.post("/rcade/niveau1", ctx -> submitGuess(ctx));
+        config.routes.post("/rcade/savescore", ctx -> saveScore(ctx));
     }
 
     public void renderFrontpage(Context ctx){
@@ -91,5 +93,19 @@ public class GameController {
         ctx.attribute("score", colourService.getScore(currentGame.getGuess(), currentGame.getTarget()));
 
         ctx.render("teama/result.html");
+    }
+
+    public void saveScore(Context ctx){
+        String initials = ctx.formParam("initials");
+        int score = Integer.parseInt(ctx.attribute("score"));
+
+        Highscore highscore = new Highscore(score, initials);
+        try {
+            scoreService.saveScore(highscore);
+        }
+        catch(DatabaseException e){
+            System.out.println("Highscore kunne ikke gemmes " +e.toString());
+        }
+
     }
 }

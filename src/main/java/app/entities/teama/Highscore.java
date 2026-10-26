@@ -9,6 +9,20 @@ public class Highscore {
     private final String initials;
     private final LocalDate date;
 
+    public Highscore(int score1, int score2, int score3, String initials) {
+        this.score1 = score1;
+        this.score2 = score2;
+        this.score3 = score3;
+        this.initials = initials;
+        this.date = LocalDate.now();
+    }
+
+    public Highscore(int score1, String initials) {
+        this.score1 = score1;
+        this.initials = initials;
+        this.date = LocalDate.now();
+    }
+
     public Highscore(int score1, int score2, int score3, String initials, LocalDate date) {
         this.score1 = score1;
         this.score2 = score2;
