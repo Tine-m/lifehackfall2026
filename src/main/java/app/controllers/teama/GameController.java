@@ -56,48 +56,28 @@ public class GameController {
         currentGame = new Game(colourService.getRandomColour(), 1);
         ctx.attribute("targetColour", currentGame.getTarget().toRgb());
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("redGuess", 0);
-        model.put("greenGuess", 0);
-        model.put("blueGuess", 0);
-
-        ctx.render("teama/niveau1.html", model);
+        ctx.render("teama/niveau1.html");
     }
 
     public void renderNiveau2(Context ctx){
         currentGame = new Game(colourService.getRandomColour(), 2);
         ctx.attribute("targetColour", currentGame.getTarget().toRgb());
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("redGuess", 0);
-        model.put("greenGuess", 0);
-        model.put("blueGuess", 0);
-
-        ctx.render("teama/niveau2.html", model);
+        ctx.render("teama/niveau2.html");
     }
 
     public void renderNiveau3(Context ctx){
         currentGame = new Game(colourService.getRandomColour(), 3);
         ctx.attribute("targetColour", currentGame.getTarget().toRgb());
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("redGuess", 0);
-        model.put("greenGuess", 0);
-        model.put("blueGuess", 0);
-
-        ctx.render("teama/niveau3.html", model);
+        ctx.render("teama/niveau3.html");
     }
 
     public void renderAttackmode(Context ctx){
         currentGame = new Game(colourService.getRandomColour(), 0);
         ctx.attribute("targetColour", currentGame.getTarget().toRgb());
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("redGuess", 0);
-        model.put("greenGuess", 0);
-        model.put("blueGuess", 0);
-
-        ctx.render("teama/attackmode.html", model);
+        ctx.render("teama/attackmode.html");
     }
 
     public void submitGuess(Context ctx){
