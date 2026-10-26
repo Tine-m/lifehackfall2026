@@ -1,6 +1,8 @@
 body{
     background-color: var(--background_grey);
+    font-family: Monospace;
 }
+
 
 .grid-one-item {
     box-sizing: border-box;

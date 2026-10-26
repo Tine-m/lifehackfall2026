@@ -1,5 +1,6 @@
 package app.services.teama;
 
+import app.entities.teama.Game;
 import app.entities.teama.Highscore;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
@@ -30,5 +31,9 @@ public class ScoreService {
 
     public List<Highscore> getTopToday(int amount) throws DatabaseException {
         return scoreMapper.getTopToday(amount);
+    }
+
+    public boolean unlockNextLevel(Game game) {
+        return game.getScore() > game.getBenchmarkScore();
     }
 }

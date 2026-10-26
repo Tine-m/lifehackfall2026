@@ -46,28 +46,29 @@
 
                 <div id="result-page">
 
-                <p style="grid-area: area-1">Din Score:</p>
+                <h3 style="grid-area: area-1" th:text="'Din Score:'+${session.game.getScore()}"></h3>
 
-                <p style="grid-area: area-2">-Score her-</p>
+                <div style="grid-area: area-2" th:if="${isHighscore}">
+                    <p  >Du er kommet på highscore!</p>
 
-                <p style="grid-area: area-3">Du er kommet på highscore!</p>
-
-                <form style="grid-area: area-4" action="/"> <!-- hidden??-->
+                <form action="/rcade/savescore"> <!-- hidden??-->
                     <label for="initials">indtast initialer</label>
                     <input type="text" id="initials" name="initials" placeholder="ABC" required>
                     <!-- <input class="popUpButton" type="submit" value="Submit"> -->
-                    <button class="popUpButton" id="submitInitials"  onclick="">
-                        Prøv igen?
+                    <button class="popUpButton" type="submit" id="submitInitials"  onclick="">
+                        indsend score
                     </button>
                 </form>
+                </div>
 
-                <div class="popUpButtons" style="grid-area: area-5">
+                <div class="popUpButtons" style="grid-area: area-3">
 
-                    <button class="popUpButton" id="playAgain"  onclick="" >
+                    <button class="popUpButton" id="playAgain" href="/rcade/niveau"+>
+
                         Prøv igen?
                     </button>
 
-                    <button class="popUpButton" id="playNextLevel"  onclick="">
+                    <button class="popUpButton" id="playNextLevel" th:if="${unlockNextLevel}" onclick="">
                         Spil næste niveau!
                     </button>
 

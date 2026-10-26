@@ -47,4 +47,8 @@ public class Game {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	public int getBenchmarkScore() {
+		return benchmarkScore;
+	}
 }

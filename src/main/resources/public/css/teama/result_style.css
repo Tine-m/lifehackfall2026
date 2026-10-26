@@ -15,7 +15,7 @@
     background-color: transparent; */
 
     font-family: monospace;
-    font-size: 10px;
+    /*font-size: 10px;*/
 
   /*  height: 60vh;
     aspect-ratio: 939 / 596; */
@@ -27,14 +27,12 @@
     display: grid;
 
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 
     grid-template-areas:
     "area-1"
     "area-2"
-    "area-3"
-    "area-4"
-    "area-5";
+    "area-3";
 
 }
 
