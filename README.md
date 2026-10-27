@@ -8,7 +8,7 @@
 2. Opret en `lifehack` database i Postgres
 3. Åben IntelliJ og importér alle dependencies
 4. Build og kør app og se den på port 7070
-
+5. Læs den fælles [kodestandard](docs/coding-standard.md).
 
 
 ## Fælles forside og registrering af routes

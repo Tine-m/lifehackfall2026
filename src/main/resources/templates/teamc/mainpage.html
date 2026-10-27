@@ -15,7 +15,10 @@
         <div class="navbar-inner">
             <a href="/eventPlanner" class="navbar-brand">EventPlanner</a>
             <div class="navbar-actions">
+                <a href="/eventPlanner/inbox" class="nav-btn inbox-btn">Inbox</a>
                 <a href="/eventPlanner/createEvent" class="nav-btn create-btn">Opret arrangement</a>
+                <a href="/eventPlanner/myEvents" class="nav-btn">Mine events</a>
+                <a href="/eventPlanner/invitedEvents" class="nav-btn">Inviteret til</a>
                 <a href="/eventPlanner/profile" class="nav-btn profile-btn">Profil</a>
                 <a href="/eventPlanner" class="nav-btn logout-btn">Log ud</a>
             </div>
@@ -30,8 +33,8 @@
         </div>
 
         <div class="controls">
-            <form class="search-bar" action="/eventPlanner" method="get">
-                <input class="search-input" type="search" name="q" placeholder="Søg arrangementer...">
+            <form class="search-bar" action="/eventPlanner/mainpage" method="post" >
+                <input class="search-input" type="search" name="search" placeholder="Søg arrangementer..." oninput="Search()">
             </form>
 
             <div class="sort-bar">
@@ -51,20 +54,29 @@
             <h2 class="section-title">Dine kommende arrangementer:</h2>
 
             <div class="event-list">
-                <article class="event-card" th:each="event : ${events}">
-                    <div class="event-details">
-                        <h3 class="event-name" th:text="${event.eventname}"></h3>
-                        <p>Dato: <span th:text="${event.startdate}"></span></p>
-                        <p class="event-attendees">Deltagere: <span th:text="${event.attending}"></span></p>
-                        <p>Vært: <span th:text="${event.host}"></span></p>
-                        <p>Sted: <span th:text="${event.location}"></span></p>
-                    </div>
-                    <img class="event-image" th:src="@{/images/photo.jpg}" alt="Arrangement">
-                </article>
+                <p th:if="${#lists.isEmpty(events)}">Du har ikke nogle kommende events</p>
+                <ul class="event-list" th:unless="${#lists.isEmpty(events)}">
+                    <li th:each="event : ${events}">
+                        <div>
+                            <strong th:text="${event.eventName}">Biograftur</strong><br>
+                            <span class="muted" th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026</span>
+                        </div>
+                        <a th:href="@{/eventPlanner/event/{id}/participants(id=${event.event_id})}">Se deltagere</a>
+                    </li>
+                </ul>
             </div>
         </div>
 
     </main>
+
+    <script>
+        function Search () {
+            const input = document.getElementById('search-input').value;
+
+
+        )}
+
+    </script>
 
 </body>
 </html>

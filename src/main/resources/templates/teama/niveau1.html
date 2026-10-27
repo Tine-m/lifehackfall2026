@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/teama/colours.css">
+    <link rel="stylesheet" href="/css/teama/style.css">
+</head>
+<body>
+
+<div class="grid-one">
+
+    <div class="grid-one-item home-button" style="grid-area: box-1">
+
+        <a href="/">
+            <img src="/images/teama/homebutton.svg" alt="">
+        </a>
+
+    </div>
+
+    <div class="grid-one-item header-logo" style="grid-area: logo">
+        <img src="/images/teama/RcadeGB-header-logo.svg">
+    </div>
+
+    <div class="grid-one-item" style="grid-area: box-2"></div>
+
+    <div class="grid-one-item scoreboard" style="grid-area: box-3"> <!-- th:each alle highscores på listen -->
+        <p class="scoreboard-title">High scores</p>
+        <p class="scoreboard-title-period">Today</p>
+        <table>
+            <tr>
+                <th class="rank">Rank</th>
+                <th class="score">Score</th>
+                <th class="initials">Name</th>
+                <!--
+                <th>Date</th>
+                -->
+            </tr>
+            <tr th:each="score, stat : ${session.todayList}" th:if="${stat.index < 5}">
+                <td class="rank" th:text="${stat.count}">1</td>
+                <td class="score" th:text="${score.total}"></td>
+                <td class="initials" th:text="${score.initials}"></td>
+                <!--
+                <td th:text="${score.date}"></td>
+                -->
+            </tr>
+        </table>
+        <p class="scoreboard-title-period">This week</p>
+        <table>
+            <tr>
+                <th class="rank">Rank</th>
+                <th class="score">Score</th>
+                <th class="initials">Name</th>
+                <!--
+                <th>Date</th>
+                -->
+            </tr>
+            <tr th:each="score, stat : ${session.weekList}" th:if="${stat.index < 5}">
+                <td class="rank" th:text="${stat.count}">1</td>
+                <td class="score" th:text="${score.total}"></td>
+                <td class="initials" th:text="${score.initials}"></td>
+                <!--
+                <td th:text="${score.date}"></td>
+                -->
+            </tr>
+        </table>
+    </div>
+
+    <div class="grid-one-item game" style="grid-area: box-4">
+
+        <div class="gameboy-grid">
+            <img id="gameboy-image" src="/images/teama/console_RcadeGB.svg">
+            <div class="child-1 child"></div>
+            <div class="child-2 child"></div>
+            <div class="child-3 child"></div>
+            <div class="child-4 child"></div>
+
+            <div class="child-5 child"> <!-- SCREEN -->
+                <div class="gamecontainer">
+                    <div class="colorboxcontainer">
+                        <h3>Target</h3>
+                        <div th:styleappend="|background-color: ${targetColour}|" id="targetBox" class="colorBox"></div>
+                    </div>
+                    <div class="colorboxcontainer">
+                        <h3>Guess</h3>
+                        <div id="guessBox" class="colorBox"></div>
+                    </div>
+
+                    <form class="slideform" action="/rcade/submit" method="post">
+                        <span>Red</span>
+                        <input type="range" name="redGuess" min="0" max="255" value="128" class="slider" id="redSlider">
+
+                        <span>Green</span>
+                        <input type="range" name="greenGuess" min="0" max="255" value="128" class="slider" id="greenSlider">
+
+                        <span>Blue</span>
+                        <input type="range" name="blueGuess" min="0" max="255" value="128" class="slider" id="blueSlider">
+
+                        <button type="submit" class="submit-button">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="child-6 child"></div>
+            <div class="child-7 child"></div>
+            <div class="child-8 child"></div>
+            <div class="child-9 child"></div>
+
+        </div>
+
+    </div>
+
+    <div class="grid-one-item scoreboard" style="grid-area: box-5"> <!-- th:each alle highscores på listen -->
+        <p class="scoreboard-title">High scores</p>
+        <p class="scoreboard-title-period">All time</p>
+        <table>
+            <tr>
+                <th class="rank">Rank</th>
+                <th class="score">Score</th>
+                <th class="initials">Name</th>
+                <!--
+                <th>Date</th>
+                -->
+            </tr>
+            <tr th:each="score, stat : ${session.allTimeList}" th:if="${stat.index < 10}">
+                <td class="rank" th:text="${stat.count}">1</td>
+                <td class="score" th:text="${score.total}"></td>
+                <td class="initials" th:text="${score.initials}"></td>
+                <!--
+                <td th:text="${score.date}"></td>
+                -->
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+<script src="/js/teama/niveau1.js" defer></script>
+</body>
+</html>

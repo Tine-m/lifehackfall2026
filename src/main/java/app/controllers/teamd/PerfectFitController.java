@@ -62,6 +62,7 @@ public class PerfectFitController {
             Brand brand = brandMapper.getBrandById(sizeGuide.getBrandId());
 
             ctx.attribute("brandName", brand.getName());
+            ctx.attribute("website", brand.getWebsite());
             ctx.attribute("size", sizeGuide.getSize());
             ctx.attribute("sizeSystem", sizeGuide.getSizeSystem());
             ctx.attribute("sisterSizes", sizeService.getSisterSizes(sizeGuide));

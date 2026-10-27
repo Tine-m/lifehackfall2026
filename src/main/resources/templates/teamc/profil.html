@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min profil - EventPlanner</title>
+    <link rel="stylesheet" href="/css/teamc/profil.css">
+</head>
+
+<body>
+<div class="profile-page">
+
+    <header class="profile-header">
+        <h1>EventPlanner</h1>
+        <span>Min profil</span>
+    </header>
+
+    <main class="profile-layout">
+
+        <!-- Venstre side: brugeroplysninger -->
+        <section class="profile-card">
+            <div class="profile-avatar"
+                 th:text="${#strings.substring(user.username, 0, 1).toUpperCase()}">
+                S
+            </div>
+
+            <h2>Brugerprofil</h2>
+            <p class="profile-description">
+                Dine brugeroplysninger
+            </p>
+
+            <div class="user-detail">
+                <span>Brugernavn</span>
+                <strong th:text="${user.username}">Brugernavn</strong>
+            </div>
+
+            <div class="user-detail">
+                <span>E-mail</span>
+                <strong th:text="${user.email}">E-mail</strong>
+            </div>
+
+            <a class="back-button" th:href="@{/eventPlanner/mainpage}">
+                ← Tilbage
+            </a>
+        </section>
+
+        <!-- Højre side: tidligere events -->
+        <section class="events-section">
+            <div class="events-heading">
+                <div>
+                    <h2>Tidligere events</h2>
+                    <p>Events, du har deltaget i</p>
+                </div>
+            </div>
+
+            <div th:if="${#lists.isEmpty(attendedEvents)}"
+                 class="empty-events">
+                <h3>Ingen tidligere events</h3>
+                <p>Du har endnu ikke deltaget i nogen events.</p>
+            </div>
+
+            <div th:each="event : ${attendedEvents}"
+                 class="event-card">
+
+                <div class="event-card-content">
+                    <h3 th:text="${event.eventName}">
+                        Eventnavn
+                    </h3>
+
+                    <p class="event-date">
+                        <span th:text="${event.startDate}">Startdato</span>
+                        <span>–</span>
+                        <span th:text="${event.finishDate}">Slutdato</span>
+                    </p>
+                </div>
+
+                <span class="event-status">Deltaget</span>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+</body>
+</html>

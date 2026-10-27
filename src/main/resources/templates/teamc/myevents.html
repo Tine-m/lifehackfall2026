@@ -13,7 +13,7 @@
 <div class="page-wrapper">
 
   <div class="register-card">
-    <h2>Mine events</h2>
+    <h2>Mine kommende events</h2>
 
     <p class="flash" th:if="${flash != null}" th:text="${flash}"></p>
 
@@ -23,7 +23,7 @@
       <li th:each="event : ${events}">
         <div>
           <strong th:text="${event.eventName}">Biograftur</strong><br>
-          <span class="muted" th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy')}">27-10-2026</span>
+          <span class="muted" th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026</span>
         </div>
         <a th:href="@{/eventPlanner/event/{id}/participants(id=${event.event_id})}">Se deltagere</a>
       </li>
@@ -31,6 +31,10 @@
 
     <a class="btn" href="/eventPlanner/createEvent">Opret nyt event</a>
   </div>
+
+  <a class="back-link" href="/eventPlanner/mainpage">
+    ← Tilbage til forsiden
+  </a>
 
 </div>
 

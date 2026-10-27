@@ -1,7 +1,6 @@
 package app.entities.teamc;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Comment {
     private int comment_id;
@@ -14,6 +13,22 @@ public class Comment {
         this.comment_id = comment_id;
         this.comment_body = comment_body;
         this.creationDate = creationDate;
+    }
+
+    public Comment(int comment_id, String comment_body, LocalDateTime creationDate, User user, UserEvent userEvent) {
+        this.comment_id = comment_id;
+        this.comment_body = comment_body;
+        this.creationDate = creationDate;
+        this.user = user;
+        this.userEvent = userEvent;
+    }
+
+    public UserEvent getUserEvent() {
+        return userEvent;
+    }
+
+    public void setUserEvent(UserEvent userEvent) {
+        this.userEvent = userEvent;
     }
 
     public int getComment_id() {
@@ -38,5 +53,13 @@ public class Comment {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

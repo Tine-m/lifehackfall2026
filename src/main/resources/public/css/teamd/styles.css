@@ -31,10 +31,10 @@ h1 {
 }
 
 h2 {
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-rosa);
     font-family: var(--pf-skrift);
     font-size: 38px;
-    font-weight: 400;
+    font-weight: 300;
     margin: 0 0 12px;
 }
 
@@ -55,7 +55,7 @@ p {
 
 .illustration img {
     width: 100%;
-    max-width: 300px;
+    max-width: 360px;
 }
 
 /* ---------- Header ---------- */
@@ -118,127 +118,6 @@ p {
     margin-bottom: 24px;
 }
 
-/* ---------- Resultat ---------- */
-.centreret {
-    text-align: center;
-}
-
-.label {
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-    margin: 0;
-}
-
-.storrelse {
-    font-family: 'Jost', sans-serif;
-    font-size: 6rem;
-    font-weight: 300;
-    color: var(--pf-rosa);
-    margin: 0;
-    line-height: 1;
-}
-
-.badge {
-    display: inline-block;
-    background-color: var(--pf-cirkel);
-    color: var(--pf-rosa-moerk);
-    font-size: 0.85rem;
-    padding: 4px 16px;
-    border-radius: var(--pf-hjoerne-knap);
-    margin: 16px 0;
-}
-
-.maal {
-    font-size: 0.95rem;
-    color: var(--pf-rosa-moerk);
-    margin: 0;
-}
-.soster-liste {
-    display: flex;
-    gap: 16px;
-    margin: 12px 0 16px;
-}
-
-.soster {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 300;
-    color: var(--pf-rosa);
-    padding: 8px 28px;
-    border: 1px solid var(--pf-kant);
-    border-radius: var(--pf-hjoerne-lille);
-}
-
-/* ---------- Formular ---------- */
-.indhold form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 420px;
-}
-
-.indhold label {
-    margin-top: 8px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.indhold select,
-.indhold input {
-    padding: 12px;
-    font-size: 1rem;
-    background-color: var(--pf-felt);
-    border: 1px solid var(--pf-kant);
-    border-radius: var(--pf-hjoerne-lille);
-}
-
-.maal-felter {
-    display: flex;
-    gap: 16px;
-}
-
-.maal-felter div {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-}
-
-.maal-felter input {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.indhold button {
-    align-self: flex-start;
-    margin-top: 16px;
-    padding: 12px 28px;
-    font-size: 1rem;
-    color: var(--pf-hvid);
-    background-color: var(--pf-rosa);
-    border: none;
-    border-radius: var(--pf-hjoerne-knap);
-    cursor: pointer;
-}
-
-.indhold button:hover {
-    background-color: var(--pf-rosa-moerk);
-}
-
-.guide-link {
-    margin-top: 8px;
-    font-size: 0.85rem;
-    color: var(--pf-rosa);
-}
-
-.fejl {
-    padding: 12px 16px;
-    color: var(--pf-fejl);
-    background-color: var(--pf-fejl-baggrund);
-    border-radius: var(--pf-hjoerne-lille);
-}
-
 /* ---------- Mobil ---------- */
 @media (max-width: 768px) {
     .pagewrapper {
@@ -249,9 +128,4 @@ p {
     h1 {
         font-size: 2rem;
     }
-
-    .maal-felter {
-        flex-direction: column;
-    }
-
 }

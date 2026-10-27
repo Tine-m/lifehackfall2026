@@ -1,0 +1,114 @@
+/* ---------- Resultat ---------- */
+.centreret {
+    text-align: center;
+}
+
+.label {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.storrelse {
+    font-family: 'Jost', sans-serif;
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--pf-rosa);
+    margin: 0;
+    line-height: 1;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--pf-cirkel);
+    color: var(--pf-rosa-moerk);
+    font-size: 0.85rem;
+    padding: 4px 16px;
+    border-radius: var(--pf-hjoerne-knap);
+    margin: 16px 0;
+}
+
+.maal {
+    font-size: 0.95rem;
+    color: var(--pf-rosa-moerk);
+    margin: 0;
+}
+
+.soster-liste {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0 16px;
+}
+
+.soster {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--pf-rosa);
+    padding: 8px 28px;
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+/* ---------- Knapper under boksene ---------- */
+.knapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.knapper .knap {
+    margin: 0;
+}
+
+/* Lys knap: kun kant, ingen fyld */
+.knap--lys {
+    background-color: transparent;
+    color: var(--pf-rosa);
+    border: 1px solid var(--pf-rosa);
+}
+
+.knap--lys:hover {
+    color: var(--pf-hvid);
+}
+
+/* ---------- Forklaring, når man holder musen over ? ---------- */
+.info {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--pf-rosa);
+    color: var(--pf-rosa);
+    font-size: 0.75rem;
+    cursor: help;
+}
+
+.info-tekst {
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    padding: 12px 14px;
+    background-color: var(--pf-moerk);
+    color: var(--pf-hvid);
+    font-size: 0.85rem;
+    letter-spacing: normal;
+    line-height: 1.4;
+    text-align: left;
+    border-radius: var(--pf-hjoerne-lille);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+}
+
+.info:hover .info-tekst,
+.info:focus .info-tekst {
+    opacity: 1;
+    visibility: visible;
+}
