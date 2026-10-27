@@ -1,0 +1,135 @@
+/* ---------- Undertitel ---------- */
+
+.indhold p {
+    margin-bottom: 24px;
+}
+
+/* ---------- Formular ---------- */
+.indhold form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.indhold label {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.indhold select,
+.indhold input {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--pf-felt);
+    border: 1px solid var(--pf-kant);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+.maal-felter {
+    display: flex;
+    gap: 16px;
+}
+
+.maal-felter div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.maal-felter input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.indhold button {
+    align-self: flex-start;
+    margin-top: 16px;
+    padding: 16px 52px;
+    font-size: 1.1rem;
+    color: var(--pf-hvid);
+    background-color: var(--pf-rosa);
+    border: none;
+    border-radius: var(--pf-hjoerne-knap);
+    cursor: pointer;
+}
+
+.indhold button:hover {
+    background-color: var(--pf-rosa-moerk);
+}
+
+.guide-link {
+    align-self: flex-start;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--pf-rosa);
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s, color 0.3s;
+}
+
+.guide-link:hover {
+    color: var(--pf-rosa-moerk);
+    background-size: 100% 1px;
+}
+
+.fejl {
+    padding: 12px 16px;
+    color: var(--pf-fejl);
+    background-color: var(--pf-fejl-baggrund);
+    border-radius: var(--pf-hjoerne-lille);
+}
+
+/* ---------- Fjern op/ned-pile i talfelterne ---------- */
+.maal-felter input::-webkit-inner-spin-button,
+.maal-felter input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.maal-felter input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Egen pil i mærke-feltet */
+.indhold select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 44px;
+    background-image: url("../../images/teamd/pil-ned.svg");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+/* "cm" inde i felterne */
+.cm-felt {
+    position: relative;
+    display: block;
+}
+
+.cm-felt span {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--pf-tekst);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.cm-felt input {
+    padding-right: 48px;
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 768px) {
+    .maal-felter {
+        flex-direction: column;
+    }
+}

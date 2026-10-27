@@ -13,7 +13,7 @@ public class SizeService {
     private static final double MIN_CM = 55;
     private static final double MAX_CM = 150;
 
-    private static final List<String> CUPS = List.of("AA", "A", "B", "C", "D", "E", "F", "G", "H");
+    private static final List<String> CUPS = List.of("AA", "A", "B", "C", "D", "E", "F", "G", "H", "J");
 
     private final SizeGuideMapper sizeGuideMapper;
 
@@ -24,6 +24,12 @@ public class SizeService {
     // Tjekker brugerens input fra formularen og kaster en fejl med en besked, hvis noget er forkert
     public static void validateInput(String brandId, String underbust, String bust) throws ValidationException {
         if (brandId == null || brandId.isEmpty()) {
+            throw new ValidationException("Vælg et mærke");
+        }
+
+        try {
+            Integer.parseInt(brandId);
+        } catch (NumberFormatException e) {
             throw new ValidationException("Vælg et mærke");
         }
 
@@ -69,7 +75,7 @@ public class SizeService {
     }
 
     // Søsterstørrelser: bånd ned + skål op, bånd op + skål ned.
-        public static List<String> findSisterSizes(SizeGuide sizeGuide, List<SizeGuide> brandSizes) {
+    public static List<String> findSisterSizes(SizeGuide sizeGuide, List<SizeGuide> brandSizes) {
         List<String> sisterSizes = new ArrayList<>();
         if (sizeGuide == null) {
             return sisterSizes;
@@ -99,7 +105,4 @@ public class SizeService {
             }
         }
     }
-
-
-
 }
