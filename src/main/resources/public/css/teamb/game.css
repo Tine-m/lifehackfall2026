@@ -67,12 +67,20 @@ h1 {
     overflow: hidden;
 }
 
-/* Billedet fylder kortet og beholder proportionerne */
-.card img {
-    width: 100%;
-    height: 100%;
+/* Billede øverst, tekst nederst på bagsiden */
+.card-back img {
+    height: 70%;
+    width: auto;
+    max-width: 100%;
     object-fit: contain;
     display: block;
+}
+
+.card-back span {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
 }
 
 /* Forsiden: lilla med LH */
@@ -83,11 +91,15 @@ h1 {
     font-weight: bold;
 }
 
-/* Bagsiden: hvid */
+/* Bagsiden: hvid, indhold stablet lodret */
 .card-back {
     background: white;
     border: 2px solid #a855f7;
     transform: rotateY(180deg);
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+    text-align: center;
 }
 
 /* Fundet par får grøn baggrund */
