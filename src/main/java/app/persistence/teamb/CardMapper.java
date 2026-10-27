@@ -19,10 +19,10 @@ public class CardMapper {
 
             String sql = """
             SELECT c.card_id, c.pair_id, c.text_content, c.image_url, p.description
-            FROM card c
-            JOIN pair p ON p.pair_id = c.pair_id
+            FROM teamb_card c
+            JOIN teamb_pair p ON p.pair_id = c.pair_id
             WHERE c.pair_id IN (
-                SELECT pair_id FROM pair ORDER BY random() LIMIT ?
+                SELECT pair_id FROM teamb_pair ORDER BY random() LIMIT ?
             )
             """;
 
