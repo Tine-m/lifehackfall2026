@@ -1,0 +1,27 @@
+:root {
+    --white: #ffffff;
+    --background_grey: #F1EDEA;
+    --items_grey: #E9DCCB;
+    --screen_green: #B9C579;
+
+    --red: #D60E3A;
+    --orange: #D17200;
+    --yellow: #D3A801;
+    --turquoiselight: #019589;
+    --turquoise: #02696E;
+
+    --darkred: #A43E62;
+
+
+    --green_1: #a9c3a5;
+    --green_2: #7fa68a;
+    --green_3: #5f8770;
+    --green_4: #3e6655;
+
+    --pending_button: grey;
+    --locked_button: darkgrey;
+
+
+
+
+}
