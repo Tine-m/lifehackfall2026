@@ -31,6 +31,41 @@ CREATE TABLE IF NOT EXISTS public.teamc_response
     CONSTRAINT response_pkey PRIMARY KEY (response_id)
 );
 
+-- Selve afstemningen. results_visibility: 'OWNER', 'VOTERS' eller 'INVITED'
+CREATE TABLE IF NOT EXISTS public.teamc_poll
+(
+    poll_id serial PRIMARY KEY,
+    event_id integer NOT NULL REFERENCES teamc_userevent (event_id) ON DELETE CASCADE,
+    question character varying NOT NULL,
+    results_visibility character varying NOT NULL DEFAULT 'OWNER'
+);
+
+-- Svarmulighederne (Pizza, Sushi, Burger)
+CREATE TABLE IF NOT EXISTS public.teamc_poll_option
+(
+    option_id serial PRIMARY KEY,
+    poll_id integer NOT NULL REFERENCES teamc_poll (poll_id) ON DELETE CASCADE,
+    option_text character varying NOT NULL
+);
+
+-- Hvem må stemme (acceptkriterie 1)
+CREATE TABLE IF NOT EXISTS public.teamc_poll_voter
+(
+    poll_id integer NOT NULL REFERENCES teamc_poll (poll_id) ON DELETE CASCADE,
+    user_id integer NOT NULL REFERENCES teamc_user (user_id),
+    PRIMARY KEY (poll_id, user_id)
+);
+
+-- Stemmerne. UNIQUE gør at man kun kan stemme én gang pr. afstemning
+CREATE TABLE IF NOT EXISTS public.teamc_vote
+(
+    vote_id serial PRIMARY KEY,
+    poll_id integer NOT NULL REFERENCES teamc_poll (poll_id) ON DELETE CASCADE,
+    option_id integer NOT NULL REFERENCES teamc_poll_option (option_id) ON DELETE CASCADE,
+    user_id integer NOT NULL REFERENCES teamc_user (user_id),
+    UNIQUE (poll_id, user_id)
+);
+
 
 DROP TABLE IF EXISTS public.teamc_user CASCADE;
 CREATE TABLE IF NOT EXISTS public.teamc_user
