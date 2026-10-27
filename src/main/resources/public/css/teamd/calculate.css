@@ -102,7 +102,7 @@
     appearance: none;
     -webkit-appearance: none;
     padding-right: 44px;
-    background-image: url("../../images/teamd/pil-ned.svg");
+    background-image: url("../../images/teamd/arrow-down.svg");
     background-repeat: no-repeat;
     background-position: right 16px center;
 }
