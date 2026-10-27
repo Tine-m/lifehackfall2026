@@ -22,77 +22,23 @@ public class SizeGuide {
         this.bustMinCm = bustMinCm;
         this.bustMaxCm = bustMaxCm;
     }
-    public int getSizeGuideId() {
-        return sizeGuideId;
-    }
-
-    public void setSizeGuideId(int sizeGuideId) {
-        this.sizeGuideId = sizeGuideId;
-    }
 
     public int getBrandId() {
         return brandId;
-    }
-
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
     }
 
     public int getBandSize() {
         return bandSize;
     }
 
-    public void setBandSize(int bandSize) {
-        this.bandSize = bandSize;
-    }
-
     public String getCupSize() {
         return cupSize;
-    }
-
-    public void setCupSize(String cupSize) {
-        this.cupSize = cupSize;
     }
 
     public String getSizeSystem() {
         return sizeSystem;
     }
 
-    public void setSizeSystem(String sizeSystem) {
-        this.sizeSystem = sizeSystem;
-    }
-
-    public double getUnderbustMinCm() {
-        return underbustMinCm;
-    }
-
-    public void setUnderbustMinCm(double underbustMinCm) {
-        this.underbustMinCm = underbustMinCm;
-    }
-
-    public double getUnderbustMaxCm() {
-        return underbustMaxCm;
-    }
-
-    public void setUnderbustMaxCm(double underbustMaxCm) {
-        this.underbustMaxCm = underbustMaxCm;
-    }
-
-    public double getBustMinCm() {
-        return bustMinCm;
-    }
-
-    public void setBustMinCm(double bustMinCm) {
-        this.bustMinCm = bustMinCm;
-    }
-
-    public double getBustMaxCm() {
-        return bustMaxCm;
-    }
-
-    public void setBustMaxCm(double bustMaxCm) {
-        this.bustMaxCm = bustMaxCm;
-    }
     public String getSize() {
         return bandSize + cupSize;
     }

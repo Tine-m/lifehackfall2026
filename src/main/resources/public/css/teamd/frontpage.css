@@ -76,10 +76,10 @@
 
 /* ---------- Animation: damen drejer én gang, når forsiden åbner ---------- */
 .illustration img {
-    animation: drej 1.5s ease-in-out 1;
+    animation: spin 1.5s ease-in-out 1;
 }
 
-@keyframes drej {
+@keyframes spin {
     from { transform: rotateY(0deg); }
     to   { transform: rotateY(360deg); }
 }
