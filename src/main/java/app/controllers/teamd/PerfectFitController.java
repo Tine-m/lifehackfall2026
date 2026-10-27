@@ -8,17 +8,18 @@ import app.persistence.ConnectionPool;
 import app.persistence.teamd.BrandMapper;
 import app.persistence.teamd.SizeGuideMapper;
 import app.services.teamd.SizeService;
+import app.services.teamd.BrandService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
 import java.util.List;
 
 public class PerfectFitController {
-    private final BrandMapper brandMapper;
+    private final BrandService brandService;
     private final SizeService sizeService;
 
     public PerfectFitController(ConnectionPool connectionPool) {
-        this.brandMapper = new BrandMapper(connectionPool);
+        this.brandService = new BrandService(new BrandMapper(connectionPool));
         this.sizeService = new SizeService(new SizeGuideMapper(connectionPool));
     }
 
@@ -38,7 +39,7 @@ public class PerfectFitController {
     // Viser beregn-siden med mærkerne fra databasen i dropdown'en
     private void showCalculator(Context ctx) {
         try {
-            List<Brand> brands = brandMapper.getAllBrands();
+            List<Brand> brands = brandService.getAllBrands();
             ctx.attribute("brands", brands);
         } catch (DatabaseException e) {
             ctx.attribute("message", "Mærkerne kunne ikke hentes. Prøv igen senere.");
@@ -59,7 +60,7 @@ public class PerfectFitController {
         try {
             SizeService.validateInput(brandId, underbust, bust);
             SizeGuide sizeGuide = sizeService.calculateSize(brandId, underbust, bust);
-            Brand brand = brandMapper.getBrandById(sizeGuide.getBrandId());
+            Brand brand = brandService.getBrandById(sizeGuide.getBrandId());
 
             ctx.attribute("brandName", brand.getName());
             ctx.attribute("website", brand.getWebsite());
