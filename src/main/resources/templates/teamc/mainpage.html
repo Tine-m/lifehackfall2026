@@ -34,10 +34,14 @@
 
         <div class="controls">
             <form class="search-bar" action="/eventPlanner/mainpage" method="post" >
-                <input class="search-input" type="search" name="search" placeholder="Søg arrangementer..." oninput="Search()">
+                <input
+                        class="search-input"
+                        type="search"
+                        name="search"
+                        placeholder="Søg arrangementer...">
             </form>
 
-            <div class="sort-bar">
+            <!--<div class="sort-bar">
                 <label for="sort">Sortér efter:</label>
                 <select id="sort" class="sort-select" name="sort">
                     <option value="date-asc">Dato (nyeste først)</option>
@@ -47,7 +51,7 @@
                     <option value="attendees-desc">Flest deltagere</option>
                     <option value="attendees-asc">Færrest deltagere</option>
                 </select>
-            </div>
+            </div>-->
         </div>
 
         <div class="events">
@@ -70,11 +74,29 @@
     </main>
 
     <script>
-        function Search () {
-            const input = document.getElementById('search-input').value;
+        const searchInput = document.querySelector(".search-input");
+        searchInput.addEventListener("input", Search);
 
+        function Search() {
+            const input = searchInput.value.toLowerCase();
+            const events = document.querySelectorAll("ul.event-list li");
 
-        )}
+            events.forEach(event => {
+                const name = event.querySelector("strong").textContent.toLowerCase();
+
+                if (name.includes(input)) {
+                    event.style.display = "";
+                } else {
+                    event.style.display = "none";
+                }
+            });
+        }
+
+        const searchForm = document.querySelector(".search-bar");
+
+        searchForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
 
     </script>
 
