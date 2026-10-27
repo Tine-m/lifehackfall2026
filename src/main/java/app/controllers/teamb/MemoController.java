@@ -39,7 +39,7 @@ public class MemoController {
             List<Card> cards = CardMapper.getRandomCards(8, connectionPool);
             ctx.json(cards);
         } catch (DatabaseException e) {
-            ctx.status(500).json("Kunne ikke hente kort");
+            ctx.status(500);
         }
     }
 

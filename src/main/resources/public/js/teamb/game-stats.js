@@ -56,6 +56,6 @@ function increaseMatchedPairs() {
 
 // "Afslut spil" knap fører til resultatsiden
   /* document.getElementById("finish-game").addEventListener("click", () => {
-    window.location.href = "/results";
+    window.location.href = "/frontpage";
 });*/
 
