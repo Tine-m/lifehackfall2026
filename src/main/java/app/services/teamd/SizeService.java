@@ -22,7 +22,7 @@ public class SizeService {
     }
 
     // Tjekker brugerens input fra formularen og kaster en fejl med en besked, hvis noget er forkert
-    public static void validateInput(String brandId, String underbust, String bust) throws ValidationException {
+    public void validateInput(String brandId, String underbust, String bust) throws ValidationException {
         if (brandId == null || brandId.isEmpty()) {
             throw new ValidationException("Vælg et mærke");
         }
@@ -75,7 +75,7 @@ public class SizeService {
     }
 
     // Søsterstørrelser: bånd ned + skål op, bånd op + skål ned.
-    public static List<String> findSisterSizes(SizeGuide sizeGuide, List<SizeGuide> brandSizes) {
+    public List<String> findSisterSizes(SizeGuide sizeGuide, List<SizeGuide> brandSizes) {
         List<String> sisterSizes = new ArrayList<>();
         if (sizeGuide == null) {
             return sisterSizes;
@@ -97,7 +97,7 @@ public class SizeService {
         return sisterSizes;
     }
 
-    private static void addIfBrandHasSize(List<String> result, List<SizeGuide> brandSizes, int band, String cup) {
+    private void addIfBrandHasSize(List<String> result, List<SizeGuide> brandSizes, int band, String cup) {
         for (SizeGuide size : brandSizes) {
             if (size.getBandSize() == band && size.getCupSize().equals(cup)) {
                 result.add(band + cup);

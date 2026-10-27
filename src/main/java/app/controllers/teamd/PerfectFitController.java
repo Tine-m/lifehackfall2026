@@ -58,7 +58,7 @@ public class PerfectFitController {
         ctx.attribute("bust", bust);
 
         try {
-            SizeService.validateInput(brandId, underbust, bust);
+            sizeService.validateInput(brandId, underbust, bust);
             SizeGuide sizeGuide = sizeService.calculateSize(brandId, underbust, bust);
             Brand brand = brandService.getBrandById(sizeGuide.getBrandId());
 
