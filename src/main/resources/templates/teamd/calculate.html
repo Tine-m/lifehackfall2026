@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/teamd/tokens.css"/>
     <link rel="stylesheet" href="/css/teamd/styles.css"/>
+    <link rel="stylesheet" href="/css/teamd/calculate.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 </head>
@@ -18,6 +19,7 @@
         <a href="/perfectfit">Forside</a>
         <a href="/perfectfit/calculate" class="aktiv">Beregn</a>
         <a href="/perfectfit/measure">Sådan måler du dig</a>
+        <a href="/">Afslut</a>
     </nav>
 </header>
 
@@ -42,11 +44,17 @@
             <div class="maal-felter">
                 <div>
                     <label for="underbust">Undermål</label>
-                    <input type="number" id="underbust" name="underbust" step="0.1" th:value="${underbust}" placeholder="fx 75 cm" required>
+                    <span class="cm-felt">
+                    <input type="number" id="underbust" name="underbust" step="0.1" min="55" max="150" th:value="${underbust}" placeholder="fx 75" required>
+                    <span>cm</span>
+                    </span>
                 </div>
                 <div>
                     <label for="bust">Brystmål</label>
-                    <input type="number" id="bust" name="bust" step="0.1" th:value="${bust}" placeholder="fx 90 cm" required>
+                    <span class="cm-felt">
+                        <input type="number" id="bust" name="bust" step="0.1" min="55" max="150" th:value="${bust}" placeholder="fx 90" required>
+                        <span>cm</span>
+                    </span>
                 </div>
             </div>
 

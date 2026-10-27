@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/teamd/tokens.css"/>
     <link rel="stylesheet" href="/css/teamd/styles.css"/>
+    <link rel="stylesheet" href="/css/teamd/result.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
@@ -15,8 +16,9 @@
     <span class="logo">PERFECTFIT</span>
     <nav>
         <a href="/perfectfit">Forside</a>
-        <a href="/perfectfit/beregn">Beregn</a>
-        <a href="/perfectfit/maal">Sådan måler du dig</a>
+        <a href="/perfectfit/calculate">Beregn</a>
+        <a href="/perfectfit/measure">Sådan måler du dig</a>
+        <a href="/">Afslut</a>
     </nav>
 </header>
 
@@ -26,21 +28,32 @@
     <section class="indhold">
         <p>Din størrelse hos</p>
         <h2 th:text="${brandName}">Hunkemøller</h2>
+
         <section class="hvid-boks centreret">
             <p class="label">DIN STØRRELSE</p>
             <p class="storrelse" th:text="${size}">75C</p>
             <span class="badge" th:text="|${sizeSystem}-størrelse|">EU-størrelse</span>
             <p class="maal" th:text="|Undermål ${underbust} cm · Brystmål ${bust} cm|">Undermål 75 cm · Brystmål 90 cm</p>
         </section>
-               <section class="hvid-boks" th:if="${not #lists.isEmpty(sisterSizes)}">
-            <p class="label">SØSTERSTØRRELSER</p>
+
+        <section class="hvid-boks" th:if="${not #lists.isEmpty(sisterSizes)}">
+            <p class="label">SØSTERSTØRRELSER
+                <span class="info" tabindex="0">?
+                    <span class="info-tekst">Samme skål, andet bånd. Sidder båndet løst, så vælg det mindre tal. Strammer det, så vælg det større.</span>
+                </span>
+            </p>
             <div class="soster-liste">
                 <span class="soster" th:each="s : ${sisterSizes}" th:text="${s}">70D</span>
             </div>
-            <p>Skålen rummer det samme. Prøv dem, hvis din størrelse er udsolgt.</p>
+            <p>Prøv dem, hvis din størrelse er udsolgt.</p>
         </section>
-        <a href="/perfectfit/beregn" class="knap">← Beregn igen</a>
+
+        <div class="knapper">
+            <a class="knap" th:if="${website}" th:href="${website}" th:text="|Køb hos ${brandName}|" target="_blank" rel="noopener">Køb hos Hunkemøller</a>
+            <a href="/perfectfit/calculate" class="knap knap--lys">← Beregn igen</a>
+        </div>
     </section>
+
 
     <!-- Højre side-->
     <section class="illustration">
