@@ -98,6 +98,10 @@ function checkForMatch() {
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
         resetBoard();
+
+        if (increaseMatchedPairs()) {
+            stopTimer();
+        }
     } else {
         setTimeout(() => {
             // US4: Ikke-matchende kort vendes tilbage

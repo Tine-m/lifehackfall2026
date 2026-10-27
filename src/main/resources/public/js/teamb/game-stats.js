@@ -31,3 +31,31 @@ function increaseMoves() {
     document.getElementById("moves").textContent =
         `Moves: ${moves}`;
 }
+
+
+/* Stop timeren når spillet er slut */
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+/* US: Matched pairs */
+let matchedPairs = 0;
+
+function increaseMatchedPairs() {
+    matchedPairs++;
+
+    // 16 kort = 8 par
+    const totalPairs = document.querySelectorAll(".card").length / 2;
+
+    document.getElementById("matched").textContent =
+        `Matched pairs: ${matchedPairs}/${totalPairs}`;
+
+    return matchedPairs === totalPairs; // true når alle par er fundet
+}
+
+// "Afslut spil" knap fører til resultatsiden
+  /* document.getElementById("finish-game").addEventListener("click", () => {
+    window.location.href = "/results";
+});*/
+
