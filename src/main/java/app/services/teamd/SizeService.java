@@ -23,16 +23,24 @@ public class SizeService {
 
     // Tjekker brugerens input fra formularen og kaster en fejl med en besked, hvis noget er forkert
     public void validateInput(String brandId, String underbust, String bust) throws ValidationException {
+        checkBrand(brandId);
+        checkMeasurements(underbust, bust);
+    }
+
+    // Tjekker at der er valgt et gyldigt mærke
+    private void checkBrand(String brandId) throws ValidationException {
         if (brandId == null || brandId.isEmpty()) {
             throw new ValidationException("Vælg et mærke");
         }
-
         try {
             Integer.parseInt(brandId);
         } catch (NumberFormatException e) {
             throw new ValidationException("Vælg et mærke");
         }
+    }
 
+    // Tjekker at målene er udfyldt, er tal, ligger mellem 55 og 150, og at brystmål er størst
+    private void checkMeasurements(String underbust, String bust) throws ValidationException {
         if (underbust == null || underbust.isEmpty() || bust == null || bust.isEmpty()) {
             throw new ValidationException("Udfyld både undermål og brystmål");
         }
@@ -49,7 +57,6 @@ public class SizeService {
         if (underbustCm < MIN_CM || underbustCm > MAX_CM || bustCm < MIN_CM || bustCm > MAX_CM) {
             throw new ValidationException("Målene skal være mellem 55 og 150 cm");
         }
-
         if (bustCm <= underbustCm) {
             throw new ValidationException("Brystmål skal være større end undermål");
         }
