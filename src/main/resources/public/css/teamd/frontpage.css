@@ -1,14 +1,14 @@
 /* ---------- Link tilbage til den fælles forside ---------- */
-.tilbage-link {
+.back-link {
     display: inline-block;
     margin: 20px 8% 0;
     font-size: 0.9rem;
-    color: var(--pf-tekst);
+    color: var(--pf-text);
     text-decoration: none;
 }
 
-.tilbage-link:hover {
-    color: var(--pf-rosa-moerk);
+.back-link:hover {
+    color: var(--pf-pink-dark);
 }
 
 .hero {
@@ -16,6 +16,7 @@
     max-width: 640px;
     margin: 0 auto;
 }
+
 @media (max-width: 768px) {
     .pagewrapper {
         grid-template-columns: 1fr;
@@ -30,18 +31,19 @@
         max-width: 280px;             /* så det ikke fylder hele skærmen */
     }
 }
+
 .tagline {
     font-family: 'Jost', sans-serif;
     font-weight: 300;
     font-size: 0.9rem;
     letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-pink-dark);
     margin: 0 0 32px;
 
 }
 
-#ikoner {
+#icons {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     list-style: none;
@@ -49,23 +51,23 @@
     margin: 40px 0 0;
 }
 
-#ikoner li {
+#icons li {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 12px;
 }
 
-#ikoner li + li {
-    border-left: 1px solid var(--pf-kant);
+#icons li + li {
+    border-left: 1px solid var(--pf-border);
 }
 
-#ikoner img {
+#icons img {
     height: 28px;
     width: auto;
 }
 
-#ikoner p {
+#icons p {
     margin: 8px 0 0;
     font-size: 0.75rem;
     line-height: 1.3;

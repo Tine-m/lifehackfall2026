@@ -1,9 +1,9 @@
 /* ---------- Grundlæggende ---------- */
 body {
     margin: 0;
-    background-color: var(--pf-baggrund);
-    color: var(--pf-tekst);
-    font-family: var(--pf-skrift);
+    background-color: var(--pf-background);
+    color: var(--pf-text);
+    font-family: var(--pf-font);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -27,22 +27,22 @@ h1 {
     text-transform: uppercase;
     font-size: 3.4rem;
     margin: 10px 0 4px;
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-pink-dark);
 }
 
 h2 {
-    color: var(--pf-rosa);
-    font-family: var(--pf-skrift);
+    color: var(--pf-pink);
+    font-family: var(--pf-font);
     font-size: 38px;
     font-weight: 300;
     margin: 0 0 12px;
 }
 
 p {
-    font-family: var(--pf-skrift);
+    font-family: var(--pf-font);
     font-size: 18px;
     font-weight: 400;
-    color: var(--pf-tekst);
+    color: var(--pf-text);
     margin: 0 0 16px;
 }
 
@@ -59,8 +59,8 @@ p {
 }
 
 /* ---------- Header ---------- */
-.aktiv{
-    color: var(--pf-rosa-moerk) !important;
+.active{
+    color: var(--pf-pink-dark) !important;
 }
 
 .topbar {
@@ -68,7 +68,7 @@ p {
     justify-content: space-between;
     align-items: center;
     padding: 20px 8%;
-    border-bottom: 1px solid var(--pf-kant);
+    border-bottom: 1px solid var(--pf-border);
 }
 
 .logo {
@@ -76,7 +76,7 @@ p {
     font-weight: 300;
     font-size: 1.5rem;
     letter-spacing: 0.3em;
-    color: var(--pf-moerk);
+    color: var(--pf-dark);
 }
 
 .topbar nav {
@@ -86,34 +86,34 @@ p {
 
 .topbar nav a {
     font-size: 1rem;
-    color: var(--pf-tekst);
+    color: var(--pf-text);
     text-decoration: none;
 }
 
 .topbar nav a:hover {
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-pink-dark);
 }
 
 /* ---------- Knap ---------- */
-.knap {
+.button {
     display: inline-block;
     margin: 24px 0 40px;
     padding: 14px 32px;
-    background-color: var(--pf-rosa);
-    color: var(--pf-hvid);
+    background-color: var(--pf-pink);
+    color: var(--pf-white);
     text-decoration: none;
-    border-radius: var(--pf-hjoerne-knap);
+    border-radius: var(--pf-radius-button);
     transition: background-color 0.2s;
 }
 
-.knap:hover {
-    background-color: var(--pf-rosa-moerk);
+.button:hover {
+    background-color: var(--pf-pink-dark);
 }
 
 /* ---------- Boks (hvide bokse) ---------- */
-.hvid-boks {
-    background-color: var(--pf-hvid);
-    border-radius: var(--pf-hjoerne-stor);
+.white-box {
+    background-color: var(--pf-white);
+    border-radius: var(--pf-radius-large);
     padding: 32px;
     margin-bottom: 24px;
 }

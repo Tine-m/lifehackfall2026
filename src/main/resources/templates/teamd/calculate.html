@@ -17,7 +17,7 @@
     <span class="logo">PERFECTFIT</span>
     <nav>
         <a href="/perfectfit">Forside</a>
-        <a href="/perfectfit/calculate" class="aktiv">Beregn</a>
+        <a href="/perfectfit/calculate" class="active">Beregn</a>
         <a href="/perfectfit/measure">Sådan måler du dig</a>
         <a href="/">Afslut</a>
     </nav>
@@ -26,12 +26,12 @@
 <main class="pagewrapper">
 
     <!-- Venstre side -->
-    <section class="indhold">
+    <section class="content">
         <h2>Beregn din størrelse</h2>
         <p>Vælg et mærke, og indtast dine mål i cm.</p>
 
-        <form class="hvid-boks" method="post" action="/perfectfit/calculate">
-            <p class="fejl" th:if="${message}" th:text="${message}"></p>
+        <form class="white-box" method="post" action="/perfectfit/calculate">
+            <p class="error" th:if="${message}" th:text="${message}"></p>
             <label for="brand">Mærke</label>
             <select id="brand" name="brandId" required>
                 <option value="">Vælg et mærke</option>
@@ -41,17 +41,17 @@
                         th:selected="${#strings.toString(brand.brandId) == selectedBrandId}"></option>
             </select>
 
-            <div class="maal-felter">
+            <div class="measure-fields">
                 <div>
                     <label for="underbust">Undermål</label>
-                    <span class="cm-felt">
+                    <span class="cm-field">
                     <input type="number" id="underbust" name="underbust" step="0.1" min="55" max="150" th:value="${underbust}" placeholder="fx 75" required>
                     <span>cm</span>
                     </span>
                 </div>
                 <div>
                     <label for="bust">Brystmål</label>
-                    <span class="cm-felt">
+                    <span class="cm-field">
                         <input type="number" id="bust" name="bust" step="0.1" min="55" max="150" th:value="${bust}" placeholder="fx 90" required>
                         <span>cm</span>
                     </span>

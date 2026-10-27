@@ -1,70 +1,70 @@
 /* ---------- Undertitel ---------- */
 
-.indhold p {
+.content p {
     margin-bottom: 24px;
 }
 
 /* ---------- Formular ---------- */
-.indhold form {
+.content form {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.indhold label {
+.content label {
     margin-top: 8px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
-.indhold select,
-.indhold input {
+.content select,
+.content input {
     padding: 12px;
     font-size: 1rem;
-    background-color: var(--pf-felt);
-    border: 1px solid var(--pf-kant);
-    border-radius: var(--pf-hjoerne-lille);
+    background-color: var(--pf-field);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-small);
 }
 
-.maal-felter {
+.measure-fields {
     display: flex;
     gap: 16px;
 }
 
-.maal-felter div {
+.measure-fields div {
     display: flex;
     flex-direction: column;
     gap: 8px;
     flex: 1;
 }
 
-.maal-felter input {
+.measure-fields input {
     width: 100%;
     box-sizing: border-box;
 }
 
-.indhold button {
+.content button {
     align-self: flex-start;
     margin-top: 16px;
     padding: 16px 52px;
     font-size: 1.1rem;
-    color: var(--pf-hvid);
-    background-color: var(--pf-rosa);
+    color: var(--pf-white);
+    background-color: var(--pf-pink);
     border: none;
-    border-radius: var(--pf-hjoerne-knap);
+    border-radius: var(--pf-radius-button);
     cursor: pointer;
 }
 
-.indhold button:hover {
-    background-color: var(--pf-rosa-moerk);
+.content button:hover {
+    background-color: var(--pf-pink-dark);
 }
 
 .guide-link {
     align-self: flex-start;
     margin-top: 8px;
     font-size: 0.85rem;
-    color: var(--pf-rosa);
+    color: var(--pf-pink);
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
     background-size: 0 1px;
@@ -74,31 +74,31 @@
 }
 
 .guide-link:hover {
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-pink-dark);
     background-size: 100% 1px;
 }
 
-.fejl {
+.error {
     padding: 12px 16px;
-    color: var(--pf-fejl);
-    background-color: var(--pf-fejl-baggrund);
-    border-radius: var(--pf-hjoerne-lille);
+    color: var(--pf-error);
+    background-color: var(--pf-error-background);
+    border-radius: var(--pf-radius-small);
 }
 
 /* ---------- Fjern op/ned-pile i talfelterne ---------- */
-.maal-felter input::-webkit-inner-spin-button,
-.maal-felter input::-webkit-outer-spin-button {
+.measure-fields input::-webkit-inner-spin-button,
+.measure-fields input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-.maal-felter input {
+.measure-fields input {
     -moz-appearance: textfield;
     appearance: textfield;
 }
 
 /* Egen pil i mærke-feltet */
-.indhold select {
+.content select {
     appearance: none;
     -webkit-appearance: none;
     padding-right: 44px;
@@ -108,28 +108,28 @@
 }
 
 /* "cm" inde i felterne */
-.cm-felt {
+.cm-field {
     position: relative;
     display: block;
 }
 
-.cm-felt span {
+.cm-field span {
     position: absolute;
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--pf-tekst);
+    color: var(--pf-text);
     opacity: 0.7;
     pointer-events: none;
 }
 
-.cm-felt input {
+.cm-field input {
     padding-right: 48px;
 }
 
 /* ---------- Mobil ---------- */
 @media (max-width: 768px) {
-    .maal-felter {
+    .measure-fields {
         flex-direction: column;
     }
 }

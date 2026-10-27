@@ -1,5 +1,5 @@
 /* ---------- Resultat ---------- */
-.centreret {
+.centered {
     text-align: center;
 }
 
@@ -9,68 +9,68 @@
     margin: 0;
 }
 
-.storrelse {
+.size {
     font-family: 'Jost', sans-serif;
     font-size: 6rem;
     font-weight: 300;
-    color: var(--pf-rosa);
+    color: var(--pf-pink);
     margin: 0;
     line-height: 1;
 }
 
 .badge {
     display: inline-block;
-    background-color: var(--pf-cirkel);
-    color: var(--pf-rosa-moerk);
+    background-color: var(--pf-circle);
+    color: var(--pf-pink-dark);
     font-size: 0.85rem;
     padding: 4px 16px;
-    border-radius: var(--pf-hjoerne-knap);
+    border-radius: var(--pf-radius-button);
     margin: 16px 0;
 }
 
-.maal {
+.measurements {
     font-size: 0.95rem;
-    color: var(--pf-rosa-moerk);
+    color: var(--pf-pink-dark);
     margin: 0;
 }
 
-.soster-liste {
+.sister-list {
     display: flex;
     gap: 16px;
     margin: 12px 0 16px;
 }
 
-.soster {
+.sister {
     font-family: 'Jost', sans-serif;
     font-size: 1.6rem;
     font-weight: 300;
-    color: var(--pf-rosa);
+    color: var(--pf-pink);
     padding: 8px 28px;
-    border: 1px solid var(--pf-kant);
-    border-radius: var(--pf-hjoerne-lille);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-small);
 }
 
 /* ---------- Knapper under boksene ---------- */
-.knapper {
+.buttons {
     display: flex;
     gap: 16px;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.knapper .knap {
+.buttons .button {
     margin: 0;
 }
 
 /* Lys knap: kun kant, ingen fyld */
-.knap--lys {
+.button--light {
     background-color: transparent;
-    color: var(--pf-rosa);
-    border: 1px solid var(--pf-rosa);
+    color: var(--pf-pink);
+    border: 1px solid var(--pf-pink);
 }
 
-.knap--lys:hover {
-    color: var(--pf-hvid);
+.button--light:hover {
+    color: var(--pf-white);
 }
 
 /* ---------- Forklaring, når man holder musen over ? ---------- */
@@ -82,33 +82,33 @@
     height: 18px;
     margin-left: 6px;
     border-radius: 50%;
-    border: 1px solid var(--pf-rosa);
-    color: var(--pf-rosa);
+    border: 1px solid var(--pf-pink);
+    color: var(--pf-pink);
     font-size: 0.75rem;
     cursor: help;
 }
 
-.info-tekst {
+.info-text {
     position: absolute;
     bottom: 140%;
     left: 50%;
     transform: translateX(-50%);
     width: 240px;
     padding: 12px 14px;
-    background-color: var(--pf-moerk);
-    color: var(--pf-hvid);
+    background-color: var(--pf-dark);
+    color: var(--pf-white);
     font-size: 0.85rem;
     letter-spacing: normal;
     line-height: 1.4;
     text-align: left;
-    border-radius: var(--pf-hjoerne-lille);
+    border-radius: var(--pf-radius-small);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s;
 }
 
-.info:hover .info-tekst,
-.info:focus .info-tekst {
+.info:hover .info-text,
+.info:focus .info-text {
     opacity: 1;
     visibility: visible;
 }

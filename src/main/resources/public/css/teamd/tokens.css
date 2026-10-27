@@ -2,26 +2,26 @@
    Skal linkes før perfectfit.css. */
     :root {
         /* Farver fra logoet */
-        --pf-baggrund: #F7E6E1;
-        --pf-rosa: #B47F86;
-        --pf-rosa-moerk: #9C6A72;
-        --pf-cirkel: #EED6D1;
-        --pf-tekst: #5C4A41;
-        --pf-moerk: #3A2B24;
-        --pf-hvid: #FFFFFF;
-        --pf-felt: #FDFAF8;
-        --pf-kant: #E0CFC6;
-        --pf-fejl: #C0475E;
-        --pf-fejl-baggrund: #FBE9EC;
+        --pf-background: #F7E6E1;
+        --pf-pink: #B47F86;
+        --pf-pink-dark: #9C6A72;
+        --pf-circle: #EED6D1;
+        --pf-text: #5C4A41;
+        --pf-dark: #3A2B24;
+        --pf-white: #FFFFFF;
+        --pf-field: #FDFAF8;
+        --pf-border: #E0CFC6;
+        --pf-error: #C0475E;
+        --pf-error-background: #FBE9EC;
 
         /* Skrift */
-        --pf-skrift: Inter, Helvetica, Arial, sans-serif;
+        --pf-font: Inter, Helvetica, Arial, sans-serif;
 
 
         /* Runde hjørner */
-        --pf-hjoerne-lille: 12px;
-        --pf-hjoerne-stor: 22px;
-        --pf-hjoerne-knap: 40px;
+        --pf-radius-small: 12px;
+        --pf-radius-large: 22px;
+        --pf-radius-button: 40px;
     }
 
 
