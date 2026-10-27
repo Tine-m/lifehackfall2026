@@ -1,0 +1,465 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --cream: #fffaf3;
+    --ink: #5d4d70;
+    --muted: #776b8b;
+    --pink: #d85d88;
+    --pink-soft: #fde5ed;
+    --blue: #4d9cda;
+    --blue-soft: #e4f2ff;
+    --yellow: #ffc34e;
+    --border: #ead2bc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Nunito", Arial, sans-serif;
+}
+
+.result-page {
+    width: min(1600px, 100%);
+    min-height: calc(100vh - 20px);
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: radial-gradient(ellipse at top, #ffffff, var(--cream) 75%);
+    box-shadow: 0 2px 10px rgba(112, 82, 62, 0.06);
+}
+
+.page-header {
+    text-align: center;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #ca3f70;
+    font-size: clamp(2.6rem, 4.4vw, 4rem);
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.subtitle {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: clamp(1.1rem, 2vw, 1.9rem);
+    font-weight: 600;
+}
+
+.player-stats {
+    width: min(850px, 78%);
+    margin: 24px auto 26px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 100px;
+    padding: 14px 20px;
+    border-radius: 20px;
+}
+
+.stat-text {
+    text-align: center;
+}
+
+.time-stat {
+    background: var(--blue-soft);
+    color: #397fc3;
+}
+
+.moves-stat {
+    background: var(--pink-soft);
+    color: var(--pink);
+}
+
+.stat-icon {
+    font-size: 3.4rem;
+    line-height: 1;
+}
+
+.stat-label {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.stat-value {
+    margin: 0;
+    font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.result-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 18px;
+}
+
+.panel {
+    min-width: 0;
+    min-height: 560px;
+    padding: 18px 22px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.panel-heading h2 {
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(1.35rem, 2vw, 1.85rem);
+    font-weight: 900;
+}
+
+.lifehacks-heading h2 {
+    color: var(--pink);
+}
+
+.heading-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.panel-subtitle {
+    margin: 4px 0 12px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.leaderboard-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 4px;
+    font-size: clamp(0.82rem, 1.1vw, 1rem);
+}
+
+.leaderboard-table th {
+    padding: 8px 9px;
+    background: #f2edf2;
+    color: #6d5f7d;
+    font-weight: 900;
+}
+
+.leaderboard-table th:nth-child(2),
+.leaderboard-table td:nth-child(2) {
+    text-align: left;
+    padding-left: 40px;
+}
+
+.leaderboard-table th:first-child {
+    border-radius: 11px 0 0 11px;
+}
+
+.leaderboard-table th:last-child {
+    border-radius: 0 11px 11px 0;
+}
+
+.leaderboard-table td {
+    padding: 7px 9px;
+}
+
+.leaderboard-table td:first-child,
+.leaderboard-table td:nth-child(3),
+.leaderboard-table td:last-child {
+    text-align: center;
+}
+
+.leaderboard-table tbody tr:nth-child(even) {
+    background: rgba(249, 239, 230, 0.55);
+}
+
+.leaderboard-table tbody tr.current-player {
+    background: #fbe0eb;
+    font-weight: 900;
+}
+
+.leaderboard-table tbody td:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.leaderboard-table tbody td:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.lifehack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 14px 16px;
+    flex: 1;
+    min-height: 0;
+}
+
+.lifehack-card {
+    appearance: none;
+    min-width: 0;
+    min-height: 0;
+    padding: 4px;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    background: white;
+    color: var(--ink);
+    cursor: pointer;
+    perspective: 900px;
+    text-align: center;
+    font: inherit;
+}
+
+.card-inner {
+    position: relative;
+    display: block;
+    height: 100%;
+    min-height: 180px;
+    transition: transform 0.55s ease;
+    transform-style: preserve-3d;
+}
+
+.lifehack-card.is-flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    overflow: hidden;
+    border-radius: 10px;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background: white;
+}
+
+.hack-picture {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 800;
+    color: white;
+}
+
+.hack-picture { background: linear-gradient(135deg, #e1ccfa, #bca0ed); color: #7354a2; }
+
+.flip-label {
+    display: block;
+    padding: 9px 2px;
+    color: var(--ink);
+    font-size: clamp(0.65rem, 0.9vw, 0.85rem);
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: #fbe5ed;
+    color: #694f72;
+    font-size: clamp(0.68rem, 0.95vw, 0.9rem);
+    line-height: 1.35;
+    font-weight: 700;
+}
+
+.page-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+    width: min(1120px, 82%);
+    margin: 22px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid #eadfd3;
+}
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    min-height: 70px;
+    padding: 14px 20px;
+    border: 1.5px solid #8e7ba5;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 900;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(100, 68, 120, 0.12);
+}
+
+.action-button span {
+    font-size: 1.7rem;
+}
+
+.action-button .home-icon {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-size: 2rem;
+    transform: translateY(-2px);
+}
+
+.primary-button {
+    background: linear-gradient(100deg, #bd4db5, #b84fb0);
+    border-color: #b84fb0;
+    color: white;
+}
+
+.secondary-button {
+    background: transparent;
+    color: var(--ink);
+}
+
+@media (max-width: 950px) {
+    .result-page {
+        padding: 22px;
+    }
+
+    .result-sections {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        min-height: 500px;
+    }
+
+    .card-inner {
+        min-height: 170px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+
+    .result-page {
+        padding: 22px 14px;
+        border-radius: 0;
+    }
+
+    .player-stats {
+        width: 100%;
+        gap: 10px;
+        margin: 20px auto;
+    }
+
+    .stat-card {
+        min-height: 84px;
+        padding: 10px;
+        gap: 9px;
+        border-radius: 14px;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .panel {
+        padding: 16px 10px;
+    }
+
+    .leaderboard-table {
+        font-size: 0.78rem;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 7px 4px;
+    }
+
+    .lifehack-grid {
+        gap: 8px;
+    }
+
+    .card-inner {
+        min-height: 135px;
+    }
+
+    .flip-label {
+        font-size: 0.58rem;
+        padding: 7px 0;
+    }
+
+    .card-back {
+        font-size: 0.65rem;
+        padding: 6px;
+    }
+
+    .page-actions {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .action-button {
+        min-height: 58px;
+        font-size: 1rem;
+    }
+
+}
+
+.lifehack-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lifehack-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(100, 68, 120, 0.12);
+}
+
+.lifehack-card:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #6b8fd6;
+    outline-offset: 3px;
+}
+

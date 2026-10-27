@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Oi&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    position: relative;
+    width: min(100%, 900px);
+    aspect-ratio: 865 / 628;
+    overflow: hidden;
+    background-color: white;
+}
+
+.background {
+    position: absolute;
+    inset: 0;
+
+    background-image: url("/images/teamb/MemoryGameBG.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0.65;
+    z-index: 0;
+}
+
+.game-content {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.game-title {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: 'Oi', cursive;
+    font-size: clamp(40px, 9vw, 82px);
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: center;
+
+    filter: drop-shadow(2px 4px 1px #777777);
+}
+
+.title-word {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.blue {
+    color: #57a0d4;
+}
+
+.red {
+    color: #d16479;
+}
+
+.green {
+    color: #86c295;
+}
+
+.yellow {
+    color: #edcb7b;
+}
+
+.title-word span {
+    -webkit-text-stroke: 1.5px #222222;
+    paint-order: stroke fill;
+}
+
+.menu-buttons {
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(18px, 4vw, 35px);
+
+    width: 100%;
+}
+
+.menu-button {
+    width: clamp(150px, 23vw, 198px);
+    min-height: 44px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #9c51d9;
+    border-radius: 16px;
+
+    background-color: #d46ed0;
+    color: black;
+
+    font-size: clamp(14px, 2.2vw, 20px);
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.menu-button:hover {
+    background-color: #e18cdd;
+    transform: scale(1.04);
+}
+
+
+@media (max-width: 500px) {
+
+    .game-title {
+        font-size: clamp(25px, 7vw, 35px);
+    }
+
+    .menu-buttons {
+        gap: 15px;
+    }
+
+    .menu-button {
+        min-height: 38px;
+    }
+
+}
