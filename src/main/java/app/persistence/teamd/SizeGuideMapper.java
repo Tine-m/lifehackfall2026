@@ -37,17 +37,7 @@ public class SizeGuideMapper {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new SizeGuide(
-                        rs.getInt("size_guide_id"),
-                        rs.getInt("brand_id"),
-                        rs.getInt("band_size"),
-                        rs.getString("cup_size"),
-                        rs.getString("size_system"),
-                        rs.getDouble("underbust_min_cm"),
-                        rs.getDouble("underbust_max_cm"),
-                        rs.getDouble("bust_min_cm"),
-                        rs.getDouble("bust_max_cm")
-                );
+                return mapSizeGuide(rs);
             }
             return null;
 
@@ -68,21 +58,27 @@ public class SizeGuideMapper {
             ps.setInt(1, brandId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                sizes.add(new SizeGuide(
-                        rs.getInt("size_guide_id"),
-                        rs.getInt("brand_id"),
-                        rs.getInt("band_size"),
-                        rs.getString("cup_size"),
-                        rs.getString("size_system"),
-                        rs.getDouble("underbust_min_cm"),
-                        rs.getDouble("underbust_max_cm"),
-                        rs.getDouble("bust_min_cm"),
-                        rs.getDouble("bust_max_cm")
-                ));
+                sizes.add(mapSizeGuide(rs));
             }
+
         } catch (SQLException e) {
             throw new DatabaseException("Kunne ikke hente størrelserne: " + e.getMessage());
         }
         return sizes;
+    }
+
+    // Laver én SizeGuide ud fra den række, ResultSet står på
+    private SizeGuide mapSizeGuide(ResultSet rs) throws SQLException {
+        return new SizeGuide(
+                rs.getInt("size_guide_id"),
+                rs.getInt("brand_id"),
+                rs.getInt("band_size"),
+                rs.getString("cup_size"),
+                rs.getString("size_system"),
+                rs.getDouble("underbust_min_cm"),
+                rs.getDouble("underbust_max_cm"),
+                rs.getDouble("bust_min_cm"),
+                rs.getDouble("bust_max_cm")
+        );
     }
 }
