@@ -81,6 +81,8 @@ public class GameController {
         }
 
         ctx.sessionAttribute("niveau1Status", "active");
+        ctx.sessionAttribute("niveau2Status", "pending");
+        ctx.sessionAttribute("niveau3Status", "pending");
         ctx.render("teama/frontpage.html");
     }
 
@@ -133,18 +135,25 @@ public class GameController {
 
         //highcore?
 
+
+        // Hvis scoren er høj nok, bliver næste niveau unlocked.
         if (scoreService.unlockNextLevel(game)){
             switch (game.getLevel()){
                 case 1:
+                    // Midlertidig kode. Tjekker om den relevante side er "pending" dvs. ikke færdig
+                    if (ctx.sessionAttribute("niveau2Status") == "pending") {break;}
+
                     ctx.sessionAttribute("niveau2Status", "active");
                     break;
                 case 2:
+                    // Midlertidig kode. Tjekker om den relevante side er "pending" dvs. ikke færdig
+                    if (ctx.sessionAttribute("niveau3Status") == "pending") {break;}
+
                     ctx.sessionAttribute("niveau3Status", "active");
                     break;
             }
             ctx.attribute("isNextLevelOpen", true);
         }
-
         ctx.render("teama/result.html");
     }
 
