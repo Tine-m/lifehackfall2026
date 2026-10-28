@@ -175,7 +175,7 @@ public class GameController {
             scoreService.saveScore(highscore);
         }
         catch(DatabaseException e){
-            System.out.println("Highscore kunne ikke gemmes " + e);
+            System.out.println("Highscore could not be saved: " + e);
         }
 
         try {
@@ -183,7 +183,7 @@ public class GameController {
             ctx.sessionAttribute("weekList", scoreService.getTopWeek(5));
             ctx.sessionAttribute("allTimeList", scoreService.getTopAllTime(10));
         } catch (DatabaseException e) {
-            System.out.println("Highscores kunne ikke loades");
+            System.out.println("Error: Highscores could not be loaded");
         }
 
         ctx.render("teama/result.html");
