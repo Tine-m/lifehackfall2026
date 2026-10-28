@@ -7,6 +7,9 @@ import app.services.teamc.EventService;
 import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +25,7 @@ public class UserEventController {
         this.eventService = new EventService(connectionPool);
     }
 
-    public void setRoutes(JavalinConfig config){
+    public void setRoutes(JavalinConfig config) {
 
         config.routes.get("/eventPlanner/createEvent", ctx -> showCreateEvent(ctx));
         config.routes.post("/eventPlanner/createEvent", ctx -> createEvent(ctx));
@@ -40,6 +43,42 @@ public class UserEventController {
     }
 
     public void editEvent(Context ctx) throws DatabaseException {
+        User user = requireLogin(ctx);
+        if (user == null) return;
+
+
+        int eventId;
+        try {
+            eventId = Integer.parseInt(ctx.pathParam("id"));
+        } catch (NumberFormatException e) {
+            ctx.status(404);
+            return;
+        }
+        UserEvent event = userEventService.getEventForParticipant(eventId, user);
+
+        if (event == null) {
+            ctx.status(404);
+            return;
+        }
+        if (event.getUser().getUser_id() != user.getUser_id()) {
+            ctx.status(403);
+            return;
+        }
+
+
+        String newname = ctx.formParam("eventName");
+        ctx.attribute("newname", newname);
+        userEventService.editEventName(eventId, newname, user);
+
+        String startDate = ctx.formParam("startDate");
+        ctx.attribute("startDate", startDate);
+        userEventService.editEventStart(eventId, LocalDateTime.parse(startDate), user);
+
+        String finishDate = ctx.formParam("finishDate");
+        if (finishDate != null && !finishDate.isEmpty()){
+            userEventService.editEventFinish(eventId, LocalDateTime.parse(finishDate), user);
+}
+        ctx.redirect("/eventPlanner/mainpage");
 
     }
 
@@ -72,6 +111,7 @@ public class UserEventController {
         LocalDateTime now = LocalDateTime.now()
                 .withSecond(0)
                 .withNano(0);
+
 
         ctx.attribute("user", user);
         ctx.attribute("event", event);
@@ -113,13 +153,13 @@ public class UserEventController {
             ctx.attribute("events", events);
             ctx.render("teamc/mainpage");
 
-        } else if(search != null){
+        } else if (search != null) {
 
             List<UserEvent> events = userEventService.getAcceptedEvents(user);
             events.addAll(userEventService.getMyEvents(user));
 
-            for (UserEvent event: events){
-                if (event.getEventName().toLowerCase().startsWith(search.toLowerCase())){
+            for (UserEvent event : events) {
+                if (event.getEventName().toLowerCase().startsWith(search.toLowerCase())) {
 
                     ctx.attribute("user", user);
                     ctx.attribute("events", events);
@@ -196,7 +236,6 @@ public class UserEventController {
     }
 
 
-
     public void participants(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
@@ -268,6 +307,7 @@ public class UserEventController {
         }
         ctx.redirect("/eventPlanner/inbox");
     }
+
     private void addComment(Context ctx) throws DatabaseException {
         User user = requireLogin(ctx);
         if (user == null) return;
@@ -289,5 +329,6 @@ public class UserEventController {
         }
         ctx.redirect("/eventPlanner/event/" + eventId + "/comments");
     }
+
 }
 
