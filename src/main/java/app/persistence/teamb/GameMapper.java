@@ -38,7 +38,7 @@ public class GameMapper {
                 if (rs.next()) {
                     return rs.getInt("game_id");
                 }
-                throw new SQLException("Intet game_id blev returneret");
+                throw new SQLException("Intet game id blev returneret");
             }
 
         } catch (SQLException e) {
