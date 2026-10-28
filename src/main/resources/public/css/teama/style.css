@@ -67,6 +67,8 @@ body{
 }
 
 .child-5{
+    padding: 1rem;
+    padding-bottom: 0;
     grid-column: 2/3;
     grid-row: 2/3;
 }
@@ -273,21 +275,28 @@ body{
 }
 
 .gamecontainer {
-    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    border: 2px dashed yellow;
     display: grid;
     grid-template-columns: auto auto;
     justify-items: center;
-    padding: 1rem;
     grid-gap: 1rem;
+
+    grid-template-rows: auto fr;
 }
 
 .gamecontainer div {
-
     align-self: center;
 }
 
 .colorboxcontainer {
-    box-sizing:border-box;
+    width: 100%;
+    aspect-ratio: 100 / 50;
+    border: 2px dashed black;
+    justify-items: center;
 
 
 h3{
@@ -296,10 +305,8 @@ h3{
 }}
 
 .colorBox {
-    /*width: 150px;
-    height: 50px;*/
     width: 80%;
-    height: 80%;
+    aspect-ratio: 150 / 50;
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
@@ -353,18 +360,56 @@ h3{
 }
 
 .slideform {
-    width: 100%; /* Bredde på containeren */
+    /*width: 100%;  Bredde på containeren */
     grid-column: span 2;
+    min-height: 0;
+    outline: 2px solid red;
 }
 
 .slider {
     -webkit-appearance: none;  /* Overskriv default CSS styling */
-    appearance: auto;
+    appearance: none;
     width: 100%;
-    height: 10px;
-    background: var(--background_grey);
+    /*height: 10px;*/
+    aspect-ratio: 430 / 10;
+    background: var(--green_2);
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s; /* 0.2 sekunders transition på hover */
     transition: opacity .2s;
+
+    outline: 1px solid deeppink;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--green_4);
+    cursor: pointer;
+}
+
+.standard-button{
+    min-height: 0;
+    /* Knap-styling */
+    border-radius: 5px;
+    border-style: ridge;
+    border-width: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    justify-self: center;
+
+    background-color: var(--green_1);
+    border-color: var(--green_1);
+
 }
