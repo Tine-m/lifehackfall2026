@@ -81,7 +81,6 @@ public class GameController {
         }
 
         ctx.sessionAttribute("niveau1Status", "active");
-        ctx.sessionAttribute("niveau3Status", "pending");
         ctx.render("teama/frontpage.html");
     }
 
