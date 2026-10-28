@@ -2,7 +2,6 @@ package app.entities.teamc;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 public class UserEvent {
 
@@ -24,6 +23,12 @@ public class UserEvent {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.commentVisibility = commentVisibility;
+    }
+
+    public UserEvent(String eventName, LocalDateTime startDate, LocalDateTime finishDate) {
+        this.eventName = eventName;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
     }
 
     public int getEvent_id() {
@@ -80,5 +85,10 @@ public class UserEvent {
 
     public void setCommentVisibility(boolean commentVisibility) {
         this.commentVisibility = commentVisibility;
+    }
+
+    public boolean isUpcoming() {
+        return startDate != null &&
+                !startDate.isBefore(LocalDateTime.now());
     }
 }

@@ -1,0 +1,277 @@
+
+:root {
+    --primary-color: #002E6D;
+    --accent-color: #FBB040;
+    --background-color: #f4f2ee;
+    --text-color: #222222;
+    --muted-color: #666666;
+    --border-color: #dddddd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* ---------- PAGE ---------- */
+
+.profile-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+/* ---------- TOP MENU ---------- */
+
+.profile-header {
+    width: 100%;
+    min-height: 76px;
+    padding: 20px 6%;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 3px 10px rgba(0, 46, 109, 0.12);
+}
+
+.profile-header h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #ffffff;
+}
+
+.profile-header span {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+    width: 100%;
+    max-width: 1150px;
+    margin: 40px auto;
+    padding: 0 24px 40px;
+}
+
+/* ---------- USER PROFILE ---------- */
+
+.profile-card {
+    padding: 30px 25px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.profile-avatar {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 4px solid #e8eaf0;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.profile-card h2,
+.events-section h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 23px;
+}
+
+.profile-description,
+.events-heading p {
+    margin: 9px 0 25px;
+    color: var(--muted-color);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.user-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-detail span {
+    color: var(--muted-color);
+    font-size: 13px;
+}
+
+.user-detail strong {
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- BACK BUTTON ---------- */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    padding: 10px 18px;
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border: 1px solid #d9e1eb;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 46, 109, 0.06);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.back-button:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+/* ---------- PREVIOUS EVENTS ---------- */
+
+.events-section {
+    min-width: 0;
+}
+
+.events-heading {
+    margin-bottom: 24px;
+    padding: 5px 0;
+}
+
+.events-heading p {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.event-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    margin-bottom: 16px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--accent-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 46, 109, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 46, 109, 0.09);
+}
+
+.event-card-content {
+    min-width: 0;
+}
+
+.event-card h3 {
+    margin: 0 0 12px;
+    color: var(--primary-color);
+    font-size: 18px;
+    overflow-wrap: anywhere;
+}
+
+.event-date {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0;
+    color: var(--muted-color);
+    font-size: 14px;
+}
+
+.event-status {
+    flex-shrink: 0;
+    padding: 7px 11px;
+    background-color: #fff3d9;
+    color: #78500a;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ---------- EMPTY EVENT LIST ---------- */
+
+.empty-events {
+    padding: 35px 24px;
+    background-color: #ffffff;
+    border: 1px dashed #cbd6e4;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.empty-events h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.empty-events p {
+    margin-bottom: 0;
+    color: var(--muted-color);
+    font-size: 14px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 700px) {
+    .profile-header {
+        padding: 18px 20px;
+    }
+
+    .profile-header h1 {
+        font-size: 21px;
+    }
+
+    .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin: 24px auto;
+        padding: 0 16px 30px;
+    }
+
+    .profile-card {
+        padding: 24px;
+    }
+
+    .event-card {
+        padding: 17px;
+    }
+}
+
+@media (max-width: 420px) {
+    .event-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

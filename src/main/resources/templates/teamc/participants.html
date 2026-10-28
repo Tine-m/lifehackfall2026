@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deltagere</title>
+    <title> EventPlanner - Deltagere</title>
+    <link rel="stylesheet" th:href="@{/css/teamc/participants.css}">
 </head>
 <body>
 
@@ -11,7 +12,7 @@
   <div class="register-card">
     <h2 th:text="${event.eventName}">Biograftur</h2>
     <p class="muted">
-      <span th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy')}">27-10-2026</span>
+      <span th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026</span>
       &middot; <span th:text="${yesCount}">0</span> kommer
       af <span th:text="${#lists.size(invitations)}">0</span> inviterede
     </p>
@@ -35,7 +36,11 @@
       </tbody>
     </table>
 
-    <a class="btn login-link" href="/eventPlanner/myEvents">Tilbage til mine events</a>
+    <a class="btn login-link" href="/eventPlanner/mainpage">Tilbage til forsiden</a>
+    <a class="btn login-link"
+       th:href="@{/eventPlanner/event/{id}(id=${event.event_id})}">
+      Kommenter
+    </a>
   </div>
 
 </div>

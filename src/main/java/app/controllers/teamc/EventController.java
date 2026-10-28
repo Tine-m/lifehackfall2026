@@ -1,21 +1,30 @@
 package app.controllers.teamc;
 
 import app.entities.teamc.User;
+import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.services.teamc.CommentService;
 import app.services.teamc.EventService;
+import app.services.teamc.UserEventService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
+
+import java.util.List;
 
 //Håndterer teamteachers' funktionalitet
 public class EventController {
 
     private ConnectionPool connectionPool;
     private EventService eventService;
+    private UserEventService userEventService;
+    private CommentService commentService;
 
     public EventController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.eventService = new EventService(connectionPool);
+        this.userEventService = new UserEventService(connectionPool);
+        this.commentService = new CommentService(connectionPool);
     }
 
     public void setRoutes(JavalinConfig config) {
@@ -36,14 +45,17 @@ public class EventController {
 
         if (user != null){
             ctx.sessionAttribute("user", user);
-            ctx.render("/teamc/mainpage.html");
+            List<UserEvent> events = userEventService.getAcceptedEvents(user);
+            events.addAll(userEventService.getMyEvents(user));
+
+            ctx.attribute("events", events);
+            ctx.redirect("/eventPlanner/mainpage");
         } else {
             ctx.status(401);
             ctx.attribute("msg",
                     "E-mail eller adgangskode er forkert.");
             ctx.render("teamc/login.html");
         }
-
     }
 
     public void register(Context ctx) throws DatabaseException {
@@ -60,7 +72,6 @@ public class EventController {
         }
 
         User newUser = eventService.createUser(username, password, email);
-        System.out.println(newUser);
 
         if (newUser != null) {
             ctx.attribute("msg", "Din konto er oprettet. Du kan nu logge ind.");
@@ -71,7 +82,4 @@ public class EventController {
             ctx.render("teamc/register.html");
         }
     }
-
-
-
 }

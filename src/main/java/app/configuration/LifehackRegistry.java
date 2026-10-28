@@ -20,7 +20,7 @@ public class LifehackRegistry {
                         "Team c's Lifehack",
                         "EventPlanner",
                         "/eventPlanner",
-                        "/images/team.c/event-kort.png" ) ,
+                        "/images/teamc/event-kort.png" ) ,
 
                 new LifehackSite(
                         "RcadeGB",

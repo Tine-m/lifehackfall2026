@@ -1,0 +1,45 @@
+/* -------------------------------------------
+   KOMMENTARER: tilføj nederst i src/main/resources/public/css/teamc/styles.css
+   ------------------------------------------- */
+@import url("styles.css");
+
+.section-title {
+    width: 100%;
+    margin: 16px 0 8px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    width: 100%;
+}
+
+.comment-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.comment-list p {
+    margin: 4px 0 0;
+    white-space: pre-line;
+}
+
+.comment-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.register-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    background: #fafafa;
+    resize: vertical;
+}
