@@ -95,7 +95,6 @@ public class GameController {
         Game game = new Game(colourService.getRandomColour(), 1);
 
         ctx.sessionAttribute("game", game);
-
         ctx.attribute("targetColour", game.getTarget().toRgb());
 
         ctx.render("teama/niveau1.html");
@@ -122,11 +121,9 @@ public class GameController {
     }
 
     public void renderAttackmode(Context ctx){
-        Game game = new Game(colourService.getRandomColour(), 0);
+        ctx.sessionAttribute("isAttackMode", true);
 
-        ctx.sessionAttribute("game", game);
-
-        ctx.render("teama/attackmode.html");
+        ctx.redirect("teama/niveau1");
     }
 
     public String highScoreCheck (Context ctx) {  //tjekker om den aktuelle score på det aktuelle niveau er højere end den laveste værdi på listen
@@ -198,14 +195,11 @@ public class GameController {
 
         game.setScore(colourService.getScore(game.getGuess(), game.getTarget()));
 
-
         String highscore=highScoreCheck(ctx);
         if(!highscore.equals("You did not make the highscore")){
             onHighscore=true;
             setHighscoreAttributes(ctx);
         }
-
-        
 
         if (scoreService.unlockNextLevel(game)){
             switch (game.getLevel()){
@@ -218,7 +212,6 @@ public class GameController {
             }
             ctx.attribute("isNextLevelOpen", true);
         }
-
         ctx.render("teama/result.html");
     }
 
