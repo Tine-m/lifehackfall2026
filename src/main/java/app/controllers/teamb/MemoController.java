@@ -38,16 +38,22 @@ public class MemoController {
 
     }
 
+
     public void renderGame(Context ctx) {
         String mode;
+
         if ("classic".equals(ctx.queryParam("mode"))) {
             mode = "classic";
         } else {
             mode = "lifehack";
         }
 
+
+        boolean lifehack = "lifehack".equals(mode);
+
         try {
-            List<Card> cards = CardMapper.getRandomCards(8, connectionPool);
+            // 8 random par af lifehack kort
+            List<Card> cards = CardMapper.getRandomCards(8, lifehack, connectionPool);
 
             Map<String, Object> model = new HashMap<>();
             model.put("mode", mode);
@@ -55,10 +61,12 @@ public class MemoController {
             model.put("totalPairs", cards.size() / 2);
 
             ctx.render("teamb/game.html", model);
+
         } catch (DatabaseException e) {
             ctx.status(500);
         }
     }
+
 
     private void resultsPageWithStats(Context ctx) {
         int seconds = Integer.parseInt(ctx.formParam("time"));
@@ -76,5 +84,6 @@ public class MemoController {
 
         ctx.render("teamb/results.html");
     }
+
 
 }
