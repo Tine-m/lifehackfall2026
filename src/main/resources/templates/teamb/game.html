@@ -50,7 +50,12 @@
                 <ul id="hack-list"></ul>
             </div>
 
-            <button id="finish-game" class="finish-button" type="button">Afslut spil</button>
+            <button id="finish-game"class="finish-button"type="button">Afslut spil</button>
+            <form id="finish-form"method="post"action="/results"hidden>
+                <input type="hidden"name="time"id="finish-time">
+            <input type="hidden"name="moves"id="finish-moves">
+            <input type="hidden"name="mode"th:value="${mode}"></form>
+
         </aside>
     </div>
 </div>

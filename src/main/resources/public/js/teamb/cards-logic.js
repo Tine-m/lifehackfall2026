@@ -14,7 +14,6 @@ function loadGameBoard() {
         }
         el.addEventListener('click', () => handleCardClick(el));
     });
-    sessionStorage.setItem("gameCards", JSON.stringify(cards)); //gemmer kortlisten fra spillet
 }
 
 
@@ -55,6 +54,7 @@ function checkForMatch() {
         // US3: Matchende kort forbliver vendt
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
+
 
         resetBoard();
 

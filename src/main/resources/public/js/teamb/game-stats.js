@@ -54,7 +54,9 @@ function increaseMatchedPairs() {
 }
 
 // "Afslut spil" knap fører til forsiden
-  /* document.getElementById("finish-game").addEventListener("click", () => {
-    window.location.href = "/frontpage";
-});*/
-
+document.getElementById("finish-game").addEventListener("click", () => {
+    stopTimer();
+    document.getElementById("finish-time").value= seconds;
+    document.getElementById("finish-moves").value= moves;
+    document.getElementById("finish-form").submit();
+});
