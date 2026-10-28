@@ -179,6 +179,7 @@ public class GameController {
 
         Game game = ctx.sessionAttribute("game");
         boolean onHighscore=false;
+        ctx.attribute("onHighscore", onHighscore);
 
         int redGuess = Integer.parseInt(ctx.formParam("redGuess"));
         int greenGuess = Integer.parseInt(ctx.formParam("greenGuess"));
