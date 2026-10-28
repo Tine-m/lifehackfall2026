@@ -46,7 +46,7 @@
 
     <!-- Vises kun lige efter et færdigt spil, før resultatet er gemt -->
     <section class="save-score" th:if="${canSave}">
-        <form method="post" action="/results/save">
+        <form method="post" action="/results">
             <input type="hidden" name="time" th:value="${seconds}">
             <input type="hidden" name="moves" th:value="${moves}">
             <input type="hidden" name="mode" th:value="${mode}">
