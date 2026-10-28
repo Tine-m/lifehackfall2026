@@ -103,7 +103,12 @@ public class UserEventMapper {
                 if (rs.next()) {
                     User owner = new User(rs.getInt("user_id"), rs.getString("username"),
                             rs.getString("email"), rs.getString("gender"), rs.getString("password"));
-                    return mapEvent(rs, owner);
+                    UserEvent event = mapEvent(rs, owner);
+
+                    event.getInvitiation()
+                            .addAll(getInvitationsForEvent(event));
+
+                    return event;
                 }
             }
         } catch (SQLException e) {

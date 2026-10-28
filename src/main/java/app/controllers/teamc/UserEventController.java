@@ -34,8 +34,58 @@ public class UserEventController {
         config.routes.post("/eventPlanner/inbox/{invitationId}/accept", ctx -> acceptInvitation(ctx));
         config.routes.post("/eventPlanner/inbox/{invitationId}/decline", ctx -> declineInvitation(ctx));
         config.routes.post("/eventPlanner/event/{id}/comments", ctx -> addComment(ctx));
+        config.routes.get("/eventPlanner/editEvent/{id}", ctx -> showEditEvent(ctx));
+        config.routes.post("/eventPlanner/editEvent/{id}", ctx -> editEvent(ctx));
 
     }
+
+    public void editEvent(Context ctx) throws DatabaseException {
+
+    }
+
+
+    public void showEditEvent(Context ctx) throws DatabaseException {
+        User user = requireLogin(ctx);
+        if (user == null) return;
+
+        int eventId;
+        try {
+            eventId = Integer.parseInt(ctx.pathParam("id"));
+        } catch (NumberFormatException e) {
+            ctx.status(404);
+            return;
+        }
+
+        UserEvent event = userEventService.getEventForParticipant(eventId, user);
+
+        if (event == null) {
+            ctx.status(404);
+            return;
+        }
+
+        // Kun ejeren må redigere eventet
+        if (event.getUser().getUser_id() != user.getUser_id()) {
+            ctx.status(403);
+            return;
+        }
+
+        LocalDateTime now = LocalDateTime.now()
+                .withSecond(0)
+                .withNano(0);
+
+        ctx.attribute("user", user);
+        ctx.attribute("event", event);
+        ctx.attribute("now", now);
+        ctx.attribute("startDate", event.getStartDate().toString());
+        ctx.attribute("finishDate",
+                event.getFinishDate() != null
+                        ? event.getFinishDate().toString()
+                        : "");
+        ctx.attribute("users", eventService.getUsers());
+
+        ctx.render("teamc/editEvent.html");
+    }
+
 
     private void profil(Context ctx) throws DatabaseException {
 
