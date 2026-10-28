@@ -20,7 +20,7 @@
             <span class="stat-icon">⏱︎</span>
             <div class="stat-text">
                 <p class="stat-label">Tid</p>
-                <p class="stat-value">02:34</p>
+                <p class="stat-value" th:text="${time}">00:00</p>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             <span class="stat-icon">👆︎</span>
             <div class="stat-text">
                 <p class="stat-label">Moves</p>
-                <p class="stat-value">28</p>
+                <p class="stat-value" th:text="${moves}">0</p>
             </div>
         </div>
     </section>
@@ -80,105 +80,10 @@
                 Klik på kortene for at se dine tips!
             </p>
 
-            <div class="lifehack-grid">
 
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🧦</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 1
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🧽</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 2
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🪡</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 3
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🛠️</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 4
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">📦</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 5
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🔋</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 6
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🥄</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 7
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🍌</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 8
-                        </span>
-                    </span>
-                </button>
-
+            <div class="lifehack-grid" id="lifehackGrid">
             </div>
+
         </section>
     </section>
 
@@ -194,13 +99,42 @@
 
 </main>
 
-<script>
-    document.querySelectorAll(".lifehack-card").forEach(card => {
-        card.addEventListener("click", () => {
-            card.classList.toggle("is-flipped");
-        });
-    });
-</script>
 
+<script>
+    const grid = document.getElementById("lifehackGrid");
+    const savedCards = sessionStorage.getItem("gameCards");
+
+    if (savedCards) {
+        const cards = JSON.parse(savedCards);
+
+        cards.forEach(card => {
+            const button = document.createElement("button");
+            button.className = "lifehack-card";
+            button.type = "button";
+
+            button.innerHTML = `
+                <span class="card-inner">
+                    <span class="card-front">
+                        <span class="hack-picture">
+                            <img src="${card.imageURL}" alt="${card.text}">
+                        </span>
+                        <span class="flip-label">↪ Vend kortet</span>
+                    </span>
+                    <span class="card-back">
+                        ${card.lifehackDescription}
+                    </span>
+                </span>
+            `;
+
+            button.addEventListener("click", () => {
+                button.classList.toggle("is-flipped");
+            });
+
+            grid.appendChild(button);
+        });
+    } else {
+        grid.textContent = "Ingen kort blev fundet.";
+    }
+</script>
 </body>
 </html>

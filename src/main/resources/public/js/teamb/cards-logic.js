@@ -9,6 +9,7 @@ async function loadGameBoard() {
         if (!res.ok) throw new Error('Status ' + res.status);
 
         const cards = await res.json();
+        sessionStorage.setItem("gameCards", JSON.stringify(cards)); //gemmer kortlisten fra spillet
         board.innerHTML = '';
         cards.forEach(card => board.appendChild(createCard(card)));
     } catch (err) {
