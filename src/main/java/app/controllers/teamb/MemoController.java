@@ -18,11 +18,13 @@ public class MemoController {
     public MemoController(ConnectionPool connectionPool){
         this.connectionPool = connectionPool;
     }
+    //test
 
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/memorygame", ctx -> renderFrontpage(ctx));
+        //config.routes.get("/results", ctx -> resultsPage(ctx));
+        config.routes.post("/results", ctx -> resultsPageWithStats(ctx));
         config.routes.get("/game", ctx -> renderGame(ctx));
-        config.routes.get("/results", ctx -> resultsPage(ctx));
     }
 
 
@@ -57,5 +59,21 @@ public class MemoController {
         }
     }
 
+    private void resultsPageWithStats(Context ctx) {
+        int seconds = Integer.parseInt(ctx.formParam("time"));
+        int moves = Integer.parseInt(ctx.formParam("moves"));
+
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+
+        String formattedTime = String.format(
+                "%02d:%02d", minutes, remainingSeconds
+        );
+
+        ctx.attribute("time", formattedTime);
+        ctx.attribute("moves", moves);
+
+        ctx.render("teamb/results.html");
+    }
 
 }

@@ -1,3 +1,4 @@
+
 // loading game board
 // Kortene er nu lavet af Thymeleaf i game.html, så her kobler vi kun klik på dem
 function loadGameBoard() {
@@ -11,7 +12,7 @@ function loadGameBoard() {
         if (span && /\p{Extended_Pictographic}/u.test(span.textContent)) {
             el.querySelector('.card-back').classList.add('emoji');
         }
-
+        sessionStorage.setItem("gameCards", JSON.stringify(cards)); //gemmer kortlisten fra spillet
         el.addEventListener('click', () => handleCardClick(el));
     });
 }
