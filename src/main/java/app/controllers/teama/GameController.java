@@ -137,8 +137,10 @@ public class GameController {
             switch (game.getLevel()){
                 case 1:
                     ctx.sessionAttribute("niveau2Status", "active");
+                    break;
                 case 2:
                     ctx.sessionAttribute("niveau3Status", "active");
+                    break;
             }
             ctx.attribute("isNextLevelOpen", true);
         }
