@@ -133,7 +133,7 @@ public class GameController {
 
         game.setScore(colourService.getScore(game.getGuess(), game.getTarget()));
 
-        //highcore?
+        //Her skal der tjekkes om scoren skal på et leaderboard.
 
 
         // Hvis scoren er høj nok, bliver næste niveau unlocked.
@@ -161,7 +161,6 @@ public class GameController {
         Game game = ctx.sessionAttribute("game");
 
         String initials = ctx.formParam("initials");
-      //  int score = Integer.parseInt(ctx.attribute("score"));
 
         Highscore highscore = new Highscore(game.getScore(), initials);
         try {

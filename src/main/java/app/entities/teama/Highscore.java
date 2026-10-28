@@ -3,6 +3,7 @@ package app.entities.teama;
 import java.time.LocalDate;
 
 public class Highscore {
+    // Score 1 er til niveau 1, Score 2 er til niveau 2 osv.
     private final int score1;
     private final int score2;
     private final int score3;

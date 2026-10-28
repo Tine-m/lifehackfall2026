@@ -1,4 +1,3 @@
-
 #result-page{
     box-sizing: border-box;
     border: none;
@@ -8,35 +7,22 @@
     width: 100%;
     aspect-ratio: 1329 / 745;
 
-   /* background-image: url("/public/images/teama/pop_up.svg");  er denne sti forkert?
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: transparent; */
-
     font-family: monospace;
-    /*font-size: 10px;*/
-
-  /*  height: 60vh;
-    aspect-ratio: 939 / 596; */
 
     align-self: center;
     justify-items: center;
 
-
+    /* Grid */
     display: grid;
-
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-
     grid-template-areas:
     "area-1"
     "area-2"
     "area-3";
-
 }
 
-.popUpButtons {
+.resultScreenButtons {
     box-sizing: border-box;
     width: 100%;
 
@@ -47,13 +33,12 @@
 }
 
 
-.popUpButton{
+.resultScreenButton{
     height: 40%;
     aspect-ratio: 165 / 65;
     border-radius: 20px;
     font-family: Monospace;
 }
-
 
 #submitInitials{
     background-color: var(--darkred);

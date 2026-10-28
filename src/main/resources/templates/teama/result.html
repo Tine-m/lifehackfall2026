@@ -21,12 +21,12 @@
     </div>
 
     <div class="grid-one-item header-logo" style="grid-area: logo">
-        <img  src="/images/teama/RcadeGB-header-logo.svg">
+        <img src="/images/teama/RcadeGB-header-logo.svg">
     </div>
 
     <div class="grid-one-item" style="grid-area: box-2"></div>
 
-    <div class="grid-one-item scoreboard" style="grid-area: box-3"> <!-- th:each alle highscores på listen -->
+    <div class="grid-one-item scoreboard" style="grid-area: box-3">
         <div class="divider"></div>
         <div class="scoreboardContent">
             Leaderboard goes here
@@ -46,59 +46,53 @@
 
                 <div id="result-page">
 
-                <h3 style="grid-area: area-1" th:text="'Din Score:'+${session.game.getScore()}"></h3>
+                    <h3 style="grid-area: area-1" th:text="'Din Score:'+${session.game.getScore()}"></h3>
 
-                <div style="grid-area: area-2" th:if="${isHighscore}">
-                    <p  >Du er kommet på highscore!</p>
+                    <div style="grid-area: area-2" th:if="${isHighscore}">
+                        <p>Du er kommet på highscore!</p>
 
-                <form action="/rcade/savescore"> <!-- hidden??-->
-                    <label for="initials">indtast initialer</label>
-                    <input type="text" id="initials" name="initials" placeholder="ABC" required>
-                    <!-- <input class="popUpButton" type="submit" value="Submit"> -->
-                    <button class="popUpButton" type="submit" id="submitInitials"  onclick="">
-                        indsend score
-                    </button>
-                </form>
+                        <form action="/rcade/savescore">
+                            <label for="initials">indtast initialer</label>
+                            <input type="text" id="initials" name="initials" placeholder="ABC" required>
+                            <button class="resultScreenButton" type="submit" id="submitInitials">
+                                indsend score
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="resultScreenButtons" style="grid-area: area-3">
+
+                        <form action="/rcade/playAgain">
+                            <button type="submit" class="resultScreenButton" id="playAgain">
+                                Prøv igen?
+                            </button>
+                        </form>
+
+                        <form action="/rcade/nextLevel" method="get">
+                            <button type="submit" class="resultScreenButton" id="playNextLevel"
+                                    th:classappend="${!isNextLevelOpen} ? 'buttonLocked'">
+                                Spil næste niveau!
+                            </button>
+                        </form>
+
+                        <form action="/rcade">
+                            <button type="submit" class="resultScreenButton" id="backToOverview">
+                                tilbage til oversigt
+                            </button>
+                        </form>
+
+                    </div>
                 </div>
-
-                <div class="popUpButtons" style="grid-area: area-3">
-
-                    <!-- Mangler action-->
-                    <form action="/rcade/playAgain">
-                    <button type="submit" class="popUpButton" id="playAgain">
-                        Prøv igen?
-                    </button>
-                    </form>
-
-                    <!-- Mangler action-->
-                    <form action="/rcade/nextLevel" method="get">
-                        <button type="submit" class="popUpButton" id="playNextLevel" th:classappend="${!isNextLevelOpen} ? 'buttonLocked'" onclick="">
-                            Spil næste niveau!
-                        </button>
-                    </form>
-
-
-                    <form action="/rcade">
-                    <button type="submit" class="popUpButton" id="backToOverview"  onclick="">
-                        tilbage til oversigt
-                    </button>
-                    </form>
-
-                </div>
-                </div>
-
             </div>
 
             <div class="child-6 child"></div>
             <div class="child-7 child"></div>
             <div class="child-8 child"></div>
             <div class="child-9 child"></div>
-
         </div>
-
     </div>
 
-    <div class="grid-one-item scoreboard" style="grid-area: box-5"> <!-- th:each alle highscores på listen -->
+    <div class="grid-one-item scoreboard" style="grid-area: box-5">
         <div class="divider"></div>
         <div class="scoreboardContent">
             Another leaderboard goes here
@@ -106,11 +100,5 @@
     </div>
 
 </div>
-
-
-
-
-
-<script src="/js/teama/popup.js" defer></script>
 </body>
 </html>
