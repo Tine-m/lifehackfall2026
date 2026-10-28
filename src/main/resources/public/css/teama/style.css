@@ -308,6 +308,36 @@ body{
     border-width: 1px;
 }
 
+#mysteryBox{
+    position: relative;
+    background: linear-gradient(
+            to right,
+            #ff0000,
+            #ffa500,
+            #ffff00,
+            #00ff00,
+            #00ffff,
+            #0000ff,
+            #8b00ff,
+            #ff00ff,
+            #ff0000
+    );
+}
+
+#mysteryBox::after {
+    content: "?";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
 #guessBoxR{
     border-radius: 5px 0 0 5px;
 }
