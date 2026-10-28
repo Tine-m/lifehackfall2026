@@ -14,16 +14,20 @@ import java.util.List;
 
 public class CardMapper {
 
-    public static List<Card> getRandomCards(int numberOfPairs, ConnectionPool connectionPool)
+    public static List<Card> getRandomCards(int numberOfPairs, boolean lifehack, ConnectionPool connectionPool)
                 throws DatabaseException {
 
             String sql = """
             SELECT c.card_id, c.pair_id, c.text_content, c.image_url, p.description
             FROM teamb_card c
-            JOIN teamb_pair p ON p.pair_id = c.pair_id
-            WHERE c.pair_id IN (
-                SELECT pair_id FROM teamb_pair ORDER BY random() LIMIT ?
-            )
+                                JOIN teamb_pair p ON p.pair_id = c.pair_id
+                     WHERE p.pair_id IN (
+                         SELECT pair_id
+                         FROM teamb_pair
+                         WHERE is_lifehack = ?
+                         ORDER BY random()
+                         LIMIT ?
+                         )
             """;
 
             List<Card> cards = new ArrayList<>();
@@ -31,7 +35,8 @@ public class CardMapper {
             try (Connection connection = connectionPool.getConnection();
                  PreparedStatement ps = connection.prepareStatement(sql)) {
 
-                ps.setInt(1, numberOfPairs);
+                ps.setBoolean(1, lifehack);
+                ps.setInt(2, numberOfPairs);
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
