@@ -505,3 +505,28 @@ body {
         text-align: center;
     }
 }
+
+.welcome {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px;
+    margin: 24px 0 32px;
+}
+
+.welcome-heading {
+    font-family: var(--font-stack);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+.welcome-username {
+    font-family: var(--font-stack);
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: var(--color-primary);
+    margin: 0;
+}

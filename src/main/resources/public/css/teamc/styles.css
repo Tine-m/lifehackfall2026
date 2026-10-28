@@ -610,54 +610,19 @@ body {
     height: 16px;
     accent-color: var(--primary-color);
 }
-
-/* ---------- AFSTEMNING (polls.html + createpoll.html) ---------- */
-
-.poll-card {
-    width: 100%;
-    margin-top: 16px;
-    padding: 16px 18px;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    background: #fafafa;
-}
-
-.poll-card h3 {
-    margin: 0 0 12px;
-    color: var(--primary-color);
-    font-size: 1.1rem;
-}
-
-.poll-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.poll-results {
-    list-style: none;
-    padding: 0;
-    margin: 4px 0 0;
-}
-
-.poll-results li {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.poll-results li:last-child {
-    border-bottom: none;
-}
-
-.poll-select {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 1rem;
-    font-family: inherit;
-    border: 1px solid #cccccc;
+.edit-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #FBB040;
+    color: #002E6D;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
     border-radius: 8px;
-    background: #fafafa;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
 }
 
+.edit-btn:hover {
+    background-color: #e09e38;
+}

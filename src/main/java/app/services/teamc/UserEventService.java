@@ -8,8 +8,12 @@ import app.entities.teamc.UserEvent;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.teamc.UserEventMapper;
+
+import javax.xml.crypto.Data;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.List;
 
 public class UserEventService {
@@ -125,4 +129,33 @@ public class UserEventService {
     public List<UserEvent> getAcceptedEvents(User user) throws DatabaseException{
         return userEventMapper.getAcceptedEvents(user);
     }
+    public String editEventName(int eventId, String newname, User user) throws DatabaseException {
+        userEventMapper.editEventName(eventId,user.getUser_id(), newname);
+            return newname;
+    }
+    public String editEventStart(int eventId, LocalDateTime newdate, User user) throws DatabaseException {
+        userEventMapper.editEventStart(eventId,user.getUser_id(), newdate);
+        return null;
+
+    }
+    public String editEventFinish(int eventId, LocalDateTime newdate, User user) throws DatabaseException {
+        userEventMapper.editEventFinish(eventId, user.getUser_id(),newdate);
+        return null;
+    }
+
+    public void inviteUser(int userId, int eventId)
+            throws DatabaseException {
+        userEventMapper.inviteUser(userId, eventId);
+    }
+
+    public boolean isInvited(int userId, int eventId)
+            throws DatabaseException {
+        return userEventMapper.isInvited(userId, eventId);
+    }
+
+    public int removeInvitation(int eventId, int userId)
+            throws DatabaseException {
+        return userEventMapper.removeInvitation(eventId, userId);
+    }
+
 }

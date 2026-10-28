@@ -17,8 +17,8 @@ public class LifehackRegistry {
                 ),
 
                 new LifehackSite(
-                        "Team c's Lifehack",
-                        "EventPlanner",
+                        "Planlæg Dit Event",
+                        "Event Planner",
                         "/eventPlanner",
                         "/images/teamc/event-kort.png" ) ,
 
