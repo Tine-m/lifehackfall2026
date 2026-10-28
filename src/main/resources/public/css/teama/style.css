@@ -310,18 +310,12 @@ body{
 
 #mysteryBox{
     position: relative;
-    background: linear-gradient(
-            to right,
-            #ff0000,
-            #ffa500,
-            #ffff00,
-            #00ff00,
-            #00ffff,
-            #0000ff,
-            #8b00ff,
-            #ff00ff,
-            #ff0000
-    );
+    background: linear-gradient(to top right,
+    #D60E3A 0 20%,
+    #D17200 20% 40%,
+    #D3A801 40% 60%,
+    #019589 60% 80%,
+    #02696E 80% 100%);
 }
 
 #mysteryBox::after {
