@@ -4,6 +4,7 @@ import app.entities.teamb.Card;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.teamb.CardMapper;
+import app.persistence.teamb.GameMapper;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
@@ -24,7 +25,6 @@ public class MemoController {
         config.routes.get("/memorygame", ctx -> renderFrontpage(ctx));
         config.routes.get("/results", ctx -> resultsPage(ctx));
         config.routes.post("/results", ctx -> resultsPageWithStats(ctx));
-       // config.routes.get("/results", ctx -> resultsPageWithStats(ctx));
         config.routes.get("/game", ctx -> renderGame(ctx));
     }
 
@@ -33,10 +33,25 @@ public class MemoController {
         ctx.render("teamb/frontpage.html");
     }
 
+    // GET /results: kun leaderboard (fra forsiden eller Lifehack/Klassisk-linkene)
     private void resultsPage(Context ctx) {
-        ctx.render("teamb/results.html");
+        String mode = "classic".equals(ctx.queryParam("mode")) ? "classic" : "lifehack";
+        boolean lifehack = "lifehack".equals(mode);
 
+        Map<String, Object> model = new HashMap<>();
+        model.put("mode", mode);
+
+        try {
+            model.put("leaderboard", GameMapper.getTopGames(lifehack, 10, connectionPool));
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+            ctx.status(500);
+            return;
+        }
+
+        ctx.render("teamb/results.html", model);
     }
+
 
 
     public void renderGame(Context ctx) {
@@ -69,30 +84,46 @@ public class MemoController {
 
 
 
+    // POST /results: bruges både når spillet slutter og når spilleren gemmer sit navn.
     private void resultsPageWithStats(Context ctx) {
         int seconds = Integer.parseInt(ctx.formParam("time"));
         int moves = Integer.parseInt(ctx.formParam("moves"));
-        String mode = ctx.formParam("mode");
+        String mode = "classic".equals(ctx.formParam("mode")) ? "classic" : "lifehack";
+        boolean lifehack = "lifehack".equals(mode);
+        boolean completed = Boolean.parseBoolean(ctx.formParam("completed"));
+        String name = ctx.formParam("name");
 
-        boolean completed = Boolean.parseBoolean(
-                ctx.formParam("completed")
-        );
+        Map<String, Object> model = new HashMap<>();
+        model.put("time", String.format("%02d:%02d", seconds / 60, seconds % 60));
+        model.put("seconds", seconds);
+        model.put("moves", moves);
+        model.put("mode", mode);
+        model.put("completed", completed);
 
-        int minutes = seconds / 60;
-        int remainingSeconds = seconds % 60;
+        try {
+            if (name != null && completed) {
+                // Trin 2: spilleren har skrevet navn -> gem i databasen
+                name = name.trim();
+                if (name.isEmpty()) {
+                    name = "ukendt";
+                }
+                int gameId = GameMapper.saveGame(name, lifehack, moves, seconds, connectionPool);
+                model.put("canSave", false);
+                model.put("highlight", gameId);
+            } else {
+                // Trin 1: spillet er lige slut -> vis resultat + navnefelt
+                model.put("canSave", completed);
+            }
 
-        String formattedTime = String.format(
-                "%02d:%02d", minutes, remainingSeconds
-        );
+            model.put("leaderboard", GameMapper.getTopGames(lifehack, 10, connectionPool));
 
-        ctx.attribute("time", formattedTime);
-        ctx.attribute("seconds", seconds);
-        ctx.attribute("moves", moves);
-        ctx.attribute("mode", mode);
-        ctx.attribute("completed", completed);
-        ctx.attribute("canSave", completed);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+            ctx.status(500);
+            return;
+        }
 
-        ctx.render("teamb/results.html");
+        ctx.render("teamb/results.html", model);
     }
 
 
