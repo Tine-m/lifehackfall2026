@@ -41,6 +41,7 @@ public class GameController {
         config.routes.post("/rcade/savescore", ctx -> saveScore(ctx));
     }
 
+    //Render same level for when the user wants to "Try again"
     private void renderSameLevel(Context ctx) {
         Game game = ctx.sessionAttribute("game");
         switch (game.getLevel()) {
@@ -59,6 +60,7 @@ public class GameController {
 
     }
 
+    //Send user to the next level
     private void renderNextLevel(Context ctx) {
         Game game = ctx.sessionAttribute("game");
 
@@ -81,6 +83,7 @@ public class GameController {
         ctx.render("teama/frontpage.html");
     }
 
+    //Separate method for fetching highscores, e.g. called when a new highscore is added to make sure the user can see their own score
     public void setHighscoreAttributes(Context ctx){
         try {
             ctx.sessionAttribute("todayList", scoreService.getTopToday(5));
@@ -129,6 +132,7 @@ public class GameController {
         ctx.render("teama/attackmode.html");
     }
 
+    //Handling when a user submits a guess, grabbing their stored guess values and comparing with set minimum scores for unlocking the next level
     public void submitGuess(Context ctx){
         Game game = ctx.sessionAttribute("game");
 
@@ -147,7 +151,6 @@ public class GameController {
         ctx.attribute("highscoreMessage", msg);
         ctx.attribute("onHighscore", onHighscore);
 
-        
 
         if (scoreService.unlockNextLevel(game)){
             switch (game.getLevel()){
@@ -164,11 +167,11 @@ public class GameController {
         ctx.render("teama/result.html");
     }
 
+    //Handling actually saving a highscore to the database
     public void saveScore(Context ctx){
         Game game = ctx.sessionAttribute("game");
 
-        String initials = ctx.formParam("initials");
-      //  int score = Integer.parseInt(ctx.attribute("score"));
+        String initials = ctx.formParam("initials").toUpperCase();
 
         Highscore highscore = new Highscore(game.getScore(), initials);
         try {
@@ -178,13 +181,8 @@ public class GameController {
             System.out.println("Highscore could not be saved: " + e);
         }
 
-        try {
-            ctx.sessionAttribute("todayList", scoreService.getTopToday(5));
-            ctx.sessionAttribute("weekList", scoreService.getTopWeek(5));
-            ctx.sessionAttribute("allTimeList", scoreService.getTopAllTime(10));
-        } catch (DatabaseException e) {
-            System.out.println("Error: Highscores could not be loaded");
-        }
+        //"Reloading" highscores for the leaderboard to include the newly saved score.
+        setHighscoreAttributes(ctx);
 
         ctx.render("teama/result.html");
     }

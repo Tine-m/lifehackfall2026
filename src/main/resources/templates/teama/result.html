@@ -79,7 +79,8 @@
 
                         <form action="/rcade/savescore" method="post">
                             <label for="initials">indtast initialer</label>
-                            <input type="text" id="initials" name="initials" placeholder="ABC" required>
+                            <input type="text" id="initials" name="initials" placeholder="ABC" minlength="3" maxlength="3"
+                                   required oninvalid="this.setCustomValidity('Input must be exactly 3 characters')" oninput="this.setCustomValidity('')">
                             <button class="resultScreenButton" type="submit" id="submitInitials">
                                 Save score
                             </button>
