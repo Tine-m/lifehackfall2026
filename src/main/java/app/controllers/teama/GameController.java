@@ -132,44 +132,52 @@ public class GameController {
     public String highScoreCheck (Context ctx) {  //tjekker om den aktuelle score på det aktuelle niveau er højere end den laveste værdi på listen
         Game game = ctx.sessionAttribute("game");
 
-        Highscore hs1 = null;
-        Highscore hs2 = null;
-        Highscore hs3 = null;
+        List <Highscore> todayList=null;
+        List <Highscore> weekList=null;
+        List <Highscore> allTimeList = null;
 
         try {
-            hs1 = scoreService.getTopToday(5).getLast();
-            hs2 = scoreService.getTopWeek(5).getLast();
-            hs3 = scoreService.getTopAllTime(10).getLast();
+            todayList = scoreService.getTopToday(5);
+            weekList = scoreService.getTopWeek(5);
+            allTimeList = scoreService.getTopAllTime(10);
         } catch (DatabaseException e) {
             System.out.println("Highscores kunne ikke loades");
         }
 
-        switch (game.getLevel()) {
+        if(allTimeList.size()<10){
+            return "allTimeList";
+        }
+        if (weekList.size()<5){
+            return "weekList";
+        }
+        if(todayList.size()<5){
+            return "todayList";
+        } else switch (game.getLevel()) {
 
             case 1:
-                if (game.getScore() > hs3.getScore1()) {
+                if (game.getScore() > allTimeList.getLast().getScore1()) {
                     return "allTimeList";
-                } else if(game.getScore()>hs2.getScore1()) {
+                } else if(game.getScore()>weekList.getLast().getScore1()) {
                     return "weekList";
-                } else if (game.getScore()>hs1.getScore1()) {
+                } else if (game.getScore()>todayList.getLast().getScore1()) {
                     return "todayList";
                 }
                 break;
             case 2:
-                if (game.getScore() > hs3.getScore2()) {
+                if (game.getScore() > allTimeList.getLast().getScore2()) {
                     return "allTimeList";
-                } else if(game.getScore()>hs2.getScore2()) {
+                } else if(game.getScore()>weekList.getLast().getScore2()) {
                     return "weekList";
-                } else if (game.getScore()>hs1.getScore2()) {
+                } else if (game.getScore()>todayList.getLast().getScore2()) {
                     return "todayList";
                 }
                 break;
             case 3:
-                if (game.getScore() > hs3.getScore3()) {
+                if (game.getScore() > allTimeList.getLast().getScore3()) {
                     return "allTimeList";
-                } else if(game.getScore()>hs2.getScore3()) {
+                } else if(game.getScore()>weekList.getLast().getScore3()) {
                     return "weekList";
-                } else if (game.getScore()>hs1.getScore3()) {
+                } else if (game.getScore()>todayList.getLast().getScore3()) {
                     return "todayList";
                 }
                 break;
