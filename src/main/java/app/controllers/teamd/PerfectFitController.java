@@ -23,7 +23,7 @@ public class PerfectFitController {
         this.sizeService = new SizeService(new SizeGuideMapper(connectionPool));
     }
 
-    // Alle Perfect Fit-routes
+    // All Perfect Fit routes
     public void setRoutes(JavalinConfig config) {
         config.routes.get("/perfectfit", ctx -> showFrontpage(ctx));
         config.routes.get("/perfectfit/calculate", ctx -> showCalculator(ctx));
@@ -31,12 +31,12 @@ public class PerfectFitController {
         config.routes.get("/perfectfit/measure", ctx -> showMeasure(ctx));
     }
 
-    // Viser forsiden
+    // Shows the front page
     private void showFrontpage(Context ctx) {
         ctx.render("teamd/frontpage.html");
     }
 
-    // Viser beregn-siden med mærkerne fra databasen i dropdown'en
+    // Shows the calculate page with the brands from the database in the dropdown
     private void showCalculator(Context ctx) {
         try {
             List<Brand> brands = brandService.getAllBrands();
@@ -47,7 +47,7 @@ public class PerfectFitController {
         ctx.render("teamd/calculate.html");
     }
 
-    // Tager imod formularen, validerer målene og viser resultatet
+    // Receives the form, validates the measurements and shows the result
     private void calculate(Context ctx) {
         String brandId = ctx.formParam("brandId");
         String underbust = ctx.formParam("underbust");
@@ -77,7 +77,7 @@ public class PerfectFitController {
         }
     }
 
-    // Viser "Sådan måler du"-siden
+    // Shows the "How to measure" page
     private void showMeasure(Context ctx) {
         ctx.render("teamd/measure.html");
     }

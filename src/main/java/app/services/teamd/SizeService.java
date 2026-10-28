@@ -21,13 +21,13 @@ public class SizeService {
         this.sizeGuideMapper = sizeGuideMapper;
     }
 
-    // Tjekker brugerens input fra formularen og kaster en fejl med en besked, hvis noget er forkert
+    // Checks the user's input from the form and throws an error with a message if something is wrong
     public void validateInput(String brandId, String underbust, String bust) throws ValidationException {
         checkBrand(brandId);
         checkMeasurements(underbust, bust);
     }
 
-    // Tjekker at der er valgt et gyldigt mærke
+    // Checks that a valid brand is selected
     private void checkBrand(String brandId) throws ValidationException {
         if (brandId == null || brandId.isEmpty()) {
             throw new ValidationException("Vælg et mærke");
@@ -39,7 +39,7 @@ public class SizeService {
         }
     }
 
-    // Tjekker at målene er udfyldt, er tal, ligger mellem 55 og 150, og at brystmål er størst
+    // Checks that the measurements are filled in, are numbers, are between 55 and 150, and that bust is larger
     private void checkMeasurements(String underbust, String bust) throws ValidationException {
         if (underbust == null || underbust.isEmpty() || bust == null || bust.isEmpty()) {
             throw new ValidationException("Udfyld både undermål og brystmål");
@@ -62,7 +62,7 @@ public class SizeService {
         }
     }
 
-    // Finder størrelsen i mærkets guide. Kaldes efter validateInput.
+    // Finds the size in the brand's guide. Called after validateInput
     public SizeGuide calculateSize(String brandId, String underbust, String bust) throws ValidationException, DatabaseException {
         SizeGuide size = sizeGuideMapper.findSize(
                 Integer.parseInt(brandId),
@@ -75,13 +75,13 @@ public class SizeService {
         return size;
     }
 
-    // Henter mærkets størrelser og finder søsterstørrelserne
+    // Gets the brand's sizes and finds the sister sizes
     public List<String> getSisterSizes(SizeGuide sizeGuide) throws DatabaseException {
         List<SizeGuide> brandSizes = sizeGuideMapper.getSizesByBrand(sizeGuide.getBrandId());
         return findSisterSizes(sizeGuide, brandSizes);
     }
 
-    // Søsterstørrelser: bånd ned + skål op, bånd op + skål ned.
+    // Sister sizes: band down + cup up, band up + cup down.
     public List<String> findSisterSizes(SizeGuide sizeGuide, List<SizeGuide> brandSizes) {
         List<String> sisterSizes = new ArrayList<>();
         if (sizeGuide == null) {
@@ -104,6 +104,7 @@ public class SizeService {
         return sisterSizes;
     }
 
+    // Adds the size to the list, but only if the brand actually has it
     private void addIfBrandHasSize(List<String> result, List<SizeGuide> brandSizes, int band, String cup) {
         for (SizeGuide size : brandSizes) {
             if (size.getBandSize() == band && size.getCupSize().equals(cup)) {

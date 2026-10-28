@@ -19,7 +19,7 @@ public class SizeGuideMapper {
         this.connectionPool = connectionPool;
     }
 
-    // Finder størrelsen hos et mærke ud fra undermål og brystmål. Returnerer null, hvis der ikke er et match.
+    // Finds the size for a brand from underbust and bust. Returns null if there is no match.
     public SizeGuide findSize(int brandId, double underbust, double bust) throws DatabaseException {
         String sql = "SELECT * FROM teamd_size_guide " +
                 "WHERE brand_id = ? " +
@@ -46,8 +46,7 @@ public class SizeGuideMapper {
         }
     }
 
-
-    // Henter hele størrelsesguiden for ét mærke
+    // Gets the whole size guide for one brand
     public List<SizeGuide> getSizesByBrand(int brandId) throws DatabaseException {
         List<SizeGuide> sizes = new ArrayList<>();
         String sql = "SELECT * FROM teamd_size_guide WHERE brand_id = ?";
@@ -67,7 +66,7 @@ public class SizeGuideMapper {
         return sizes;
     }
 
-    // Laver én SizeGuide ud fra den række, ResultSet står på
+    // Creates one SizeGuide from the current row in the ResultSet
     private SizeGuide mapSizeGuide(ResultSet rs) throws SQLException {
         return new SizeGuide(
                 rs.getInt("size_guide_id"),

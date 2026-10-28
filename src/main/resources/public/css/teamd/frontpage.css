@@ -1,4 +1,4 @@
-/* ---------- Link tilbage til den fælles forside ---------- */
+/* ---------- Link back to the shared front page ---------- */
 .back-link {
     display: inline-block;
     margin: 20px 8% 0;
@@ -24,11 +24,11 @@
     }
 
     .illustration {
-        order: -1;                    /* flytter billedet først */
+        order: -1;                    /* show the image first */
     }
 
     .illustration img {
-        max-width: 280px;             /* så det ikke fylder hele skærmen */
+        max-width: 280px;             /* so it does not fill the whole screen */
     }
 }
 
@@ -74,7 +74,7 @@
     text-align: center;
 }
 
-/* ---------- Animation: damen drejer én gang, når forsiden åbner ---------- */
+/* ---------- Animation: the woman spins once when the page opens ---------- */
 .illustration img {
     animation: spin 1.5s ease-in-out 1;
 }

@@ -1,4 +1,4 @@
-/* ---------- Sidens layout ---------- */
+/* ---------- Page layout ---------- */
 .page {
     flex: 2;
     display: flex;
@@ -9,7 +9,7 @@
     padding: 40px 8% 24px;
 }
 
-/* ---------- Kort med måletips ---------- */
+/* ---------- Cards with measuring tips ---------- */
 .card {
     background-color: var(--pf-white);
     border-radius: var(--pf-radius-large);
@@ -27,7 +27,7 @@
     margin: 0;
 }
 
-/* Kort med trinnummer til venstre */
+/* ---------- Card with a step number on the left ---------- */
 .card--step {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -35,7 +35,7 @@
     align-items: start;
 }
 
-/* Rund cirkel med trinnummeret */
+/* ---------- Round circle with the step number ---------- */
 .number {
     display: grid;
     place-items: center;

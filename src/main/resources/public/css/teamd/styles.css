@@ -1,4 +1,4 @@
-/* ---------- Grundlæggende ---------- */
+/* ---------- Basics ---------- */
 body {
     margin: 0;
     background-color: var(--pf-background);
@@ -19,7 +19,7 @@ body {
     padding: 0 8%;
 }
 
-/* ---------- Tekst ---------- */
+/* ---------- Text ---------- */
 h1 {
     font-family: 'Jost', sans-serif;
     font-weight: 300;
@@ -46,7 +46,7 @@ p {
     margin: 0 0 16px;
 }
 
-/* ---------- Kvinde illustration ---------- */
+/* ---------- Illustration of the woman ---------- */
 .illustration {
     display: flex;
     justify-content: center;
@@ -94,7 +94,7 @@ p {
     color: var(--pf-pink-dark);
 }
 
-/* ---------- Knap ---------- */
+/* ---------- Button ---------- */
 .button {
     display: inline-block;
     margin: 24px 0 40px;
@@ -110,7 +110,7 @@ p {
     background-color: var(--pf-pink-dark);
 }
 
-/* ---------- Boks (hvide bokse) ---------- */
+/* ---------- White boxes ---------- */
 .white-box {
     background-color: var(--pf-white);
     border-radius: var(--pf-radius-large);
@@ -118,7 +118,7 @@ p {
     margin-bottom: 24px;
 }
 
-/* ---------- Mobil ---------- */
+/* ---------- Mobile ---------- */
 @media (max-width: 768px) {
     .pagewrapper {
         grid-template-columns: 1fr;

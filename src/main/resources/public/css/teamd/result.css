@@ -1,4 +1,4 @@
-/* ---------- Resultat ---------- */
+/* ---------- Result ---------- */
 .centered {
     text-align: center;
 }
@@ -50,7 +50,7 @@
     border-radius: var(--pf-radius-small);
 }
 
-/* ---------- Knapper under boksene ---------- */
+/* ---------- Buttons below the boxes ---------- */
 .buttons {
     display: flex;
     gap: 16px;
@@ -62,7 +62,7 @@
     margin: 0;
 }
 
-/* Lys knap: kun kant, ingen fyld */
+/* ---------- Light button: border only, no fill ---------- */
 .button--light {
     background-color: transparent;
     color: var(--pf-pink);
@@ -73,7 +73,7 @@
     color: var(--pf-white);
 }
 
-/* ---------- Forklaring, når man holder musen over ? ---------- */
+/* ---------- Explanation shown on hover over ? ---------- */
 .info {
     position: relative;
     display: inline-grid;

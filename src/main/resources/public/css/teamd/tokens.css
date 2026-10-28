@@ -1,7 +1,7 @@
-/* Perfect Fit (teamd): faste værdier (tokens), som bruges på alle vores sider.
-   Skal linkes før perfectfit.css. */
+/* Perfect Fit (teamd): shared values (tokens) used on all our pages.
+Must be linked before styles.css. */
     :root {
-        /* Farver fra logoet */
+        /* ---------- Colours from the logo ---------- */
         --pf-background: #F7E6E1;
         --pf-pink: #B47F86;
         --pf-pink-dark: #9C6A72;
@@ -14,14 +14,11 @@
         --pf-error: #C0475E;
         --pf-error-background: #FBE9EC;
 
-        /* Skrift */
+        /* ---------- Font ---------- */
         --pf-font: Inter, Helvetica, Arial, sans-serif;
 
-
-        /* Runde hjørner */
+        /* ---------- Rounded corners ---------- */
         --pf-radius-small: 12px;
         --pf-radius-large: 22px;
         --pf-radius-button: 40px;
     }
-
-

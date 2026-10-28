@@ -57,7 +57,7 @@ class SizeServiceTest {
 
     @Test
     void sisterSizeThatDoesNotExistIsNotShown() {
-        // 70D skulle give 65E og 75C, men mærket har ikke 65E
+        // 70D should give 65E and 75C, but the brand does not have 65E
         List<SizeGuide> brand = List.of(size(70, "D"), size(75, "C"));
 
         List<String> result = sizeService.findSisterSizes(size(70, "D"), brand);

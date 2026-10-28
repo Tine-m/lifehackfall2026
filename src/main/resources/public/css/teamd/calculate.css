@@ -1,10 +1,10 @@
-/* ---------- Undertitel ---------- */
+/* ---------- Subtitle ---------- */
 
 .content p {
     margin-bottom: 24px;
 }
 
-/* ---------- Formular ---------- */
+/* ---------- Form ---------- */
 .content form {
     display: flex;
     flex-direction: column;
@@ -85,7 +85,7 @@
     border-radius: var(--pf-radius-small);
 }
 
-/* ---------- Fjern op/ned-pile i talfelterne ---------- */
+/* ---------- Remove up/down arrows in number fields ---------- */
 .measure-fields input::-webkit-inner-spin-button,
 .measure-fields input::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -97,7 +97,7 @@
     appearance: textfield;
 }
 
-/* Egen pil i mærke-feltet */
+/* ---------- Custom arrow in the brand field ---------- */
 .content select {
     appearance: none;
     -webkit-appearance: none;
@@ -107,7 +107,7 @@
     background-position: right 16px center;
 }
 
-/* "cm" inde i felterne */
+/* ---------- "cm" shown inside the fields ---------- */
 .cm-field {
     position: relative;
     display: block;
@@ -127,7 +127,7 @@
     padding-right: 48px;
 }
 
-/* ---------- Mobil ---------- */
+/* ---------- Mobile ---------- */
 @media (max-width: 768px) {
     .measure-fields {
         flex-direction: column;
