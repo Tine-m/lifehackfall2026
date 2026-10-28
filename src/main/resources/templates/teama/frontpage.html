@@ -86,7 +86,7 @@
                     </div>
 
                     <div id="attackModeButton" th:switch="${session.attackModeStatus}">
-                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Maraton</a>
+                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Marathon mode</a>
                         <a th:case="null" class="lockedButton">Niveau 4 <img src="images/teama/locked.svg"></a>
                         <a th:case="pending" class="pendingButton">Niveau 4 <img src="images/teama/pending.svg"></a>
                     </div>

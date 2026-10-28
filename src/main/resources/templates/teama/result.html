@@ -88,13 +88,13 @@
 
                     <div class="resultScreenButtons" style="grid-area: area-3">
 
-                        <form action="/rcade/playAgain">
+                        <form th:unless="${session.isAttackMode}" action="/rcade/playAgain">
                             <button type="submit" class="resultScreenButton" id="playAgain">
                                 Prøv igen?
                             </button>
                         </form>
 
-                        <form action="/rcade/nextLevel" method="get">
+                        <form th:unless="${session.isAttackMode}" action="/rcade/nextLevel" method="get">
                             <button type="submit" class="resultScreenButton" id="playNextLevel"
                                     th:classappend="${!isNextLevelOpen} ? 'buttonLocked'">
                                 Spil næste niveau!
