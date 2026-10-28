@@ -8,7 +8,9 @@ import app.persistence.teamb.GameMapper;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +77,13 @@ public class MemoController {
             model.put("cards", cards);
             model.put("totalPairs", cards.size() / 2);
 
+            // Gem ét kort pr. par i sessionen, så resultatsiden kan vise lifehacks
+            if (lifehack) {
+                ctx.sessionAttribute("gameCards", onePerPair(cards));
+            } else {
+                ctx.sessionAttribute("gameCards", null);
+            }
+
             ctx.render("teamb/game.html", model);
 
         } catch (DatabaseException e) {
@@ -99,6 +108,10 @@ public class MemoController {
         model.put("moves", moves);
         model.put("mode", mode);
         model.put("completed", completed);
+
+        // Lifehack-kort fra det spil der lige er spillet (null i klassisk mode)
+        List<Card> gameCards = ctx.sessionAttribute("gameCards");
+        model.put("gameCards", lifehack ? gameCards : null);
 
         try {
             if (name != null && completed) {
@@ -126,6 +139,16 @@ public class MemoController {
         ctx.render("teamb/results.html", model);
     }
 
-
+    // Returnerer ét kort pr. par (foretrækker kortet med billede)
+    private List<Card> onePerPair(List<Card> cards) {
+        Map<Object, Card> byPair = new LinkedHashMap<>();
+        for (Card c : cards) {
+            Card existing = byPair.get(c.getPairId());
+            if (existing == null || (existing.getImageURL() == null && c.getImageURL() != null)) {
+                byPair.put(c.getPairId(), c);
+            }
+        }
+        return new ArrayList<>(byPair.values());
+    }
 
 }

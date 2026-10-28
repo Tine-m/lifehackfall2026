@@ -49,6 +49,7 @@
             <input type="hidden" name="time" th:value="${seconds}">
             <input type="hidden" name="moves" th:value="${moves}">
             <input type="hidden" name="mode" th:value="${mode}">
+            <input type="hidden" name="completed" value="true">
 
             <label for="player-name">Skriv dit navn for at komme på leaderboardet</label>
             <input type="text" id="player-name" name="name" maxlength="30" placeholder="Dit navn">
@@ -98,7 +99,8 @@
         </section>
 
         <!-- Kun efter et spil; udfyldes af scriptet nedenfor -->
-        <section class="panel lifehacks-panel" id="lifehacksPanel" th:if="${time != null}">
+        <section class="panel lifehacks-panel" id="lifehacksPanel"
+                 th:if="${time != null and !#lists.isEmpty(gameCards)}">
             <div class="panel-heading lifehacks-heading">
                 <span class="heading-icon">💡</span>
                 <h2>Se dine lifehacks</h2>
@@ -109,6 +111,20 @@
             </p>
 
             <div class="lifehack-grid" id="lifehackGrid">
+                <button class="lifehack-card" type="button" th:each="card : ${gameCards}">
+        <span class="card-inner">
+            <span class="card-front">
+                <span class="hack-picture">
+                    <img th:if="${card.imageURL != null}"
+                         th:src="@{${card.imageURL}}"
+                         th:alt="${card.text}"/>
+                    <span th:if="${card.imageURL == null}" th:text="${card.text}">Tekst</span>
+                </span>
+                <span class="flip-label">↪ Vend kortet</span>
+            </span>
+            <span class="card-back" th:text="${card.lifehackDescription}">Lifehack</span>
+        </span>
+                </button>
             </div>
         </section>
     </section>
@@ -125,50 +141,11 @@
 
 </main>
 
-
 <script>
-    const panel = document.getElementById("lifehacksPanel");
-    const grid = document.getElementById("lifehackGrid");
-
-    if (panel) {
-        let cards = null;
-        try {
-            cards = JSON.parse(sessionStorage.getItem("gameCards"));
-        } catch (e) {
-            cards = null;
-        }
-
-        // Klassisk mode (eller ingen gemte kort): skjul panelet
-        if (!cards || cards.length === 0) {
-            panel.style.display = "none";
-        } else {
-            cards.forEach(card => {
-                const button = document.createElement("button");
-                button.className = "lifehack-card";
-                button.type = "button";
-
-                button.innerHTML = `
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">
-                                <img src="${card.imageURL}" alt="${card.text}">
-                            </span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            ${card.lifehackDescription}
-                        </span>
-                    </span>
-                `;
-
-                button.addEventListener("click", () => {
-                    button.classList.toggle("is-flipped");
-                });
-
-                grid.appendChild(button);
-            });
-        }
-    }
+    document.querySelectorAll(".lifehack-card").forEach(card => {
+    card.addEventListener("click", () => card.classList.toggle("is-flipped"));
+    });
 </script>
+
 </body>
 </html>

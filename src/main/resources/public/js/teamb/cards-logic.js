@@ -1,6 +1,5 @@
-
 // loading game board
-// Kortene er nu lavet af Thymeleaf i game.html, så her kobler vi kun klik på dem
+// Kortene er lavet af Thymeleaf i game.html, så her kobler vi kun klik på dem
 function loadGameBoard() {
 
     const board = document.getElementById('board');
@@ -14,8 +13,7 @@ function loadGameBoard() {
         }
         el.addEventListener('click', () => handleCardClick(el));
     });
-}//test
-
+}
 
 let firstCard = null;
 let secondCard = null;
@@ -52,7 +50,7 @@ function checkForMatch() {
 
     increaseMoves();
 
-    console.log("Matched cards:", isMatch);
+    console.log("Match:", isMatch);
 
     if (isMatch) {
         firstCard.classList.add('matched');
@@ -64,15 +62,13 @@ function checkForMatch() {
         const allCards = document.querySelectorAll('#board .card');
         const matchedCards = document.querySelectorAll('#board .card.matched');
 
-        console.log("Matched cards:", matchedCards.length);
-        console.log("Total cards:", allCards.length);
-
         resetBoard();
 
         if (gameWon && allCards.length > 0 &&
             matchedCards.length === allCards.length) {
 
             stopTimer();
+            lockBoard = true; // ingen flere klik mens vi venter
 
             document.getElementById("finish-time").value = seconds;
             document.getElementById("finish-moves").value = moves;
@@ -80,7 +76,10 @@ function checkForMatch() {
 
             console.log("YOU WON! All pairs found.");
 
-            document.getElementById("finish-form").submit();
+            // Kort pause, så man når at se det sidste par
+            setTimeout(() => {
+                document.getElementById("finish-form").submit();
+            }, 1000);
         }
     } else {
         setTimeout(() => {
