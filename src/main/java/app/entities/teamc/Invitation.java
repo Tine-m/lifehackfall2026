@@ -1,7 +1,5 @@
 package app.entities.teamc;
 
-import java.util.UUID;
-
 public class Invitation {
     private int inviteList_id;
     private User user;

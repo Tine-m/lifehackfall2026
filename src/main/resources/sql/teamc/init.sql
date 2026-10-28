@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.teamc_comment
     user_id integer NOT NULL,
     event_id integer NOT NULL,
     content character varying COLLATE pg_catalog."default",
-    create_date date,
+    create_date timestamp,
     CONSTRAINT comment_pkey PRIMARY KEY (comment_id)
 );
 
@@ -51,58 +51,58 @@ CREATE TABLE IF NOT EXISTS public.teamc_userevent
     user_id integer NOT NULL,
     event_name character varying COLLATE pg_catalog."default" NOT NULL,
     creation_date date,
-    start_date date,
-    finish_date date,
+    start_date timestamp,
+    finish_date timestamp,
     restrict_comments boolean,
     CONSTRAINT userevent_pkey PRIMARY KEY (event_id)
 );
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_user FOREIGN KEY (user_id)
-    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+        REFERENCES public.teamc_user (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_userevent FOREIGN KEY (event_id)
-    REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+        REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_response FOREIGN KEY (response_id)
-    REFERENCES public.teamc_response (response_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
+        REFERENCES public.teamc_response (response_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_user FOREIGN KEY (user_id)
-    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+        REFERENCES public.teamc_user (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_invitation
     ADD CONSTRAINT invitation_userevent FOREIGN KEY (event_id)
-    REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+        REFERENCES public.teamc_userevent (event_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.teamc_userevent
     ADD CONSTRAINT userevent_user FOREIGN KEY (user_id)
-    REFERENCES public.teamc_user (user_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+        REFERENCES public.teamc_user (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION;
 
 
 
 INSERT INTO teamc_user
-    (username, email, gender, password)
+(username, email, gender, password)
 VALUES
     ('Cezary', 'cezary@gmail.com', 'Male', '12345'),
     ('Daud', 'daud@gmail.com', 'Male', '12345'),
@@ -112,15 +112,63 @@ VALUES
 
 
 INSERT INTO teamc_userevent
-    (user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
+(user_id, event_name, creation_date, start_date, finish_date, restrict_comments)
 VALUES
-    (1, 'Go to the cinema', '2026-10-19', '2026-10-27', '2026-10-27', FALSE),
-    (2, 'Walk in FÃ¦lledparken', '2026-10-20', '2026-10-30', '2026-10-30', TRUE),
-    (3, 'Play football', '2026-10-21', '2026-11-01', '2026-11-01', FALSE);
-
+    (1, 'Go to the cinema', '2026-10-19', '2026-10-27 19:00', '2026-10-27 22:00', FALSE),
+    (2, 'Walk in Fælledparken', '2026-10-20', '2026-10-30 14:00', '2026-10-30 16:00', TRUE),
+    (3, 'Play football', '2026-10-21', '2026-11-01 10:00', '2026-11-01 12:00', FALSE),
+    (1, 'Visit the museum', '2026-10-01', '2026-10-05 10:00:00', '2026-10-05 12:00:00', false),
+    (2, 'Play board games', '2026-10-02', '2026-10-10 18:00:00', '2026-10-10 20:00:00', true),
+    (1, 'Have dinner together', '2026-10-03', '2026-10-12 19:00:00', '2026-10-12 21:00:00', false),
+    (2, 'Go bowling', '2026-10-04', '2026-10-15 16:00:00', '2026-10-15 18:00:00', true),
+    (1, 'Visit the beach', '2026-10-05', '2026-10-18 13:00:00', '2026-10-18 16:00:00', false),
+    (1, 'Visit the aquarium',       '2026-10-20', '2026-10-21 10:00:00', '2026-10-21 12:00:00', false),
+    (1, 'Go hiking',                '2026-10-21', '2026-10-22 09:00:00', '2026-10-22 13:00:00', true),
+    (1, 'Cook dinner with friends', '2026-10-22', '2026-10-23 18:00:00', '2026-10-23 20:00:00', false),
+    (1, 'Visit a botanical garden', '2026-10-23', '2026-10-24 09:00:00', '2026-10-24 11:00:00', true),
+    (1, 'Attend a workshop',        '2026-10-24', '2026-10-26 13:00:00', '2026-10-26 15:00:00', false),
+    (1, 'Go to a comedy show',      '2026-10-24', '2026-10-28 19:00:00', '2026-10-28 21:00:00', true),
+    (1, 'Visit a castle',           '2026-10-24', '2026-11-02 10:00:00', '2026-11-02 13:00:00', false),
+    (1, 'Go ice skating',           '2026-10-24', '2026-11-05 16:00:00', '2026-11-05 18:00:00', true),
+    (2, 'Visit an old town',        '2026-10-20', '2026-10-21 10:00:00', '2026-10-21 12:00:00', false),
+    (2, 'Go to a food festival',    '2026-10-21', '2026-10-22 12:00:00', '2026-10-22 15:00:00', true),
+    (2, 'Try a cooking class',      '2026-10-24', '2026-10-27 17:00:00', '2026-10-27 19:00:00', false),
+    (2, 'Visit a planetarium',      '2026-10-24', '2026-10-29 14:00:00', '2026-10-29 16:00:00', true),
+    (2, 'Go to a jazz concert',     '2026-10-24', '2026-11-03 19:00:00', '2026-11-03 21:00:00', false),
+    (2, 'Play mini golf',           '2026-10-24', '2026-11-06 15:00:00', '2026-11-06 17:00:00', true),
+    (2, 'Visit a Christmas market', '2026-10-24', '2026-11-10 13:00:00', '2026-11-10 15:00:00', false),
+    (3, 'Go to the theatre',        '2026-10-18', '2026-10-19 19:00:00', '2026-10-19 21:00:00', false),
+    (3, 'Visit a science museum',   '2026-10-19', '2026-10-20 10:00:00', '2026-10-20 12:00:00', true),
+    (3, 'Go kayaking',              '2026-10-20', '2026-10-21 13:00:00', '2026-10-21 15:00:00', false),
+    (3, 'Attend a photography class','2026-10-21', '2026-10-22 16:00:00', '2026-10-22 18:00:00', true),
+    (3, 'Visit a nature reserve',   '2026-10-24', '2026-10-25 09:00:00', '2026-10-25 12:00:00', false),
+    (3, 'Go to a football match',   '2026-10-24', '2026-10-30 18:00:00', '2026-10-30 20:00:00', true),
+    (3, 'Have a barbecue',          '2026-10-24', '2026-11-04 16:00:00', '2026-11-04 19:00:00', false),
+    (3, 'Visit a sculpture park',   '2026-10-24', '2026-11-08 11:00:00', '2026-11-08 13:00:00', true),
+    (3, 'Go to a dance class',      '2026-10-24', '2026-11-12 18:00:00', '2026-11-12 20:00:00', false),
+    (4, 'Visit a historical site',   '2026-10-15', '2026-10-16 10:00:00', '2026-10-16 12:00:00', false),
+    (4, 'Go bowling with friends',  '2026-10-16', '2026-10-17 15:00:00', '2026-10-17 17:00:00', true),
+    (4, 'Attend a book club',       '2026-10-17', '2026-10-18 13:00:00', '2026-10-18 15:00:00', false),
+    (4, 'Go to a local market',     '2026-10-18', '2026-10-19 09:00:00', '2026-10-19 11:00:00', true),
+    (4, 'Have lunch by the lake',   '2026-10-19', '2026-10-20 12:00:00', '2026-10-20 14:00:00', false),
+    (4, 'Visit an escape room',     '2026-10-24', '2026-10-26 18:00:00', '2026-10-26 20:00:00', true),
+    (4, 'Go horseback riding',      '2026-10-24', '2026-10-31 10:00:00', '2026-10-31 12:00:00', false),
+    (4, 'Attend a pottery class',   '2026-10-24', '2026-11-04 14:00:00', '2026-11-04 16:00:00', true),
+    (4, 'Visit a lighthouse',       '2026-10-24', '2026-11-09 11:00:00', '2026-11-09 13:00:00', false),
+    (4, 'Go to a music festival',   '2026-10-24', '2026-11-14 17:00:00', '2026-11-14 21:00:00', true),
+    (5, 'Visit a butterfly house',  '2026-10-15', '2026-10-16 11:00:00', '2026-10-16 13:00:00', false),
+    (5, 'Go on a boat tour',        '2026-10-16', '2026-10-17 12:00:00', '2026-10-17 14:00:00', true),
+    (5, 'Play volleyball',          '2026-10-17', '2026-10-18 14:00:00', '2026-10-18 16:00:00', false),
+    (5, 'Visit a design museum',    '2026-10-18', '2026-10-19 10:00:00', '2026-10-19 12:00:00', true),
+    (5, 'Go to a food market',      '2026-10-19', '2026-10-20 11:00:00', '2026-10-20 13:00:00', false),
+    (5, 'Attend a painting class',  '2026-10-24', '2026-10-27 14:00:00', '2026-10-27 16:00:00', true),
+    (5, 'Go to a water park',       '2026-10-24', '2026-11-01 10:00:00', '2026-11-01 15:00:00', false),
+    (5, 'Visit a vintage shop',     '2026-10-24', '2026-11-06 13:00:00', '2026-11-06 15:00:00', true),
+    (5, 'Attend a language exchange','2026-10-24', '2026-11-11 18:00:00', '2026-11-11 20:00:00', false),
+    (5, 'Go to a board game café',  '2026-10-24', '2026-11-15 16:00:00', '2026-11-15 18:00:00', true);
 
 INSERT INTO teamc_response
-	( response)
+(response)
 VALUES
     ('YES'),
     ('UNSURE'),
@@ -128,21 +176,66 @@ VALUES
     ('NOT_RESPONDED');
 
 
-INSERT INTO teamc_invitation
-    (user_id, event_id, response_id)
+INSERT INTO public.teamc_invitation (user_id, event_id, response_id)
 VALUES
-    (2, 1, 1),
-    (3, 1, 2),
-    (4, 1, 3),
-    (5, 1, 4),
-    (1, 2, 1),
-    (3, 2, 1),
-    (4, 2, 3),
-    (1, 3, 1),
-    (5, 3, 1);
+    (1, 5, 1),
+    (1, 7, 1),
+    (1, 24, 1),
+    (1, 33, 1),
+    (1, 43, 3),
+    (1, 44, 2),
+    (2, 4, 1),
+    (2, 6, 1),
+    (2, 24, 1),
+    (2, 33, 1),
+    (2, 43, 3),
+    (2, 44, 4),
+    (3, 4, 1),
+    (3, 5, 1),
+    (3, 33, 1),
+    (3, 43, 1),
+    (3, 44, 3),
+    (3, 45, 2),
+    (4, 4, 1),
+    (4, 5, 1),
+    (4, 24, 1),
+    (4, 43, 1),
+    (4, 44, 3),
+    (4, 45, 4),
+    (5, 4, 1),
+    (5, 5, 1),
+    (5, 24, 1),
+    (5, 33, 1),
+    (5, 44, 3),
+    (5, 45, 2),
+    (1, 1, 1),
+    (1, 13, 2),
+    (1, 14, 1),
+    (1, 15, 2),
+    (1, 16, 1),
+    (2, 1, 2),
+    (2, 3, 1),
+    (2, 13, 1),
+    (2, 19, 2),
+    (2, 20, 1),
+    (3, 1, 1),
+    (3, 2, 2),
+    (3, 13, 1),
+    (3, 28, 2),
+    (3, 29, 1),
+    (4, 2, 1),
+    (4, 3, 2),
+    (4, 14, 1),
+    (4, 38, 2),
+    (4, 39, 1),
+    (5, 1, 2),
+    (5, 2, 1),
+    (5, 3, 2),
+    (5, 48, 1),
+    (5, 49, 2);
 
 INSERT INTO teamc_comment
-    (user_id, event_id, content, create_date)
+(user_id, event_id, content, create_date)
 VALUES
     (2, 1, 'I will bring my notes.', '2026-10-19'),
     (3, 1, 'Can we start at 14:30?', '2026-10-19'),

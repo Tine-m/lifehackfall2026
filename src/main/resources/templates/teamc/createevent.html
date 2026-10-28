@@ -10,7 +10,10 @@
 
 <div class="page-wrapper">
     <div class="hero-tagline">
-        <h2><span th:text="${user.username}">Bruger</span>Hvad skal i lave?</h2>
+        <h2 class="event-heading">
+            <span class="username" th:text="${user.username}">Bruger</span>
+            <span class="event-question">Hvad skal I lave?</span>
+        </h2>
     </div>
 
     <div class="register-card">
@@ -23,24 +26,72 @@
                    th:value="${eventName}" required>
 
             <label for="startDate">Startdato:</label>
-            <input type="date" id="startDate" name="startDate" th:value="${startDate}" required>
+            <input type="datetime-local" id="startDate" name="startDate" th:value="${startDate}" th:min="${now}" required>
 
             <label for="finishDate">Slutdato (valgfri):</label>
-            <input type="date" id="finishDate" name="finishDate" th:value="${finishDate}">
+            <input type="datetime-local" id="finishDate" name="finishDate"
+                   th:value="${finishDate}" th:min="${startDate != null ? startDate : now}">
 
             <label class="checkbox-label">
                 <input type="checkbox" name="restrictComments" th:checked="${restrictComments}">
                 Begræns kommentarer
             </label>
 
+            <p class="invite-title">Inviter venner:</p>
+            <input type="text" id="inviteSearch" class="invite-search" placeholder="Søg efter navn...">
+            <div class="invite-list">
+                <label class="checkbox-label" th:each="u : ${users}" th:if="${u.user_id != user.user_id}">
+                    <input type="checkbox" name="invitees" th:value="${u.user_id}"
+                           th:checked="${invitees != null and invitees.contains('' + u.user_id)}">
+                    <span th:text="${u.username}">Navn</span>
+                </label>
+            </div>
+
             <input class="btn" type="submit" value="Opret event">
         </form>
 
-        <a class="btn login-link" href="/eventPlanner/myEvents">Mine events</a>
+        <a class="back-link" href="/eventPlanner/mainpage">
+            ← Tilbage til forsiden
+        </a>
 
         <p style="color:red;" th:if="${msg != null}" th:text="${msg}"></p>
     </div>
 </div>
+
+
+<script>
+        // Søgning i "Inviter venner"
+        document.getElementById("inviteSearch").addEventListener("input", function () {
+        const search = this.value.toLowerCase();
+        document.querySelectorAll(".invite-list .checkbox-label").forEach(function (label) {
+        const name = label.textContent.toLowerCase();
+        label.style.display = name.includes(search) ? "" : "none";
+    });
+    });
+
+    const startDate = document.getElementById("startDate");
+    const finishDate = document.getElementById("finishDate");
+
+    function updateFinishDateMin() {
+        finishDate.min = startDate.value || startDate.min;
+
+        if (finishDate.value && finishDate.value < finishDate.min) {
+            finishDate.value = "";
+        }
+    }
+
+    startDate.addEventListener("change", updateFinishDateMin);
+
+    updateFinishDateMin();
+
+    // Udfylder slut automatisk med samme dato og tid som start, hvis den er tom
+    document.getElementById("startDate").addEventListener("change", function () {
+    const finish = document.getElementById("finishDate");
+    if (!finish.value) {
+    finish.value = this.value;
+    }
+    });
+</script>
 
 </body>
 </html>
