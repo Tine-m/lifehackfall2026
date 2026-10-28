@@ -178,5 +178,14 @@ public class GameController {
             System.out.println("Highscore kunne ikke gemmes " + e);
         }
 
+        try {
+            ctx.sessionAttribute("todayList", scoreService.getTopToday(5));
+            ctx.sessionAttribute("weekList", scoreService.getTopWeek(5));
+            ctx.sessionAttribute("allTimeList", scoreService.getTopAllTime(10));
+        } catch (DatabaseException e) {
+            System.out.println("Highscores kunne ikke loades");
+        }
+
+        ctx.render("teama/result.html");
     }
 }
