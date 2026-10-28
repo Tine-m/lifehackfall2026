@@ -153,11 +153,12 @@ public class UserEventMapper {
                 "JOIN teamc_userevent e ON e.event_id = i.event_id " +
                 "JOIN teamc_user owner ON owner.user_id = e.user_id " +
                 "LEFT JOIN teamc_response r ON r.response_id = i.response_id " +
-                "WHERE i.user_id = ? ORDER BY e.start_date desc";
+                "WHERE i.user_id = ? and e.user_id <> ? ORDER BY e.start_date desc";
         List<Invitation> invitations = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, guest.getUser_id());
+            stm.setInt(2, guest.getUser_id());
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     User owner = new User(rs.getInt("user_id"), rs.getString("username"),
@@ -344,12 +345,13 @@ public class UserEventMapper {
                 "JOIN teamc_userevent e ON e.event_id = i.event_id " +
                 "JOIN teamc_user owner ON owner.user_id = e.user_id " +
                 "JOIN teamc_response r ON r.response_id = i.response_id " +
-                "WHERE i.user_id = ? AND r.response = 'YES' AND e.start_date >= now() " +
+                "WHERE i.user_id = ? and e.user_id <> ? AND r.response = 'YES' AND e.start_date >= now() " +
                 "ORDER BY e.start_date, e.event_id";
         List<UserEvent> events = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, user.getUser_id());
+            stm.setInt(2, user.getUser_id());
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     User owner = new User(rs.getInt("user_id"), rs.getString("username"),
@@ -530,6 +532,30 @@ public class UserEventMapper {
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
             throw new DatabaseException("Eventets kommentar tilgængelighed er ikke blevet ændret", e.getMessage());
+        }
+    }
+
+
+    public int removeInvitation(int eventId, int userId)
+            throws DatabaseException {
+
+        String query = """
+            DELETE FROM teamc_invitation
+            WHERE event_id = ? AND user_id = ?
+            """;
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+
+            stm.setInt(1, eventId);
+            stm.setInt(2, userId);
+
+            return stm.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException(
+                    "Invitation kunne ikke slettes", e.getMessage());
         }
     }
 }

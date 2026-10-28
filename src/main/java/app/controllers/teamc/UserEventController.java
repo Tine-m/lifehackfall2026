@@ -77,7 +77,33 @@ public class UserEventController {
         String finishDate = ctx.formParam("finishDate");
         if (finishDate != null && !finishDate.isEmpty()){
             userEventService.editEventFinish(eventId, LocalDateTime.parse(finishDate), user);
-}
+        }
+
+        /*  invitees  */
+        List<String> invitees = ctx.formParams("invitees");
+        List<User> users = eventService.getUsers();
+
+        for (User u : users) {
+
+            // Skip event owner
+            if (u.getUser_id() == user.getUser_id()) {
+                continue;
+            }
+
+            boolean selected = invitees != null
+                    && invitees.contains(String.valueOf(u.getUser_id()));
+
+            boolean alreadyInvited =
+                    userEventService.isInvited(u.getUser_id(), eventId);
+
+            if (selected && !alreadyInvited) {
+                userEventService.inviteUser(u.getUser_id(), eventId);
+            } else if (!selected && alreadyInvited) {
+                userEventService.removeInvitation(eventId, u.getUser_id());
+            }
+        }
+
+
         ctx.redirect("/eventPlanner/mainpage");
 
     }

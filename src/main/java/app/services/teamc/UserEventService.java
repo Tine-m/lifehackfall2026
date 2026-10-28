@@ -143,4 +143,19 @@ public class UserEventService {
         return null;
     }
 
+    public void inviteUser(int userId, int eventId)
+            throws DatabaseException {
+        userEventMapper.inviteUser(userId, eventId);
+    }
+
+    public boolean isInvited(int userId, int eventId)
+            throws DatabaseException {
+        return userEventMapper.isInvited(userId, eventId);
+    }
+
+    public int removeInvitation(int eventId, int userId)
+            throws DatabaseException {
+        return userEventMapper.removeInvitation(eventId, userId);
+    }
+
 }
