@@ -59,6 +59,12 @@ public class MemoController {
             model.put("cards", cards);
             model.put("totalPairs", cards.size() / 2);
 
+            if (lifehack) {
+                ctx.sessionAttribute("gameCards", onePerPair(cards));
+            } else {
+                ctx.sessionAttribute("gameCards", null);
+            }
+
             ctx.render("teamb/game.html", model);
 
         } catch (DatabaseException e) {
@@ -88,8 +94,25 @@ public class MemoController {
         ctx.attribute("mode", mode);
         ctx.attribute("completed", completed);
         ctx.attribute("canSave", completed);
+        List<Card> gameCards = ctx.sessionAttribute("gameCards");
+        ctx.attribute("gameCards", "lifehack".equals(mode) ? gameCards : null);
 
         ctx.render("teamb/results.html");
+    }
+
+    private List<Card> onePerPair(List<Card> cards) {
+        Map<Object, Card> byPair = new java.util.LinkedHashMap<>();
+
+        for (Card card : cards) {
+            Card existing = byPair.get(card.getPairId());
+
+            if (existing == null ||
+                    (existing.getImageURL() == null && card.getImageURL() != null)) {
+                byPair.put(card.getPairId(), card);
+            }
+        }
+
+        return new java.util.ArrayList<>(byPair.values());
     }
 
 
