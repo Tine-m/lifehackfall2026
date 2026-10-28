@@ -13,9 +13,8 @@
 <body>
 
 <header class="topbar">
-    <span class="logo">PERFECTFIT</span>
+    <a href="/perfectfit" class="logo">PERFECTFIT</a>
     <nav>
-        <a href="/perfectfit">Forside</a>
         <a href="/perfectfit/calculate">Beregn</a>
         <a href="/perfectfit/measure">Sådan måler du dig</a>
         <a href="/">Afslut</a>
@@ -36,17 +35,28 @@
             <p class="measurements" th:text="|Undermål ${underbust} cm · Brystmål ${bust} cm|">Undermål 75 cm · Brystmål 90 cm</p>
         </section>
 
-        <section class="white-box" th:if="${not #lists.isEmpty(sisterSizes)}">
-            <p class="label">SØSTERSTØRRELSER
-                <span class="info" tabindex="0">?
-                    <span class="info-text">Samme skål, andet bånd. Sidder båndet løst, så vælg det mindre tal. Strammer det, så vælg det større.</span>
-                </span>
-            </p>
-            <div class="sister-list">
-                <span class="sister" th:each="s : ${sisterSizes}" th:text="${s}">70D</span>
-            </div>
-            <p>Prøv dem, hvis din størrelse er udsolgt.</p>
-        </section>
+        <div class="box-row">
+            <section class="white-box" th:if="${not #lists.isEmpty(sisterSizes)}">
+                <p class="label">SØSTERSTØRRELSER
+                    <span class="info" tabindex="0">?
+                        <span class="info-text">Samme skål, andet bånd. Sidder båndet løst, så vælg det mindre tal. Strammer det, så vælg det større.</span>
+                    </span>
+                </p>
+                <div class="sister-list">
+                    <span class="sister" th:each="s : ${sisterSizes}" th:text="${s}">70D</span>
+                </div>
+                <p>Prøv dem, hvis din størrelse er udsolgt.</p>
+            </section>
+
+            <section class="white-box tips">
+                <p class="label">TIPS TIL PASFORM</p>
+                <ol class="tips-list">
+                    <li>Strammer båndet? Prøv søsterstørrelsen.</li>
+                    <li>Skålene må ikke flyde over eller skære ind.</li>
+                    <li>Båndet skal sidde vandret.</li>
+                </ol>
+            </section>
+        </div>
 
         <div class="buttons">
             <a class="button" th:if="${website}" th:href="${website}" th:text="|Køb hos ${brandName}|" target="_blank" rel="noopener">Køb hos Hunkemøller</a>
