@@ -72,10 +72,10 @@
 
                 <div id="result-page">
 
-                    <h3 style="grid-area: area-1" th:text="'Din Score:'+${session.game.getScore()}"></h3>
+                    <h3 style="grid-area: area-1" th:text="'Din Score: '+${session.game.getScore()}"></h3>
 
                     <div style="grid-area: area-2" th:if="${onHighscore}">
-                        <p>Du er kommet på highscore!</p>
+                        <p th:text="${highscoreMessage}">Error: Highscores could not be loaded</p>
 
                         <form action="/rcade/savescore">
                             <label for="initials">indtast initialer</label>
