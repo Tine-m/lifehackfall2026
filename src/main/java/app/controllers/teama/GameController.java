@@ -106,7 +106,7 @@ public class GameController {
 
         ctx.sessionAttribute("game", game);
 
-
+        ctx.attribute("targetColour", game.getTarget().toRgb());
 
         ctx.render("teama/niveau2.html");
     }
@@ -115,6 +115,8 @@ public class GameController {
         Game game = new Game(colourService.getRandomColour(), 3);
 
         ctx.sessionAttribute("game", game);
+
+        ctx.attribute("targetColour", game.getTarget().toRgb());
 
         ctx.render("teama/niveau3.html");
     }
