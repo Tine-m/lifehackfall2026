@@ -1,62 +1,19 @@
-
 // loading game board
-async function loadGameBoard() {
+// Kortene er nu lavet af Thymeleaf i game.html, så her kobler vi kun klik på dem
+function loadGameBoard() {
 
     const board = document.getElementById('board');
 
-    try {
-        const res = await fetch('/cards');
-        if (!res.ok) throw new Error('Status ' + res.status);
+    board.querySelectorAll('.card').forEach(el => {
 
-        const cards = await res.json();
-        board.innerHTML = '';
-        cards.forEach(card => board.appendChild(createCard(card)));
-    } catch (err) {
-        console.error(err);
-        board.textContent = 'Kort kunne ikke læses!';
-    }
-}
-
-function createCard(card) {
-
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.dataset.cardId = card.cardId;
-    el.dataset.pairId = card.pairId;
-
-    const inner = document.createElement('div');
-    inner.className = 'card-inner';
-
-    // Kortets forside
-    const front = document.createElement('div');
-    front.className = 'card-front';
-    front.textContent = 'LH';
-
-    // Kortets bagside (indholdet ses her)
-    const back = document.createElement('div');
-    back.className = 'card-back';
-
-    if (card.imageURL) {
-        const img = document.createElement('img');
-        img.src = card.imageURL;
-        back.appendChild(img);
-    }
-    if (card.text) {
-        const span = document.createElement('span');
-        span.textContent = card.text;
         // emoji-kort får en ekstra klasse, så de vises større
-        if (/\p{Extended_Pictographic}/u.test(card.text)) {
-            back.classList.add('emoji');
+        const span = el.querySelector('.card-back span');
+        if (span && /\p{Extended_Pictographic}/u.test(span.textContent)) {
+            el.querySelector('.card-back').classList.add('emoji');
         }
-        back.appendChild(span);
-    }
 
-    inner.appendChild(front);
-    inner.appendChild(back);
-    el.appendChild(inner);
-
-    el.addEventListener('click', () => handleCardClick(el));
-    return el;
+        el.addEventListener('click', () => handleCardClick(el));
+    });
 }
 
 
@@ -64,7 +21,7 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 
-// game logic methods: us2
+// game logic methods: US2
 function handleCardClick(el) {
     //US2: vende to kort ad gangen.
 
@@ -97,6 +54,7 @@ function checkForMatch() {
         // US3: Matchende kort forbliver vendt
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
+
         resetBoard();
 
         if (increaseMatchedPairs()) {
