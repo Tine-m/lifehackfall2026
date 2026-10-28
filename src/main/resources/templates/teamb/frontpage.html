@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lifehack Memory Game</title>
+    <link rel="stylesheet" th:href="@{/css/teamb/common.css}"/>
     <link rel="stylesheet" th:href="@{/css/teamb/frontpage.css}"/>
 </head>
 
@@ -30,18 +31,18 @@
             <!-- Lifehack mode: lifehack vises når par er fundet -->
             <form th:action="@{/game}" method="get">
                 <input type="hidden" name="mode" value="lifehack"/>
-                <button type="submit" class="menu-button">Start lifehack</button>
+                <button type="submit" class="btn">Start lifehack</button>
             </form>
 
             <!-- Klassisk mode -->
             <form th:action="@{/game}" method="get">
                 <input type="hidden" name="mode" value="classic"/>
-                <button type="submit" class="menu-button">Start klassisk</button>
+                <button type="submit" class="btn">Start klassisk</button>
             </form>
 
            <!-- <a th:href="@{/results}" class="menu-button menu-link">Leaderboard</a>-->
             <form th:action="@{/results}" method="get">
-                <button type="submit" class="menu-button">Leaderboard</button>
+                <button type="submit" class="btn">Leaderboard</button>
             </form>
 
         </nav>
@@ -49,6 +50,6 @@
     </div>
 
 </main>
-
+/
 </body>
 </html>

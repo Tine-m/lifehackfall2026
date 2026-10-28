@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultat</title>
-    <link rel="stylesheet" href="/css/teamb/results.css"/>
+    <link rel="stylesheet" th:href="@{/css/teamb/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/teamb/results.css}"/>
 </head>
 <body>
 
@@ -53,7 +54,7 @@
 
             <label for="player-name">Skriv dit navn for at komme på leaderboardet</label>
             <input type="text" id="player-name" name="name" maxlength="30" placeholder="Dit navn">
-            <button type="submit" class="action-button primary-button">Gem resultat</button>
+            <button type="submit" class="btn">Gem resultat</button>
         </form>
     </section>
 
@@ -131,11 +132,11 @@
     </section>
 
     <footer class="page-actions">
-        <a class="action-button primary-button" th:href="@{/game(mode=${mode})}">
+        <a class="btn" th:href="@{/game(mode=${mode})}">
             <span>↻</span> Spil igen
         </a>
 
-        <a class="action-button secondary-button" href="/memorygame">
+        <a class="btn" href="/memorygame">
             <span class="home-icon">⌂</span> Tilbage til forsiden
         </a>
     </footer>
