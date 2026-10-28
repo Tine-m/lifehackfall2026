@@ -5,11 +5,12 @@
 
 body {
     font-family: Arial, sans-serif;
-    padding: 20px;
     margin: 0;
+    padding: 20px;
     min-height: 100vh;
-    color: #1f1233;
-    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
@@ -22,18 +23,22 @@ h1 {
     paint-order: stroke fill;
 }
 
-/* Layout: gitter til venstre, sidebar til højre */
+/*--- Layout ---*/
+/* Gitter til venstre, sidebar til højre */
+.container{
+    width: min(100%, 900px);
+}
+
 .layout {
     display: flex;
     justify-content: center;
-    gap: 60px;
     align-items: flex-start;
-    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
 }
 
 .board-area {
-    width: 100%;
-    max-width: 456px;
+    width: min(440px, 60vw);
 }
 
 /* 4 kolonner med kort */
@@ -42,10 +47,13 @@ h1 {
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
 }
+.sidebar{
+    width: min(240px, 30vw);
+}
 
+/*--- Kort ---*/
 /* Et kort: kvadratisk og fylder sin kolonne */
 .card {
-    width: 100%;
     aspect-ratio: 1 / 1;
     perspective: 600px;
     cursor: pointer;
@@ -123,10 +131,10 @@ h1 {
     text-align: center;
 }
 
-/* Fundet par får grøn baggrund */
+/* Fundet par får grøn kant */
 .card.matched .card-back {
-    background: #bbf7d0;
-    border-color: #4ade80;
+    background: white;
+    border: 3px solid #16a34a;
 }
 
 /* Hover: blå ramme kun på kort, der ikke er vendt */
@@ -141,12 +149,7 @@ h1 {
     outline-offset: 2px;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 100%;
-    max-width: 240px;
-}
-
+/*--- Sidebar ---*/
 .stat,
 .finish-button {
     width: 100%;

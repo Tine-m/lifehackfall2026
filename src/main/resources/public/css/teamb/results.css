@@ -22,11 +22,15 @@ body {
     background: var(--cream);
     color: var(--ink);
     font-family: "Nunito", Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .result-page {
     width: min(1600px, 100%);
-    min-height: calc(100vh - 20px);
+    min-height: auto;
     margin: 0 auto;
     padding: 30px;
     border: 1px solid var(--border);
