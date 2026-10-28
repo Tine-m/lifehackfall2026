@@ -34,48 +34,8 @@ public class MemoController {
     }
 
     private void resultsPage(Context ctx) {
-        String mode = "classic".equals(ctx.queryParam("mode")) ? "classic" : "lifehack";
-        boolean lifehack = "lifehack".equals(mode);
+        ctx.render("teamb/results.html");
 
-        try {
-            ctx.attribute("mode", mode);
-            ctx.attribute("leaderboard", GameMapper.getTopGames(lifehack, 10, connectionPool));
-            ctx.render("teamb/results.html");
-        } catch (DatabaseException e) {
-            ctx.status(500);
-        }
-    }
-
-    private void resultsPageWithStats(Context ctx) {
-        int seconds = Integer.parseInt(ctx.formParam("time"));
-        int moves = Integer.parseInt(ctx.formParam("moves"));
-        String mode = "classic".equals(ctx.formParam("mode")) ? "classic" : "lifehack";
-        boolean lifehack = "lifehack".equals(mode);
-        boolean completed = Boolean.parseBoolean(ctx.formParam("completed"));
-        String name = ctx.formParam("name");
-
-        String formattedTime = String.format("%02d:%02d", seconds / 60, seconds % 60);
-
-        try {
-            boolean saving = name != null && !name.isBlank();
-
-            if (saving && completed) {
-                int gameId = GameMapper.saveGame(name.trim(), lifehack, moves, seconds, connectionPool);
-                ctx.attribute("highlight", gameId);
-            }
-
-            ctx.attribute("time", formattedTime);
-            ctx.attribute("seconds", seconds);
-            ctx.attribute("moves", moves);
-            ctx.attribute("mode", mode);
-            ctx.attribute("completed", completed);
-            ctx.attribute("canSave", completed && !saving);
-            ctx.attribute("leaderboard", GameMapper.getTopGames(lifehack, 10, connectionPool));
-
-            ctx.render("teamb/results.html");
-        } catch (DatabaseException e) {
-            ctx.status(500);
-        }
     }
 
 
@@ -100,11 +60,60 @@ public class MemoController {
             model.put("cards", cards);
             model.put("totalPairs", cards.size() / 2);
 
+            if (lifehack) {
+                ctx.sessionAttribute("gameCards", onePerPair(cards));
+            } else {
+                ctx.sessionAttribute("gameCards", null);
+            }
+
             ctx.render("teamb/game.html", model);
 
         } catch (DatabaseException e) {
             ctx.status(500);
         }
+    }
+
+
+
+    private void resultsPageWithStats(Context ctx) {
+        int seconds = Integer.parseInt(ctx.formParam("time"));
+        int moves = Integer.parseInt(ctx.formParam("moves"));
+        String mode = ctx.formParam("mode");
+
+        boolean completed = Boolean.parseBoolean(ctx.formParam("completed"));
+
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+
+        String formattedTime = String.format(
+                "%02d:%02d", minutes, remainingSeconds
+        );
+
+        ctx.attribute("time", formattedTime);
+        ctx.attribute("seconds", seconds);
+        ctx.attribute("moves", moves);
+        ctx.attribute("mode", mode);
+        ctx.attribute("completed", completed);
+        ctx.attribute("canSave", completed);
+        List<Card> gameCards = ctx.sessionAttribute("gameCards");
+        ctx.attribute("gameCards", "lifehack".equals(mode) ? gameCards : null);
+
+        ctx.render("teamb/results.html");
+    }
+
+    private List<Card> onePerPair(List<Card> cards) {
+        Map<Object, Card> byPair = new java.util.LinkedHashMap<>();
+
+        for (Card card : cards) {
+            Card existing = byPair.get(card.getPairId());
+
+            if (existing == null ||
+                    (existing.getImageURL() == null && card.getImageURL() != null)) {
+                byPair.put(card.getPairId(), card);
+            }
+        }
+
+        return new java.util.ArrayList<>(byPair.values());
     }
 
 

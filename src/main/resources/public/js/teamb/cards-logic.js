@@ -98,4 +98,34 @@ function resetBoard() {
     lockBoard = false;
 }
 
+function saveLifehackCards() {
+    const board = document.getElementById('board');
+
+    if (!board || board.dataset.mode !== 'lifehack') {
+        sessionStorage.removeItem('gameCards');
+        return;
+    }
+
+    const cards = Array.from(board.querySelectorAll('.card'))
+        .filter((card, index, allCards) =>
+            allCards.findIndex(other =>
+                other.dataset.pairId === card.dataset.pairId
+            ) === index
+        )
+        .map(card => {
+            const image = card.querySelector('.card-back img');
+            const span = card.querySelector('.card-back span');
+
+            return {
+                imageURL: image ? image.getAttribute('src') : '',
+                text: span ? span.textContent.trim() : '',
+                lifehackDescription: card.dataset.hack || ''
+            };
+        });
+
+    sessionStorage.setItem('gameCards', JSON.stringify(cards));
+    console.log('Gemte lifehack-kort:', cards);
+}
+
+saveLifehackCards();
 loadGameBoard();

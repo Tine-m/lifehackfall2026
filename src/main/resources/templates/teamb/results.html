@@ -117,7 +117,8 @@
                 <span class="hack-picture">
                     <img th:if="${card.imageURL != null}"
                          th:src="@{${card.imageURL}}"
-                         th:alt="${card.text}"/>
+                         th:alt="${card.text}"
+                         style="width: 100px; height: 100px; object-fit: contain;"/>
                     <span th:if="${card.imageURL == null}" th:text="${card.text}">Tekst</span>
                 </span>
                 <span class="flip-label">↪ Vend kortet</span>
