@@ -81,10 +81,6 @@ public class GameController {
 		ctx.sessionAttribute("niveau1Status", "active");
 		ctx.sessionAttribute("isAttackMode", false);
 
-		ctx.sessionAttribute("niveau2Status", "active");// midlertidig testkode
-		ctx.sessionAttribute("niveau3Status", "active");// midlertidig testkode
-		ctx.sessionAttribute("attackModeStatus", "active");// midlertidig testkode
-
 		ctx.render("teama/frontpage.html");
 	}
 
