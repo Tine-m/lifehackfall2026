@@ -8,6 +8,8 @@ public class Poll {
     private String question;
     private String results_visibility;
     private List<PollOption> pollOptionList;
+    private boolean canVote;
+    private boolean canSeeResults;
 
     public Poll(int poll_id, int event_id, String question, String results_visibility, List<PollOption> pollOptionList) {
         this.poll_id = poll_id;
@@ -55,5 +57,21 @@ public class Poll {
 
     public void setPollOptionList(List<PollOption> pollOptionList) {
         this.pollOptionList = pollOptionList;
+    }
+
+    public boolean isCanVote() {
+        return canVote;
+    }
+
+    public boolean isCanSeeResults() {
+        return canSeeResults;
+    }
+
+    public void setCanVote(boolean canVote) {
+        this.canVote = canVote;
+    }
+
+    public void setCanSeeResults(boolean canSeeResults) {
+        this.canSeeResults = canSeeResults;
     }
 }

@@ -31,6 +31,32 @@ CREATE TABLE IF NOT EXISTS public.teamc_response
     CONSTRAINT response_pkey PRIMARY KEY (response_id)
 );
 
+DROP TABLE IF EXISTS public.teamc_user CASCADE;
+CREATE TABLE IF NOT EXISTS public.teamc_user
+(
+    user_id serial NOT NULL,
+    username character varying COLLATE pg_catalog."default" NOT NULL,
+    email character varying COLLATE pg_catalog."default" NOT NULL,
+    gender character varying COLLATE pg_catalog."default",
+    password character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT user_pkey PRIMARY KEY (user_id),
+    CONSTRAINT user_email_unique UNIQUE (email)
+);
+
+DROP TABLE IF EXISTS public.teamc_userevent CASCADE;
+CREATE TABLE IF NOT EXISTS public.teamc_userevent
+(
+    event_id serial NOT NULL,
+    user_id integer NOT NULL,
+    event_name character varying COLLATE pg_catalog."default" NOT NULL,
+    creation_date date,
+    start_date timestamp,
+    finish_date timestamp,
+    restrict_comments boolean,
+    CONSTRAINT userevent_pkey PRIMARY KEY (event_id)
+);
+
+DROP TABLE IF EXISTS public.teamc_vote, public.teamc_poll_voter, public.teamc_poll_option, public.teamc_poll CASCADE;
 -- Selve afstemningen. results_visibility: 'OWNER', 'VOTERS' eller 'INVITED'
 CREATE TABLE IF NOT EXISTS public.teamc_poll
 (
@@ -66,31 +92,6 @@ CREATE TABLE IF NOT EXISTS public.teamc_vote
     UNIQUE (poll_id, user_id)
 );
 
-
-DROP TABLE IF EXISTS public.teamc_user CASCADE;
-CREATE TABLE IF NOT EXISTS public.teamc_user
-(
-    user_id serial NOT NULL,
-    username character varying COLLATE pg_catalog."default" NOT NULL,
-    email character varying COLLATE pg_catalog."default" NOT NULL,
-    gender character varying COLLATE pg_catalog."default",
-    password character varying COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT user_pkey PRIMARY KEY (user_id),
-    CONSTRAINT user_email_unique UNIQUE (email)
-);
-
-DROP TABLE IF EXISTS public.teamc_userevent CASCADE;
-CREATE TABLE IF NOT EXISTS public.teamc_userevent
-(
-    event_id serial NOT NULL,
-    user_id integer NOT NULL,
-    event_name character varying COLLATE pg_catalog."default" NOT NULL,
-    creation_date date,
-    start_date timestamp,
-    finish_date timestamp,
-    restrict_comments boolean,
-    CONSTRAINT userevent_pkey PRIMARY KEY (event_id)
-);
 
 ALTER TABLE IF EXISTS public.teamc_comment
     ADD CONSTRAINT comment_user FOREIGN KEY (user_id)

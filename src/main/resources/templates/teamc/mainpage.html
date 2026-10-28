@@ -66,6 +66,7 @@
                             <span class="muted" th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026</span>
                         </div>
                         <a th:href="@{/eventPlanner/event/{id}/participants(id=${event.event_id})}">Se deltagere</a>
+                        <a th:href="@{/eventPlanner/event/{id}/polls(id=${event.event_id})}">Afstemninger</a>
                     </li>
                 </ul>
             </div>
