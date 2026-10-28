@@ -43,33 +43,55 @@ function handleCardClick(el) {
 
 }
 
+
 function checkForMatch() {
     lockBoard = true;
 
-    const isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+    const isMatch =
+        firstCard.dataset.pairId === secondCard.dataset.pairId;
+
     increaseMoves();
-    console.log("matched cards: ", isMatch);
+
+    console.log("Matched cards:", isMatch);
 
     if (isMatch) {
-        // US3: Matchende kort forbliver vendt
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
 
+        const gameWon = increaseMatchedPairs();
+
+        // Check whether every card has been matched
+        const allCards = document.querySelectorAll('#board .card');
+        const matchedCards = document.querySelectorAll('#board .card.matched');
+
+        console.log("Matched cards:", matchedCards.length);
+        console.log("Total cards:", allCards.length);
 
         resetBoard();
 
-        if (increaseMatchedPairs()) {
+        if (gameWon && allCards.length > 0 &&
+            matchedCards.length === allCards.length) {
+
             stopTimer();
+
+            document.getElementById("finish-time").value = seconds;
+            document.getElementById("finish-moves").value = moves;
+            document.getElementById("finish-completed").value = "true";
+
+            console.log("YOU WON! All pairs found.");
+
+            document.getElementById("finish-form").submit();
         }
     } else {
         setTimeout(() => {
-            // US4: Ikke-matchende kort vendes tilbage
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
+
             resetBoard();
         }, 1000);
     }
 }
+
 
 function resetBoard() {
     firstCard = null;

@@ -68,9 +68,15 @@ public class MemoController {
     }
 
 
+
     private void resultsPageWithStats(Context ctx) {
         int seconds = Integer.parseInt(ctx.formParam("time"));
         int moves = Integer.parseInt(ctx.formParam("moves"));
+        String mode = ctx.formParam("mode");
+
+        boolean completed = Boolean.parseBoolean(
+                ctx.formParam("completed")
+        );
 
         int minutes = seconds / 60;
         int remainingSeconds = seconds % 60;
@@ -80,10 +86,15 @@ public class MemoController {
         );
 
         ctx.attribute("time", formattedTime);
+        ctx.attribute("seconds", seconds);
         ctx.attribute("moves", moves);
+        ctx.attribute("mode", mode);
+        ctx.attribute("completed", completed);
+        ctx.attribute("canSave", completed);
 
         ctx.render("teamb/results.html");
     }
+
 
 
 }
