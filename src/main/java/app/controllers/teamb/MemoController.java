@@ -15,7 +15,7 @@ public class MemoController {
 
     private ConnectionPool connectionPool;
 
-    public MemoController(ConnectionPool connectionPool){
+    public MemoController(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
     //test
@@ -24,6 +24,7 @@ public class MemoController {
         config.routes.get("/memorygame", ctx -> renderFrontpage(ctx));
         //config.routes.get("/results", ctx -> resultsPage(ctx));
         config.routes.post("/results", ctx -> resultsPageWithStats(ctx));
+        config.routes.get("/results", ctx -> resultsPageWithStats(ctx));
         config.routes.get("/game", ctx -> renderGame(ctx));
     }
 

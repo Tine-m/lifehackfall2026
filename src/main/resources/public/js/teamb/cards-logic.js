@@ -12,9 +12,9 @@ function loadGameBoard() {
         if (span && /\p{Extended_Pictographic}/u.test(span.textContent)) {
             el.querySelector('.card-back').classList.add('emoji');
         }
-        sessionStorage.setItem("gameCards", JSON.stringify(cards)); //gemmer kortlisten fra spillet
         el.addEventListener('click', () => handleCardClick(el));
     });
+    sessionStorage.setItem("gameCards", JSON.stringify(cards)); //gemmer kortlisten fra spillet
 }
 
 
