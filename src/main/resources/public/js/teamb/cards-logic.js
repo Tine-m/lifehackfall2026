@@ -14,7 +14,7 @@ function loadGameBoard() {
         }
         el.addEventListener('click', () => handleCardClick(el));
     });
-}
+}//test
 
 
 let firstCard = null;
