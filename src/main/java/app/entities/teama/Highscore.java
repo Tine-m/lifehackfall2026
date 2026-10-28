@@ -57,4 +57,12 @@ public class Highscore {
     public LocalDate getDate() {
         return date;
     }
+
+    public int getDateDay(){
+        return date.getDayOfMonth();
+    }
+
+    public int getDateMonth(){
+        return date.getMonthValue();
+    }
 }

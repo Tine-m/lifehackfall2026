@@ -129,67 +129,8 @@ public class GameController {
         ctx.render("teama/attackmode.html");
     }
 
-    public String highScoreCheck (Context ctx) {  //tjekker om den aktuelle score på det aktuelle niveau er højere end den laveste værdi på listen
-        Game game = ctx.sessionAttribute("game");
-
-        List <Highscore> todayList=null;
-        List <Highscore> weekList=null;
-        List <Highscore> allTimeList = null;
-
-        try {
-            todayList = scoreService.getTopToday(5);
-            weekList = scoreService.getTopWeek(5);
-            allTimeList = scoreService.getTopAllTime(10);
-        } catch (DatabaseException e) {
-            System.out.println("Highscores kunne ikke loades");
-        }
-
-        if(allTimeList.size()<10){
-            return "allTimeList";
-        }
-        if (weekList.size()<5){
-            return "weekList";
-        }
-        if(todayList.size()<5){
-            return "todayList";
-        } else switch (game.getLevel()) {
-
-            case 1:
-                if (game.getScore() > allTimeList.getLast().getScore1()) {
-                    return "allTimeList";
-                } else if(game.getScore()>weekList.getLast().getScore1()) {
-                    return "weekList";
-                } else if (game.getScore()>todayList.getLast().getScore1()) {
-                    return "todayList";
-                }
-                break;
-            case 2:
-                if (game.getScore() > allTimeList.getLast().getScore2()) {
-                    return "allTimeList";
-                } else if(game.getScore()>weekList.getLast().getScore2()) {
-                    return "weekList";
-                } else if (game.getScore()>todayList.getLast().getScore2()) {
-                    return "todayList";
-                }
-                break;
-            case 3:
-                if (game.getScore() > allTimeList.getLast().getScore3()) {
-                    return "allTimeList";
-                } else if(game.getScore()>weekList.getLast().getScore3()) {
-                    return "weekList";
-                } else if (game.getScore()>todayList.getLast().getScore3()) {
-                    return "todayList";
-                }
-                break;
-        }
-        return "You did not make the highscore";
-    }
-
     public void submitGuess(Context ctx){
-
         Game game = ctx.sessionAttribute("game");
-        boolean onHighscore=false;
-        ctx.attribute("onHighscore", onHighscore);
 
         int redGuess = Integer.parseInt(ctx.formParam("redGuess"));
         int greenGuess = Integer.parseInt(ctx.formParam("greenGuess"));
@@ -199,11 +140,12 @@ public class GameController {
         game.setScore(colourService.getScore(game.getGuess(), game.getTarget()));
 
 
-        String highscore=highScoreCheck(ctx);
-        if(!highscore.equals("You did not make the highscore")){
-            onHighscore=true;
-            setHighscoreAttributes(ctx);
-        }
+        String msg = scoreService.highscoreCheck(game);;
+
+        boolean onHighscore = !msg.equals("Error: Highscores could not be loaded") && !msg.equals("You did not make the leaderboard");
+
+        ctx.attribute("highscoreMessage", msg);
+        ctx.attribute("onHighscore", onHighscore);
 
         
 
@@ -236,5 +178,14 @@ public class GameController {
             System.out.println("Highscore kunne ikke gemmes " + e);
         }
 
+        try {
+            ctx.sessionAttribute("todayList", scoreService.getTopToday(5));
+            ctx.sessionAttribute("weekList", scoreService.getTopWeek(5));
+            ctx.sessionAttribute("allTimeList", scoreService.getTopAllTime(10));
+        } catch (DatabaseException e) {
+            System.out.println("Highscores kunne ikke loades");
+        }
+
+        ctx.render("teama/result.html");
     }
 }

@@ -173,6 +173,17 @@ body{
     .initials{
         text-align: right;
     }
+
+    .date{
+        text-align: right;
+    }
+}
+
+.scoreboard-alltime{
+
+    td{
+        font-size: 17px;
+    }
 }
 
 .scoreboard::before {
