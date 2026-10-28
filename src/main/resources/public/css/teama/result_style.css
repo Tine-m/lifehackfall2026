@@ -37,7 +37,7 @@
     height: 40%;
     aspect-ratio: 165 / 65;
     border-radius: 20px;
-    font-family: Monospace;
+    font-family: monospace;
 }
 
 #submitInitials{

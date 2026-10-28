@@ -70,25 +70,25 @@
             <div class="child-5 child"> <!-- SCREEN -->
                 <div class="levelSelectorContainer">
                     <div id="niveau1Button" th:switch="${session.niveau1Status}">
-                        <a th:case="active" class="activeButton" href="/rcade/niveau1">Niveau 1</a>
+                        <a th:case="active" class="activeButton" href="/rcade/niveau1">Level 1</a>
                     </div>
 
                     <div id="niveau2Button" th:switch="${session.niveau2Status}">
-                        <a th:case="active" class="activeButton" href="/rcade/niveau2">Niveau 2</a>
-                        <a th:case="null" class="lockedButton">Niveau 2 <img src="images/teama/locked.svg"></a>
-                        <a th:case="pending" class="pendingButton">Niveau 2 <img src="images/teama/pending.svg"></a>
+                        <a th:case="active" class="activeButton" href="/rcade/niveau2">Level 2</a>
+                        <a th:case="null" class="lockedButton">Level 2 <img src="images/teama/locked.svg"></a>
+                        <a th:case="pending" class="pendingButton">Level 2 <img src="images/teama/pending.svg"></a>
                     </div>
 
                     <div id="niveau3Button" th:switch="${session.niveau3Status}">
-                        <a th:case="active" class="activeButton" href="/rcade/niveau3">Niveau 3</a>
-                        <a th:case="null" class="lockedButton">Niveau 3 <img src="images/teama/locked.svg"></a>
-                        <a th:case="pending" class="pendingButton">Niveau 3 <img src="images/teama/pending.svg"></a>
+                        <a th:case="active" class="activeButton" href="/rcade/niveau3">Level 3</a>
+                        <a th:case="null" class="lockedButton">Level 3 <img src="images/teama/locked.svg"></a>
+                        <a th:case="pending" class="pendingButton">Level 3 <img src="images/teama/pending.svg"></a>
                     </div>
 
                     <div id="attackModeButton" th:switch="${session.attackModeStatus}">
-                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Marathon mode</a>
-                        <a th:case="null" class="lockedButton">Niveau 4 <img src="images/teama/locked.svg"></a>
-                        <a th:case="pending" class="pendingButton">Niveau 4 <img src="images/teama/pending.svg"></a>
+                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Marathon Mode</a>
+                        <a th:case="null" class="lockedButton">Marathon Mode <img src="images/teama/locked.svg"></a>
+                        <a th:case="pending" class="pendingButton">Marathon Mode <img src="images/teama/pending.svg"></a>
                     </div>
                 </div>
 

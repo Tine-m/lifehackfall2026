@@ -185,7 +185,7 @@ body{
 }
 
 .scoreboard::before {
-    /* Fem-farvet stribe langs toppen */
+    /* Five-colored stripe along the top */
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -199,7 +199,7 @@ body{
 }
 
 .scoreboard::after {
-    /* Skygge i bunden */
+    /* Shadow at the bottom */
     content: "";
     position: absolute;
     left: 0; right: 0; bottom: 0;
@@ -207,14 +207,14 @@ body{
     background: #CBB9A4;
 }
 
-/* Niveau-selector layout */
+/* Level-selector layout */
 .levelSelectorContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    /* Responsive størrelser, placeringer og afstande */
+    /* Responsive sies, placements and distances */
     width: 100%;
     aspect-ratio: 45 / 28;
     margin-left: 3px;
@@ -231,7 +231,7 @@ body{
         }
     }
 
-    /* Knap-styling */
+    /* Button-styling */
     a {
         border-radius: 5px;
         border-style: ridge;
@@ -352,18 +352,18 @@ body{
 }
 
 .slideform {
-    width: 100%; /* Bredde på containeren */
+    width: 100%; /* Width of the container */
     grid-column: span 2;
 }
 
 .slider {
-    -webkit-appearance: none;  /* Overskriv default CSS styling */
+    -webkit-appearance: none;  /* Overwrite default CSS styling */
     appearance: auto;
     width: 100%;
     height: 10px;
     background: var(--background_grey);
     outline: none;
     opacity: 0.7;
-    -webkit-transition: .2s; /* 0.2 sekunders transition på hover */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
     transition: opacity .2s;
 }

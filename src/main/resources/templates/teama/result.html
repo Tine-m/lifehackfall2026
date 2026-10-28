@@ -72,7 +72,7 @@
 
                 <div id="result-page">
 
-                    <h3 style="grid-area: area-1" th:text="'Din Score: '+${session.game.getScore()}"></h3>
+                    <h3 style="grid-area: area-1" th:text="'Your score: '+${session.game.getScore()}"></h3>
 
                     <div style="grid-area: area-2" th:if="${onHighscore}">
                         <p th:text="${highscoreMessage}">Error: Highscores could not be loaded</p>
@@ -81,7 +81,7 @@
                             <label for="initials">indtast initialer</label>
                             <input type="text" id="initials" name="initials" placeholder="ABC" required>
                             <button class="resultScreenButton" type="submit" id="submitInitials">
-                                indsend score
+                                Save score
                             </button>
                         </form>
                     </div>
@@ -90,20 +90,20 @@
 
                         <form th:unless="${session.isAttackMode}" action="/rcade/playAgain">
                             <button type="submit" class="resultScreenButton" id="playAgain">
-                                Prøv igen?
+                                Try again?
                             </button>
                         </form>
 
                         <form th:unless="${session.isAttackMode}" action="/rcade/nextLevel" method="get">
                             <button type="submit" class="resultScreenButton" id="playNextLevel"
                                     th:classappend="${!isNextLevelOpen} ? 'buttonLocked'">
-                                Spil næste niveau!
+                                Play next level!
                             </button>
                         </form>
 
                         <form action="/rcade">
                             <button type="submit" class="resultScreenButton" id="backToOverview">
-                                tilbage til oversigt
+                                Back to level selection
                             </button>
                         </form>
 
