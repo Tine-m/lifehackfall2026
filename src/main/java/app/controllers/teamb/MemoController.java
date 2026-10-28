@@ -1,23 +1,25 @@
+
 package app.controllers.teamb;
 
 import app.entities.teamb.Card;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.teamb.CardMapper;
-import app.persistence.teamb.GameMapper;
+import app.services.teamb.MemoService;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MemoController {
 
-    private ConnectionPool connectionPool;
+    private final MemoService memoService;
 
     public MemoController(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+        this.memoService = new MemoService(connectionPool);
     }
     //test
 
@@ -33,33 +35,34 @@ public class MemoController {
         ctx.render("teamb/frontpage.html");
     }
 
+    // GET /results: kun leaderboard (fra forsiden eller Lifehack/Klassisk-linkene)
     private void resultsPage(Context ctx) {
-        ctx.render("teamb/results.html");
-
+        try {
+            ctx.render("teamb/results.html",
+                    memoService.getResultsModel(ctx.queryParam("mode")));
+        } catch (DatabaseException e) {
+            ctx.status(500);
+        }
     }
 
 
+
     public void renderGame(Context ctx) {
-        String mode;
-
-        if ("classic".equals(ctx.queryParam("mode"))) {
-            mode = "classic";
-        } else {
-            mode = "lifehack";
-        }
-
-
+        String mode = "classic".equals(ctx.queryParam("mode")) ? "classic" : "lifehack";
         boolean lifehack = "lifehack".equals(mode);
 
         try {
-            // 8 random par af lifehack kort
-            List<Card> cards = CardMapper.getRandomCards(8, lifehack, connectionPool);
+            List<Card> cards = memoService.getGameCards(lifehack);
+
+            // Gem ét kort pr. par i sessionen, så resultatsiden kan vise lifehacks
+            ctx.sessionAttribute("gameCards", lifehack ? memoService.getLifehackCards(cards) : null);
 
             Map<String, Object> model = new HashMap<>();
             model.put("mode", mode);
             model.put("cards", cards);
             model.put("totalPairs", cards.size() / 2);
 
+            // Gem ét kort pr. par i sessionen, så resultatsiden kan vise lifehacks
             if (lifehack) {
                 ctx.sessionAttribute("gameCards", onePerPair(cards));
             } else {
@@ -69,53 +72,24 @@ public class MemoController {
             ctx.render("teamb/game.html", model);
 
         } catch (DatabaseException e) {
-            ctx.status(500);
+           ctx.status(500);
         }
     }
 
-
-
+    // POST /results: bruges både når spillet slutter og når spilleren gemmer sit navn.
     private void resultsPageWithStats(Context ctx) {
-        int seconds = Integer.parseInt(ctx.formParam("time"));
-        int moves = Integer.parseInt(ctx.formParam("moves"));
-        String mode = ctx.formParam("mode");
-
-        boolean completed = Boolean.parseBoolean(ctx.formParam("completed"));
-
-        int minutes = seconds / 60;
-        int remainingSeconds = seconds % 60;
-
-        String formattedTime = String.format(
-                "%02d:%02d", minutes, remainingSeconds
-        );
-
-        ctx.attribute("time", formattedTime);
-        ctx.attribute("seconds", seconds);
-        ctx.attribute("moves", moves);
-        ctx.attribute("mode", mode);
-        ctx.attribute("completed", completed);
-        ctx.attribute("canSave", completed);
-        List<Card> gameCards = ctx.sessionAttribute("gameCards");
-        ctx.attribute("gameCards", "lifehack".equals(mode) ? gameCards : null);
-
-        ctx.render("teamb/results.html");
-    }
-
-    private List<Card> onePerPair(List<Card> cards) {
-        Map<Object, Card> byPair = new java.util.LinkedHashMap<>();
-
-        for (Card card : cards) {
-            Card existing = byPair.get(card.getPairId());
-
-            if (existing == null ||
-                    (existing.getImageURL() == null && card.getImageURL() != null)) {
-                byPair.put(card.getPairId(), card);
-            }
+        try {
+            ctx.render("teamb/results.html",
+                    memoService.getResultsModel(
+                            ctx.formParam("time"),
+                            ctx.formParam("moves"),
+                            ctx.formParam("mode"),
+                            ctx.formParam("completed"),
+                            ctx.formParam("name"),
+                            ctx.sessionAttribute("gameCards")));
+        } catch (DatabaseException e) {
+           ctx.status(500);
         }
-
-        return new java.util.ArrayList<>(byPair.values());
     }
-
-
 
 }
