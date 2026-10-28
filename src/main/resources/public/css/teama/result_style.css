@@ -36,22 +36,38 @@
 .resultScreenButton{
     height: 40%;
     aspect-ratio: 165 / 65;
-    border-radius: 20px;
-    font-family: Monospace;
+   /* border-radius: 20px;
+    font-family: Monospace;*/
+
+    min-height: 0;
+    /* Knap-styling */
+    border-radius: 5px;
+    border-style: ridge;
+    border-width: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 #submitInitials{
-    background-color: var(--darkred);
+    background-color: var(--green_4);
 }
 
 #playAgain{
-    background-color: var(--yellow);
+    background-color: var(--green_1);
 }
 #playNextLevel {
-    background-color: var(--orange);
+    background-color: var(--green_2);
 }
 #backToOverview{
-    background-color: var(--turquoiselight);
+    background-color: var(--green_3);
 }
 
 .buttonLocked{

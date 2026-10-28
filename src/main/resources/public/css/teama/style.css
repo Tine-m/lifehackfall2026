@@ -285,7 +285,7 @@ body{
     justify-items: center;
     grid-gap: 1rem;
 
-    grid-template-rows: auto fr;
+    grid-template-rows: auto 1fr;
 }
 
 .gamecontainer div {
@@ -378,7 +378,6 @@ h3{
     -webkit-transition: .2s; /* 0.2 sekunders transition på hover */
     transition: opacity .2s;
 
-    outline: 1px solid deeppink;
 }
 
 .slider::-webkit-slider-thumb {
