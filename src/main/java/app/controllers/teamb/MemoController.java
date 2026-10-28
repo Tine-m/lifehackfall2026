@@ -47,6 +47,7 @@ public class MemoController {
 
 
 
+
     public void renderGame(Context ctx) {
         String mode = "classic".equals(ctx.queryParam("mode")) ? "classic" : "lifehack";
         boolean lifehack = "lifehack".equals(mode);
@@ -55,7 +56,8 @@ public class MemoController {
             List<Card> cards = memoService.getGameCards(lifehack);
 
             // Gem ét kort pr. par i sessionen, så resultatsiden kan vise lifehacks
-            ctx.sessionAttribute("gameCards", lifehack ? memoService.getLifehackCards(cards) : null);
+            ctx.sessionAttribute("gameCards",
+                    lifehack ? memoService.getLifehackCards(cards) : null);
             ctx.sessionAttribute("savedGameId", null);
 
             Map<String, Object> model = new HashMap<>();
@@ -63,22 +65,16 @@ public class MemoController {
             model.put("cards", cards);
             model.put("totalPairs", cards.size() / 2);
 
-            // Gem ét kort pr. par i sessionen, så resultatsiden kan vise lifehacks
-            if (lifehack) {
-                ctx.sessionAttribute("gameCards", onePerPair(cards));
-            } else {
-                ctx.sessionAttribute("gameCards", null);
-            }
-
             ctx.render("teamb/game.html", model);
 
         } catch (DatabaseException e) {
-           ctx.status(500);
+            ctx.status(500);
         }
     }
 
 
-        // POST /results: bruges både når spillet slutter og når spilleren gemmer sit navn.
+
+    // POST /results: bruges både når spillet slutter og når spilleren gemmer sit navn.
         private void resultsPageWithStats(Context ctx) {
             try {
                 String time = ctx.formParam("time");
