@@ -22,23 +22,23 @@ public class UserEventMapper {
     private static final Logger logger =
             LoggerFactory.getLogger(UserEventMapper.class);
 
-    public UserEventMapper(ConnectionPool connectionPool){
+    public UserEventMapper(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
     public void inviteUser(int userId, int eventId) throws DatabaseException {
-       String query = "INSERT INTO teamc_invitation (user_id, event_id, response_id)" +
-               "VALUES (?, ?, (SELECT response_id FROM teamc_response WHERE response = 'NOT_RESPONDED'))";
+        String query = "INSERT INTO teamc_invitation (user_id, event_id, response_id)" +
+                "VALUES (?, ?, (SELECT response_id FROM teamc_response WHERE response = 'NOT_RESPONDED'))";
 
-       try (Connection conn = connectionPool.getConnection();
-       PreparedStatement stmt = conn.prepareStatement(query)) {
-           stmt.setInt(1, userId);
-           stmt.setInt(2, eventId);
-           stmt.executeUpdate();
-       } catch (SQLException e) {
-           logger.error(e.getMessage(), e);
-           throw new DatabaseException("Invitattionen blev ikke gemt, " + e.getMessage());
-       }
+        try (Connection conn = connectionPool.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, eventId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Invitattionen blev ikke gemt, " + e.getMessage());
+        }
     }
 
     public UserEvent createEvent(User owner, String eventName, LocalDateTime startDate, LocalDateTime finishDate, boolean restrictComments) throws DatabaseException {
@@ -205,6 +205,7 @@ public class UserEventMapper {
         }
         return comments;
     }
+
     public List<Comment> getCommentsForEvent(int eventId) throws DatabaseException {
         String query = "SELECT c.comment_id, c.content, c.create_date, " +
                 "e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
@@ -256,7 +257,7 @@ public class UserEventMapper {
         }
     }
 
-    public  boolean canComment(int userId, int eventId)throws DatabaseException {
+    public boolean canComment(int userId, int eventId) throws DatabaseException {
         String query = "SELECT 1 " +
                 "FROM teamc_userevent e " +
                 "WHERE e.event_id = ? " +
@@ -401,7 +402,7 @@ public class UserEventMapper {
         return events;
     }
 
-    public Comment createComment(User author, int eventId, String content) throws DatabaseException{
+    public Comment createComment(User author, int eventId, String content) throws DatabaseException {
 
         String query = "INSERT INTO teamc_comment (user_id, event_id, content, create_date) " +
                 "VALUES (?, ?, ?, CURRENT_DATE)";
@@ -413,7 +414,7 @@ public class UserEventMapper {
             stm.setString(3, content);
             stm.executeUpdate();
 
-            try(ResultSet keys = stm.getGeneratedKeys()){
+            try (ResultSet keys = stm.getGeneratedKeys()) {
                 if (keys.next()) {
                     Comment comment = new Comment(keys.getInt(1), content, LocalDate.now().atStartOfDay());
                     comment.setUser(author);
@@ -428,7 +429,7 @@ public class UserEventMapper {
         }
     }
 
-    public List<UserEvent> getCommentableEvents(User user) throws DatabaseException{
+    public List<UserEvent> getCommentableEvents(User user) throws DatabaseException {
         String query = "SELECT e.event_id, e.event_name, e.creation_date, e.start_date, e.finish_date, e.restrict_comments, " +
                 "owner.user_id, owner.username, owner.email, owner.gender, owner.password " +
                 "FROM teamc_userevent e JOIN teamc_user owner ON owner.user_id = owner.user_id " +
@@ -442,7 +443,7 @@ public class UserEventMapper {
                 if (rs.next()) {
                     User owner = new User(rs.getInt("user_id"), rs.getString("username"),
                             rs.getString("email"), rs.getString("gender"), rs.getString("password"));
-                    events.add(mapEvent(rs,owner));
+                    events.add(mapEvent(rs, owner));
                 }
             }
         } catch (SQLException e) {
@@ -451,4 +452,91 @@ public class UserEventMapper {
         }
         return events;
     }
+
+    public int deleteComment(int commentId, int userId) throws DatabaseException {
+        String query = "DELETE FROM teamc_comment WHERE comment_id = ? " +
+                "AND (user_id = ? OR event_id IN (SELECT event_id FROM teamc_userevent WHERE user_id = ?))";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, commentId);
+            stm.setInt(2, userId);
+            stm.setInt(3, userId);
+            return stm.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Kommentaren blev ikke slettet", e.getMessage());
+        }
+    }
+
+    public int editEventName(int eventId, int userId, String newName) throws DatabaseException {
+        String query = "UPDATE teamc_userevent SET event_name = ? WHERE event_id = ? AND user_id = ?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setString(1, newName);
+            stm.setInt(2, eventId);
+            stm.setInt(3, userId);
+            return stm.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Eventets navn blev ikke ændret", e.getMessage());
+        }
+    }
+
+    public int editEventStart(int eventId, int userId, LocalDateTime newDate) throws DatabaseException {
+        String query = "UPDATE teamc_userevent SET start_date = ? WHERE event_id = ? AND user_id =?";
+
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setTimestamp(1, Timestamp.valueOf(newDate));
+            stm.setInt(2, eventId);
+            stm.setInt(3, userId);
+            return stm.executeUpdate();
+
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Eventets start dato blev ikke ændret", e.getMessage());
+        }
+    }
+
+    public int editEventFinish(int eventId, int userId, LocalDateTime newDate) throws DatabaseException {
+
+        String query = "UPDATE teamc_userevent SET finish_date = ? WHERE event_id = ? AND user_id =?";
+
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setTimestamp(1, Timestamp.valueOf(newDate));
+            stm.setInt(2, eventId);
+            stm.setInt(3, userId);
+            return stm.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Eventets slut dato blev ikke ændret", e.getMessage());
+        }
+    }
+
+    public int restrictCommentsSwitch(int eventId, boolean state, int userId) throws DatabaseException {
+        String query = "UPDATE teamc_userevent SET restrict_comments = ? WHERE event_id = ? AND user_id=?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setBoolean(1, state);
+            stm.setInt(2, eventId);
+            stm.setInt(3, userId);
+            return stm.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DatabaseException("Eventets kommentar tilgængelighed er ikke blevet ændret", e.getMessage());
+        }
+    }
 }
+
+
+
+
+
+
+
