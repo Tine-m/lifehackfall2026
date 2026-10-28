@@ -11,6 +11,9 @@ import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameController {
 
     private ConnectionPool connectionPool;
@@ -72,6 +75,13 @@ public class GameController {
     }
 
     public void renderFrontpage(Context ctx){
+        setHighscoreAttributes(ctx);
+
+        ctx.sessionAttribute("niveau1Status", "active");
+        ctx.render("teama/frontpage.html");
+    }
+
+    public void setHighscoreAttributes(Context ctx){
         try {
             ctx.sessionAttribute("todayList", scoreService.getTopToday(5));
             ctx.sessionAttribute("weekList", scoreService.getTopWeek(5));
@@ -79,9 +89,6 @@ public class GameController {
         } catch (DatabaseException e) {
             System.out.println("Highscores kunne ikke loades");
         }
-
-        ctx.sessionAttribute("niveau1Status", "active");
-        ctx.render("teama/frontpage.html");
     }
 
     public void renderNiveau1(Context ctx){
@@ -99,7 +106,7 @@ public class GameController {
 
         ctx.sessionAttribute("game", game);
 
-        ctx.attribute("targetColour", game.getTarget().toRgb());
+
 
         ctx.render("teama/niveau2.html");
     }
@@ -108,8 +115,6 @@ public class GameController {
         Game game = new Game(colourService.getRandomColour(), 3);
 
         ctx.sessionAttribute("game", game);
-
-        ctx.attribute("targetColour", game.getTarget().toRgb());
 
         ctx.render("teama/niveau3.html");
     }
@@ -122,9 +127,58 @@ public class GameController {
         ctx.render("teama/attackmode.html");
     }
 
+    public String highScoreCheck (Context ctx) {  //tjekker om den aktuelle score på det aktuelle niveau er højere end den laveste værdi på listen
+        Game game = ctx.sessionAttribute("game");
+
+        Highscore hs1 = null;
+        Highscore hs2 = null;
+        Highscore hs3 = null;
+
+        try {
+            hs1 = scoreService.getTopToday(5).getLast();
+            hs2 = scoreService.getTopWeek(5).getLast();
+            hs3 = scoreService.getTopAllTime(10).getLast();
+        } catch (DatabaseException e) {
+            System.out.println("Highscores kunne ikke loades");
+        }
+
+        switch (game.getLevel()) {
+
+            case 1:
+                if (game.getScore() > hs3.getScore1()) {
+                    return "allTimeList";
+                } else if(game.getScore()>hs2.getScore1()) {
+                    return "weekList";
+                } else if (game.getScore()>hs1.getScore1()) {
+                    return "todayList";
+                }
+                break;
+            case 2:
+                if (game.getScore() > hs3.getScore2()) {
+                    return "allTimeList";
+                } else if(game.getScore()>hs2.getScore2()) {
+                    return "weekList";
+                } else if (game.getScore()>hs1.getScore2()) {
+                    return "todayList";
+                }
+                break;
+            case 3:
+                if (game.getScore() > hs3.getScore3()) {
+                    return "allTimeList";
+                } else if(game.getScore()>hs2.getScore3()) {
+                    return "weekList";
+                } else if (game.getScore()>hs1.getScore3()) {
+                    return "todayList";
+                }
+                break;
+        }
+        return "You did not make the highscore";
+    }
+
     public void submitGuess(Context ctx){
 
         Game game = ctx.sessionAttribute("game");
+        boolean onHighscore=false;
 
         int redGuess = Integer.parseInt(ctx.formParam("redGuess"));
         int greenGuess = Integer.parseInt(ctx.formParam("greenGuess"));
@@ -133,27 +187,27 @@ public class GameController {
 
         game.setScore(colourService.getScore(game.getGuess(), game.getTarget()));
 
-        //Her skal der tjekkes om scoren skal på et leaderboard.
 
+        String highscore=highScoreCheck(ctx);
+        if(!highscore.equals("You did not make the highscore")){
+            onHighscore=true;
+            setHighscoreAttributes(ctx);
+        }
 
-        // Hvis scoren er høj nok, bliver næste niveau unlocked.
+        
+
         if (scoreService.unlockNextLevel(game)){
             switch (game.getLevel()){
                 case 1:
-                    // Midlertidig kode. Tjekker om den relevante side er "pending" dvs. ikke færdig
-                    if (ctx.sessionAttribute("niveau2Status") == "pending") {break;}
-
                     ctx.sessionAttribute("niveau2Status", "active");
                     break;
                 case 2:
-                    // Midlertidig kode. Tjekker om den relevante side er "pending" dvs. ikke færdig
-                    if (ctx.sessionAttribute("niveau3Status") == "pending") {break;}
-
                     ctx.sessionAttribute("niveau3Status", "active");
                     break;
             }
             ctx.attribute("isNextLevelOpen", true);
         }
+
         ctx.render("teama/result.html");
     }
 
@@ -161,6 +215,7 @@ public class GameController {
         Game game = ctx.sessionAttribute("game");
 
         String initials = ctx.formParam("initials");
+      //  int score = Integer.parseInt(ctx.attribute("score"));
 
         Highscore highscore = new Highscore(game.getScore(), initials);
         try {
