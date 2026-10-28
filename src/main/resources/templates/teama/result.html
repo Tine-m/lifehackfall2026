@@ -77,7 +77,7 @@
                     <div style="grid-area: area-2" th:if="${onHighscore}">
                         <p th:text="${highscoreMessage}">Error: Highscores could not be loaded</p>
 
-                        <form action="/rcade/savescore">
+                        <form action="/rcade/savescore" method="post">
                             <label for="initials">indtast initialer</label>
                             <input type="text" id="initials" name="initials" placeholder="ABC" required>
                             <button class="resultScreenButton" type="submit" id="submitInitials">
