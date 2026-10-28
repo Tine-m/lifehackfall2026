@@ -1,47 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game On</title>
-    <link rel="stylesheet" href="/css/teamb/game.css"/>
-    <script src="/js/teamb/cards-logic.js" defer></script>
-    <script src="/js/teamb/game-stats.js" defer></script>
+    <link rel="stylesheet" th:href="@{/css/teamb/game.css}"/>
+    <script th:src="@{/js/teamb/cards-logic.js}" defer></script>
+    <script th:src="@{/js/teamb/game-stats.js}" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">Lifehack Memory Spil</h1>
+<div class="container">
+    <h1 class="title"
+        th:text="${mode == 'lifehack'} ? 'Lifehack Memory Game' : 'Klassisk Memory Game'">Lifehack Memory Game</h1>
 
-        <div class="layout">
-            <!-- Selve "spillepladen med de 16 kort i gitter -->
-            <section class="board-area">
-                <div class="board" id="board">
-                    <!-- Kortene indsættes via js eller? -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">LH</div>
-                            <div class="card-back"></div>
+
+    <div class="layout">
+        <!-- Board: cards are rendered server-side from the "cards" model attribute -->
+        <section class="board-area">
+            <div class="board" id="board"
+                 th:attr="data-mode=${mode}, data-total-pairs=${totalPairs}">
+
+                <div class="card"
+                     th:each="card : ${cards}"
+                     th:attr="data-card-id=${card.id}, data-pair-id=${card.pairId}, data-hack=${card.hackDescription}"
+                     tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front">LH</div>
+                        <div class="card-back">
+                            <img th:if="${card.imageUrl != null}"
+                                 th:src="@{${card.imageUrl}}"
+                                 th:alt="${card.title}"/>
+                            <span th:text="${card.title}">Titel</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Sidebar med timer, matched pairs og antal moves der alle tæller op -->
-            <aside class="sidebar">
-                <div class="stat" id="timer">Timer: 00:00</div>
-                <div class="stat" id="matched">Matched pairs: 0/8</div>
-                <div class="stat" id="moves">Moves: 0</div>
+            </div>
+        </section>
 
-                <div class="hack-panel">
-                    <h2>Fundne life hacks</h2>
-                    <ul id="hack-list">
-                        <!-- Beskrivelser indsættes af .js??? -->
-                    </ul>
-                </div>
+        <!-- Sidebar: timer, pairs, moves -->
+        <aside class="sidebar">
+            <div class="stat" id="timer">Timer: 00:00</div>
+            <div class="stat" id="matched" th:text="'Matched pairs: 0/' + ${totalPairs}">Matched pairs: 0/8</div>
+            <div class="stat" id="moves">Moves: 0</div>
 
-              <button id="finish-game" class="finish-button">Afslut spil</button>
-            </aside>
-        </div>
+            <!-- Vises kun i lifehack mode -->
+            <div class="hack-panel" th:if="${mode == 'lifehack'}">
+                <h2>Fundne life hacks</h2>
+                <ul id="hack-list"></ul>
+            </div>
+
+            <button id="finish-game" class="finish-button" type="button">Afslut spil</button>
+        </aside>
     </div>
+</div>
 
 </body>
 </html>

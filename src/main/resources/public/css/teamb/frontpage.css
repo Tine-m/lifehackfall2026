@@ -130,6 +130,14 @@ body {
     transform: scale(1.04);
 }
 
+.menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+}
+
 
 @media (max-width: 500px) {
 

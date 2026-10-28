@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lifehack Memory Game</title>
-    <link rel="stylesheet" href="/css/teamb/frontpage.css"/>
+    <link rel="stylesheet" th:href="@{/css/teamb/frontpage.css}"/>
 </head>
 
 <body>
@@ -27,17 +27,22 @@
 
         <nav class="menu-buttons">
 
-            <button type="button"
-                    class="menu-button"
-                    onclick="location.href='game'">
-                Start spil
-            </button>
+            <!-- Lifehack mode: lifehack vises når par er fundet -->
+            <form th:action="@{/game}" method="get">
+                <input type="hidden" name="mode" value="lifehack"/>
+                <button type="submit" class="menu-button">Start lifehack</button>
+            </form>
 
-            <button type="button"
-                    class="menu-button"
-                    onclick="location.href='results'">
-                Leaderboard
-            </button>
+            <!-- Klassisk mode -->
+            <form th:action="@{/game}" method="get">
+                <input type="hidden" name="mode" value="classic"/>
+                <button type="submit" class="menu-button">Start klassisk</button>
+            </form>
+
+           <!-- <a th:href="@{/results}" class="menu-button menu-link">Leaderboard</a>-->
+            <form th:action="@{/results}" method="get">
+                <button type="submit" class="menu-button">Leaderboard</button>
+            </form>
 
         </nav>
 
