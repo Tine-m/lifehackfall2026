@@ -99,7 +99,7 @@ public class GameController {
 
         ctx.sessionAttribute("game", game);
 
-
+        ctx.attribute("targetColour", game.getTarget().toRgb());
 
         ctx.render("teama/niveau2.html");
     }
