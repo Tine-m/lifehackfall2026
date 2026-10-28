@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <div class="grid-one-item scoreboard" style="grid-area: box-5">
+    <div class="grid-one-item scoreboard scoreboard-alltime" style="grid-area: box-5">
         <p class="scoreboard-title">High scores</p>
         <p class="scoreboard-title-period">All time</p>
         <table>
@@ -126,15 +126,13 @@
                 <th class="rank">Rank</th>
                 <th class="score">Score</th>
                 <th class="initials">Name</th>
-                <!-- Dato? -->
+                <th class="date">Date</th>
             </tr>
             <tr th:each="score, stat : ${session.allTimeList}" th:if="${stat.index < 10}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>
-                <!--
-                Måske: <td th:text="${score.date}"></td>
-                -->
+                <td class="date" th:text="${score.dateDay + '/' + score.dateMonth}"></td>
             </tr>
         </table>
     </div>
