@@ -610,3 +610,19 @@ body {
     height: 16px;
     accent-color: var(--primary-color);
 }
+.edit-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #FBB040;
+    color: #002E6D;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+    background-color: #e09e38;
+}

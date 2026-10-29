@@ -1,6 +1,7 @@
 package app.entities.teamc;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserEvent {
@@ -12,7 +13,7 @@ public class UserEvent {
     private LocalDateTime startDate;
     private LocalDateTime finishDate;
     private CommentList commentList;
-    private List<Invitation> invitiation;
+    private List<Invitation> invitiation = new ArrayList<>();
     private boolean commentVisibility;
 
     public UserEvent(int event_id, User user, String eventName, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime finishDate, boolean commentVisibility) {
@@ -90,5 +91,18 @@ public class UserEvent {
     public boolean isUpcoming() {
         return startDate != null &&
                 !startDate.isBefore(LocalDateTime.now());
+    }
+
+    public List<Invitation> getInvitiation() {
+        return invitiation;
+    }
+
+    public boolean isInvited(int userId) {
+        for (Invitation inv : invitiation) {
+            if (inv.getUser().getUser_id() == userId) {
+                return true;
+            }
+        }
+        return false;
     }
 }
