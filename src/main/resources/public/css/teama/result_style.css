@@ -1,72 +1,81 @@
-
 #result-page{
     box-sizing: border-box;
     border: none;
-    padding: 1rem;
-    grid-gap: 1rem;
 
     width: 100%;
     aspect-ratio: 1329 / 745;
 
-   /* background-image: url("/public/images/teama/pop_up.svg");  er denne sti forkert?
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: transparent; */
-
     font-family: monospace;
-    /*font-size: 10px;*/
-
-  /*  height: 60vh;
-    aspect-ratio: 939 / 596; */
 
     align-self: center;
     justify-items: center;
 
-
+    /* Grid */
     display: grid;
-
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-
+    grid-template-rows: 1fr 1fr 2fr 1fr;
     grid-template-areas:
     "area-1"
     "area-2"
-    "area-3";
-
+    "area-3"
+    "area-4";
 }
 
-.popUpButtons {
-    box-sizing: border-box;
-    width: 100%;
-
-    padding-left: 20%;
-    padding-right: 20%;
+.resultScreenButtons {
     display: flex;
     justify-content: space-between;
 }
 
 
-.popUpButton{
-    height: 40%;
+.resultScreenButton{
+    height: 70%;
     aspect-ratio: 165 / 65;
-    border-radius: 20px;
-    font-family: Monospace;
+
+
+    min-height: 0;
+    /* Knap-styling */
+    border-radius: 5px;
+    border-style: ridge;
+    border-width: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    justify-self: center;
+
 }
 
+#initial-input-form {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr 1fr 2fr;
+}
 
+#initials{
+    width: 3rem;
+    height: 1rem;
+}
 #submitInitials{
-    background-color: var(--darkred);
+    background-color: var(--green_4);
+    border-color: var(--green_4);
 }
 
 #playAgain{
-    background-color: var(--yellow);
+    background-color: var(--green_1);
+    border-color: var(--green_1);
 }
 #playNextLevel {
-    background-color: var(--orange);
+    background-color: var(--green_2);
+    border-color: var(--green_2);
 }
 #backToOverview{
-    background-color: var(--turquoiselight);
+    background-color: var(--green_3);
+    border-color: var(--green_3);
 }
 
 .buttonLocked{

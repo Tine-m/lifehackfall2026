@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>game</title>
+    <title>★RcadeGB★</title>
+    <link rel="icon" type="image/x-icon" href="images/teama/rcade-logo.svg">
     <link rel="stylesheet" href="css/teama/colours.css">
     <link rel="stylesheet" href="css/teama/style.css">
 
@@ -13,19 +14,21 @@
 
     <div class="grid-one-item home-button" style="grid-area: box-1">
 
-        <a href="/templates/index.html">
-            <img src="images/teama/homebutton.svg" alt="">
+        <a href="/">
+            <img src="/images/teama/homebutton.svg" alt="">
         </a>
 
     </div>
 
     <div class="grid-one-item header-logo" style="grid-area: logo">
-        <img src="images/teama/RcadeGB-header-logo.svg">
+        <a href="/rcade">
+            <img src="images/teama/RcadeGB-header-logo.svg">
+        </a>
     </div>
 
     <div class="grid-one-item" style="grid-area: box-2"></div>
 
-    <div class="grid-one-item scoreboard" style="grid-area: box-3"> <!-- th:each alle highscores på listen -->
+    <div class="grid-one-item scoreboard" style="grid-area: box-3">
         <p class="scoreboard-title">High scores</p>
         <p class="scoreboard-title-period">Today</p>
         <table>
@@ -33,17 +36,11 @@
                 <th class="rank">Rank</th>
                 <th class="score">Score</th>
                 <th class="initials">Name</th>
-                <!--
-                <th>Date</th>
-                -->
             </tr>
             <tr th:each="score, stat : ${session.todayList}" th:if="${stat.index < 5}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>
-                <!--
-                <td th:text="${score.date}"></td>
-                -->
             </tr>
         </table>
         <p class="scoreboard-title-period">This week</p>
@@ -52,17 +49,11 @@
                 <th class="rank">Rank</th>
                 <th class="score">Score</th>
                 <th class="initials">Name</th>
-                <!--
-                <th>Date</th>
-                -->
             </tr>
             <tr th:each="score, stat : ${session.weekList}" th:if="${stat.index < 5}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>
-                <!--
-                <td th:text="${score.date}"></td>
-                -->
             </tr>
         </table>
     </div>
@@ -79,25 +70,25 @@
             <div class="child-5 child"> <!-- SCREEN -->
                 <div class="levelSelectorContainer">
                     <div id="niveau1Button" th:switch="${session.niveau1Status}">
-                        <a th:case="active" class="activeButton" href="/rcade/niveau1">Niveau 1</a>
+                        <a th:case="active" class="activeButton" href="/rcade/niveau1">Level 1</a>
                     </div>
 
                     <div id="niveau2Button" th:switch="${session.niveau2Status}">
-                        <a th:case="active" class="activeButton" href="/rcade/niveau2">Niveau 2</a>
-                        <a th:case="null" class="lockedButton">Niveau 2 <img src="images/teama/locked.svg"></a>
-                        <a th:case="pending" class="pendingButton">Niveau 2 <img src="images/teama/pending.svg"></a>
+                        <a th:case="active" class="activeButton" href="/rcade/niveau2">Level 2</a>
+                        <a th:case="null" class="lockedButton">Level 2 <img src="images/teama/locked.svg"></a>
+                        <a th:case="pending" class="pendingButton">Level 2 <img src="images/teama/pending.svg"></a>
                     </div>
 
                     <div id="niveau3Button" th:switch="${session.niveau3Status}">
-                        <a th:case="active" class="activeButton" href="/rcade/niveau3">Niveau 3</a>
-                        <a th:case="null" class="lockedButton">Niveau 3 <img src="images/teama/locked.svg"></a>
-                        <a th:case="pending" class="pendingButton">Niveau 3 <img src="images/teama/pending.svg"></a>
+                        <a th:case="active" class="activeButton" href="/rcade/niveau3">Level 3</a>
+                        <a th:case="null" class="lockedButton">Level 3 <img src="images/teama/locked.svg"></a>
+                        <a th:case="pending" class="pendingButton">Level 3 <img src="images/teama/pending.svg"></a>
                     </div>
 
                     <div id="attackModeButton" th:switch="${session.attackModeStatus}">
-                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Niveau 4</a>
-                        <a th:case="null" class="lockedButton">Niveau 4 <img src="images/teama/locked.svg"></a>
-                        <a th:case="pending" class="pendingButton">Niveau 4 <img src="images/teama/pending.svg"></a>
+                        <a th:case="active" class="activeButton" href="/rcade/attackmode">Marathon Mode</a>
+                        <a th:case="null" class="lockedButton">Marathon Mode <img src="images/teama/locked.svg"></a>
+                        <a th:case="pending" class="pendingButton">Marathon Mode <img src="images/teama/pending.svg"></a>
                     </div>
                 </div>
 
@@ -112,7 +103,7 @@
 
     </div>
 
-    <div class="grid-one-item scoreboard" style="grid-area: box-5"> <!-- th:each alle highscores på listen -->
+    <div class="grid-one-item scoreboard scoreboard-alltime" style="grid-area: box-5">
         <p class="scoreboard-title">High scores</p>
         <p class="scoreboard-title-period">All time</p>
         <table>
@@ -120,72 +111,17 @@
                 <th class="rank">Rank</th>
                 <th class="score">Score</th>
                 <th class="initials">Name</th>
-                <!--
-                <th>Date</th>
-                -->
+                <th class="date">Date</th>
             </tr>
             <tr th:each="score, stat : ${session.allTimeList}" th:if="${stat.index < 10}">
                 <td class="rank" th:text="${stat.count}">1</td>
                 <td class="score" th:text="${score.total}"></td>
                 <td class="initials" th:text="${score.initials}"></td>
-                <!--
-                <td th:text="${score.date}"></td>
-                -->
+                <td class="date" th:text="${score.dateDay + '/' + score.dateMonth}"></td>
             </tr>
         </table>
     </div>
 
 </div>
-
-<!-- -----------------
-
-
-<div class="grid-one">
-
-    <div class="grid-one-item header" style="grid-area: box-1">
-        <img class="header-item home-button" src="images/teama/homebutton.svg">
-        <img class="header-item header-logo" src="images/teama/RcadeGB-header-logo.svg">
-    </div>
-
-    <div class="grid-one-item highscore-context"style="grid-area: box-2">  th:each alle highscores på listen
-        <img src="images/teama/rcadegb-scoreboard.svg">
-    </div>
-
-    <div class="grid-one-item game" style="grid-area: box-3">
-        <img src="images/teama/gameboy-advance-2.svg">
-    </div>
-
-    <div class="grid-one-item highscore" style="grid-area: box-4"> th:each alle highscores på listen
-        <img src="images/teama/rcadegb-scoreboard.svg">
-    </div>
-
-    <div class="levelSelectorContainer" style="grid-area: box-3">
-        <div id="niveau1Button" th:switch="${session.niveau1Status}">
-            <a th:case="active" class="activeButton" href="/rcade/niveau1">Niveau 1</a>
-            <a th:case="locked" class="lockedButton">Niveau 1 <img src="images/teama/locked.svg"></a>
-            <a th:case="null" class="pendingButton">Niveau 1 <img src="images/teama/pending.svg"></a>
-        </div>
-
-        <div id="niveau2Button" th:switch="${session.niveau2Status}">
-            <a th:case="active" class="activeButton" href="/rcade/niveau2">Niveau 2</a>
-            <a th:case="locked" class="lockedButton">Niveau 2 <img src="images/teama/locked.svg"></a>
-            <a th:case="null" class="pendingButton">Niveau 2 <img src="images/teama/pending.svg"></a>
-        </div>
-
-        <div id="niveau3Button" th:switch="${session.niveau3Status}">
-            <a th:case="active" class="activeButton" href="/rcade/niveau3">Niveau 3</a>
-            <a th:case="locked" class="lockedButton">Niveau 3 <img src="images/teama/locked.svg"></a>
-            <a th:case="null" class="pendingButton">Niveau 3 <img src="images/teama/pending.svg"></a>
-        </div>
-
-        <div id="attackModeButton" th:switch="${session.attackModeStatus}">
-            <a th:case="active" class="activeButton" href="/rcade/attackmode">Niveau 4</a>
-            <a th:case="locked" class="lockedButton">Niveau 4 <img src="images/teama/locked.svg"></a>
-            <a th:case="null" class="pendingButton">Niveau 4 <img src="images/teama/pending.svg"></a>
-        </div>
-    </div>
-</div> -->
-
-
 </body>
 </html>

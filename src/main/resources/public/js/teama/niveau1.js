@@ -12,6 +12,7 @@ function getColour(red = 128, green = 128, blue = 128) {
 function displayColour() {
     document.querySelector('#guessBox').style.backgroundColor = getColour(red, green, blue);
 }
+
 /* Kalder displayColour(), så guessfarven starter med at være rgb(128,128,128)*/
 displayColour();
 

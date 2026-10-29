@@ -16,9 +16,11 @@ public class Game {
 	private int calculateBenchmarkScore(int level) {
 		switch (level) {
 			case 1:
-				return 800; // level 1
+				return 350000; // level 1
 			case 2:
-				return 1000; // level 2
+				return 350000; // level 2
+			case 3:
+				return 350000; // level 3
 			default:
 				return 0;
 		}

@@ -1,6 +1,7 @@
 package app.entities.teama;
 
 public class Colour {
+    // R, G og B står for Rød, Grøn og Blå
     private int R;
     private int G;
     private int B;

@@ -3,38 +3,31 @@ body{
     font-family: Monospace;
 }
 
-
 .grid-one-item {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 2px dashed black;
-}
 
+}
 
 .grid-one{
     display: grid;
-
     grid-template-columns: 20vw 1fr 1fr 1fr 20vw;
     grid-template-rows: 100px 1fr;
     grid-auto-rows: 100px;
-
-
     grid-template-areas:
     "box-1 logo logo logo box-2"
     "box-3 box-4 box-4 box-4 box-5";
 }
 
 .gameboy-grid{
-    display: grid;
     width: 100%;
     aspect-ratio: 1329 / 745;
 
-    outline: 3px solid red;
 
+    display: grid;
     grid-template-columns: 28% 44% 28%;
     grid-template-rows: 22% 49% 29%;
-
     grid-template-areas:
     "box-1 box-2 box-3"
     "box-4 box-5 box-6"
@@ -42,58 +35,59 @@ body{
 }
 
 
-.child{
-    border: 2px dashed blueviolet;
-}
 
 #gameboy-image {
     height: 100%;
     grid-column: 1/4;
     grid-row: 1/4;
-
-    outline: 3px solid blue;
 }
 
 .child-1{
     grid-column: 1/2;
     grid-row: 1/2;
-
 }
+
 .child-2{
     grid-column: 2/3;
     grid-row: 1/2;
-
 }
+
 .child-3{
     grid-column: 3/4;
     grid-row: 1/2;
 }
+
 .child-4{
     grid-column: 1/2;
     grid-row: 2/3;
 }
+
 .child-5{
+    padding: 1rem;
+    padding-bottom: 0;
     grid-column: 2/3;
     grid-row: 2/3;
 }
+
 .child-6{
     grid-column: 3/4;
     grid-row: 2/3;
 }
+
 .child-7{
     grid-column: 1/2;
     grid-row: 3/4;
 }
+
 .child-8{
     grid-column: 2/3;
     grid-row: 3/4;
 }
+
 .child-9{
     grid-column: 3/4;
     grid-row: 3/4;
 }
-
-
 
 .header-logo {
     display: flex;
@@ -140,6 +134,7 @@ body{
         text-transform: uppercase;
         line-height: 0;
     }
+
     .scoreboard-title-period{
         text-align: center;
         font-size: 25px;
@@ -147,31 +142,48 @@ body{
         text-transform: uppercase;
         line-height: 0;
     }
+
     table{
         width: 80%;
     }
+
     th{
         font-size: 20px;
         text-shadow: 0 0 3px #D60E3A;
         text-transform: uppercase;
     }
+
     td{
         font-size: 20px;
         text-align: center;
     }
+
     .rank{
         text-align: left;
     }
+
     .score{
         text-align: center;
     }
+
     .initials{
+        text-align: right;
+    }
+
+    .date{
         text-align: right;
     }
 }
 
+.scoreboard-alltime{
+
+    td{
+        font-size: 17px;
+    }
+}
+
 .scoreboard::before {
-    /* Five-colour stripe along the top */
+    /* Five-colored stripe along the top */
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -193,20 +205,20 @@ body{
     background: #CBB9A4;
 }
 
-/* Niveau-selector layout */
-
+/* Level-selector layout */
 .levelSelectorContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    /* Responsive størrelser, placeringer og afstande */
+    /* Responsive slides, placements and distances */
     width: 100%;
     aspect-ratio: 45 / 28;
     margin-left: 3px;
     margin-bottom: 2vw;
     gap: 10%;
+
     div {
         display: flex;
         width: 80%;
@@ -217,7 +229,7 @@ body{
         }
     }
 
-    /* Knap-styling */
+    /* Button-styling */
     a {
         border-radius: 5px;
         border-style: ridge;
@@ -227,7 +239,6 @@ body{
         font-weight: bold;
         text-decoration: none;
         color: black;
-
 
         display: flex;
         align-items: center;
@@ -271,44 +282,125 @@ body{
 }
 
 .gamecontainer {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
     display: grid;
     grid-template-columns: auto auto;
     justify-items: center;
-    padding: 1rem;
     grid-gap: 1rem;
+
+    grid-template-rows: auto 1fr;
 }
 
 .gamecontainer div {
     align-self: center;
 }
 
-.colorboxcontainer h3{
+.colorboxcontainer {
+    width: 100%;
+    aspect-ratio: 100 / 50;
+    justify-items: center;
+
+
+h3{
     text-align: center;
     margin: 0;
-}
-.colorBox {
-    width: 150px;
-    height: 50px;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 5px;
+}}
 
+.colorBox {
+    width: 100%;
+    aspect-ratio: 150 / 50;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.partialColorBox{
+    width: 33.3333%;
+    aspect-ratio: 1 / 1;
+}
+
+#mysteryBox{
+    position: relative;
+    background: linear-gradient(to top right,
+    #D60E3A 0 20%,
+    #D17200 20% 40%,
+    #D3A801 40% 60%,
+    #019589 60% 80%,
+    #02696E 80% 100%);
+}
+
+#mysteryBox::after {
+    content: "?";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+#guessBoxR{ /*corner radius on outer corners */
+    border-radius: 5px 0 0 5px;
+}
+
+#guessBoxB{ /*corner radius on outer corners */
+    border-radius: 0 5px 5px 0;
 }
 
 .slideform {
-    width: 100%; /* Width of the outside container */
     grid-column: span 2;
+    min-height: 0;
 }
 
-/* The slider itself */
 .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: auto;
-    width: 100%; /* Full-width */
-    height: 10px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    appearance: none;
+    -webkit-appearance: none;  /* Overwrite default CSS styling */
+    width: 100%;
+    /*height: 10px;*/
+    aspect-ratio: 430 / 10;
+    background: var(--green_2);
+    outline: none;
+    opacity: 0.7;
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
     transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--green_4);
+    cursor: pointer;
+}
+
+.standard-button{
+    min-height: 0;
+    /* Knap-styling */
+    border-radius: 5px;
+    border-style: ridge;
+    border-width: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    justify-self: center;
+
+    background-color: var(--green_1);
+    border-color: var(--green_1);
+
 }

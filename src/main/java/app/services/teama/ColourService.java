@@ -13,9 +13,13 @@ public class ColourService {
     }
 
     public int getScore(Colour guess, Colour targetColour){
+        // The R, G and B-values of the guess is compared to the target's values
         int distR = targetColour.getR()-guess.getR();
         int distG = targetColour.getG()-guess.getG();
         int distB = targetColour.getB()-guess.getB();
+
+        // Score is calculated by subtracting the distance between the colors from the greatet possible distance,
+        // after which the result is multiplied by 1000
         double dist3D = Math.sqrt((distR*distR)+(distG*distG)+(distB*distB));
         double score = (Math.sqrt(195075)-dist3D)*1000;
         return (int)Math.round(score);
