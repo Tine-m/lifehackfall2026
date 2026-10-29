@@ -4,23 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultat</title>
-    <link rel="stylesheet" href="/css/teamb/results.css"/>
+    <link rel="stylesheet" th:href="@{/css/teamb/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/teamb/results.css}"/>
 </head>
 <body>
 
 <main class="result-page">
 
-    <header class="page-header">
+    <header class="page-header" th:if="${time != null and completed}">
         <h1>Godt gået!</h1>
         <p class="subtitle">Du har fundet alle parrene!</p>
     </header>
 
-    <section class="player-stats">
+    <header class="page-header" th:if="${time != null and !completed}">
+        <h1>Spillet er afsluttet</h1>
+        <p class="subtitle">Du nåede ikke at finde alle parrene. Prøv igen!</p>
+    </header>
+
+    <header class="page-header" th:if="${time == null}">
+        <h1>Leaderboard</h1>
+        <p class="subtitle">De bedste spillere</p>
+    </header>
+
+    <section class="player-stats" th:if="${time != null}">
         <div class="stat-card time-stat">
             <span class="stat-icon">⏱︎</span>
             <div class="stat-text">
                 <p class="stat-label">Tid</p>
-                <p class="stat-value">02:34</p>
+                <p class="stat-value" th:text="${time}">00:00</p>
             </div>
         </div>
 
@@ -28,9 +39,23 @@
             <span class="stat-icon">👆︎</span>
             <div class="stat-text">
                 <p class="stat-label">Moves</p>
-                <p class="stat-value">28</p>
+                <p class="stat-value" th:text="${moves}">0</p>
             </div>
         </div>
+    </section>
+
+    <!-- Vises kun lige efter et færdigt spil, før resultatet er gemt -->
+    <section class="save-score" th:if="${canSave}">
+        <form method="post" action="/results">
+            <input type="hidden" name="time" th:value="${seconds}">
+            <input type="hidden" name="moves" th:value="${moves}">
+            <input type="hidden" name="mode" th:value="${mode}">
+            <input type="hidden" name="completed" value="true">
+
+            <label for="player-name">Skriv dit navn for at komme på leaderboardet</label>
+            <input type="text" id="player-name" name="name" maxlength="30" placeholder="Dit navn">
+            <button type="submit" class="btn">Gem resultat</button>
+        </form>
     </section>
 
     <section class="result-sections">
@@ -41,7 +66,13 @@
                 <h2>Leaderboard</h2>
             </div>
 
-            <p class="panel-subtitle">Top 10</p>
+            <p class="panel-subtitle">
+                Top 10 –
+                <span th:text="${mode == 'lifehack'} ? 'Lifehack' : 'Klassisk'">Lifehack</span>
+                |
+                <a th:href="@{/results(mode='lifehack')}">Lifehack</a>
+                <a th:href="@{/results(mode='classic')}">Klassisk</a>
+            </p>
 
             <table class="leaderboard-table">
                 <thead>
@@ -54,23 +85,23 @@
                 </thead>
 
                 <tbody>
-                <tr><td>1</td><td>Oliver</td><td>24</td><td>1:42</td></tr>
-                <tr><td>2</td><td>Emma</td><td>26</td><td>1:58</td></tr>
-                <tr class="current-player">
-                    <td>3</td><td>Dig</td><td>28</td><td>2:34</td>
+                <tr th:each="game, iter : ${leaderboard}"
+                    th:classappend="${highlight != null and game.gameId == highlight} ? 'current-player'">
+                    <td th:text="${iter.count}">1</td>
+                    <td th:text="${game.playerName}">Navn</td>
+                    <td th:text="${game.score}">0</td>
+                    <td th:text="${game.formattedDuration}">00:00</td>
                 </tr>
-                <tr><td>4</td><td>Noah</td><td>29</td><td>2:10</td></tr>
-                <tr><td>5</td><td>Sofia</td><td>30</td><td>2:22</td></tr>
-                <tr><td>6</td><td>Lucas</td><td>31</td><td>2:45</td></tr>
-                <tr><td>7</td><td>Alma</td><td>33</td><td>2:51</td></tr>
-                <tr><td>8</td><td>William</td><td>34</td><td>3:01</td></tr>
-                <tr><td>9</td><td>Freja</td><td>36</td><td>3:12</td></tr>
-                <tr><td>10</td><td>Oscar</td><td>38</td><td>3:25</td></tr>
+                <tr th:if="${#lists.isEmpty(leaderboard)}">
+                    <td colspan="4">Ingen resultater endnu</td>
+                </tr>
                 </tbody>
             </table>
         </section>
 
-        <section class="panel lifehacks-panel">
+        <!-- Kun efter et spil; udfyldes af scriptet nedenfor -->
+        <section class="panel lifehacks-panel" id="lifehacksPanel"
+                 th:if="${time != null and !#lists.isEmpty(gameCards)}">
             <div class="panel-heading lifehacks-heading">
                 <span class="heading-icon">💡</span>
                 <h2>Se dine lifehacks</h2>
@@ -80,114 +111,32 @@
                 Klik på kortene for at se dine tips!
             </p>
 
-            <div class="lifehack-grid">
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🧦</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 1
-                        </span>
-                    </span>
+            <div class="lifehack-grid" id="lifehackGrid">
+                <button class="lifehack-card" type="button" th:each="card : ${gameCards}">
+        <span class="card-inner">
+            <span class="card-front">
+                <span class="hack-picture">
+                    <img th:if="${card.imageURL != null}"
+                         th:src="@{${card.imageURL}}"
+                         th:alt="${card.text}"
+                         style="width: 100px; height: 100px; object-fit: contain;"/>
+                    <span th:if="${card.imageURL == null}" th:text="${card.text}">Tekst</span>
+                </span>
+                <span class="flip-label">↪ Vend kortet</span>
+            </span>
+            <span class="card-back" th:text="${card.lifehackDescription}">Lifehack</span>
+        </span>
                 </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🧽</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 2
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🪡</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 3
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🛠️</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 4
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">📦</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 5
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🔋</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 6
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🥄</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 7
-                        </span>
-                    </span>
-                </button>
-
-                <button class="lifehack-card" type="button">
-                    <span class="card-inner">
-                        <span class="card-front">
-                            <span class="hack-picture">🍌</span>
-                            <span class="flip-label">↪ Vend kortet</span>
-                        </span>
-                        <span class="card-back">
-                            Lifehack tip 8
-                        </span>
-                    </span>
-                </button>
-
             </div>
         </section>
     </section>
 
     <footer class="page-actions">
-        <a class="action-button primary-button" href="/game">
+        <a class="btn" th:href="@{/game(mode=${mode})}">
             <span>↻</span> Spil igen
         </a>
 
-        <a class="action-button secondary-button" href="/memorygame">
+        <a class="btn" href="/memorygame">
             <span class="home-icon">⌂</span> Tilbage til forsiden
         </a>
     </footer>
@@ -196,9 +145,7 @@
 
 <script>
     document.querySelectorAll(".lifehack-card").forEach(card => {
-        card.addEventListener("click", () => {
-            card.classList.toggle("is-flipped");
-        });
+    card.addEventListener("click", () => card.classList.toggle("is-flipped"));
     });
 </script>
 
