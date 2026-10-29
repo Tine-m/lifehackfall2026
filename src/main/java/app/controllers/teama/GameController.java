@@ -81,6 +81,7 @@ public class GameController {
         setHighscoreAttributes(ctx);
 
         ctx.sessionAttribute("niveau1Status", "active");
+
         ctx.sessionAttribute("isAttackMode", false);
 
         ctx.render("teama/frontpage.html");

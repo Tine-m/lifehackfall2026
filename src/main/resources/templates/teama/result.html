@@ -63,22 +63,18 @@
 
         <div class="gameboy-grid">
             <img id="gameboy-image" src="/images/teama/console_RcadeGB.svg" alt="gameboy">
-            <div class="child-1 child"></div>
-            <div class="child-2 child"></div>
-            <div class="child-3 child"></div>
-            <div class="child-4 child"></div>
 
             <div class="child-5 child"> <!-- SCREEN -->
 
                 <div id="result-page">
 
                     <h3 style="grid-area: area-1" th:text="'Your score: '+${session.game.getScore()}"></h3>
+                    <p style="grid-area: area-2" th:text="${highscoreMessage}">Error: Highscores could not be loaded</p>
 
-                    <div style="grid-area: area-2" th:if="${onHighscore}">
-                        <p th:text="${highscoreMessage}">Error: Highscores could not be loaded</p>
+                    <div style="grid-area: area-3" th:if="${onHighscore}">
 
-                        <form action="/rcade/savescore" method="post">
-                            <label for="initials">indtast initialer</label>
+                        <form action="/rcade/savescore" id="initial-input-form" method="post">
+                            <label for="initials">Input initials:</label>
                             <input type="text" id="initials" name="initials" placeholder="ABC" minlength="3" maxlength="3"
                                    required oninvalid="this.setCustomValidity('Input must be exactly 3 characters')" oninput="this.setCustomValidity('')">
                             <button class="resultScreenButton" type="submit" id="submitInitials">
@@ -87,7 +83,7 @@
                         </form>
                     </div>
 
-                    <div class="resultScreenButtons" style="grid-area: area-3">
+                    <div class="resultScreenButtons" style="grid-area: area-4">
 
                         <form th:unless="${session.isAttackMode}" action="/rcade/playAgain">
                             <button type="submit" class="resultScreenButton" id="playAgain">
@@ -112,10 +108,7 @@
                 </div>
             </div>
 
-            <div class="child-6 child"></div>
-            <div class="child-7 child"></div>
-            <div class="child-8 child"></div>
-            <div class="child-9 child"></div>
+
         </div>
     </div>
 

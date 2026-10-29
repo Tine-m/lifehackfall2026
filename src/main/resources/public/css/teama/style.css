@@ -7,7 +7,7 @@ body{
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 2px dashed black;
+
 }
 
 .grid-one{
@@ -23,7 +23,7 @@ body{
 .gameboy-grid{
     width: 100%;
     aspect-ratio: 1329 / 745;
-    outline: 3px solid red;
+
 
     display: grid;
     grid-template-columns: 28% 44% 28%;
@@ -34,16 +34,12 @@ body{
     "box-7 box-8 box-9";
 }
 
-.child{
-    border: 2px dashed blueviolet;
-}
+
 
 #gameboy-image {
     height: 100%;
     grid-column: 1/4;
     grid-row: 1/4;
-
-    outline: 3px solid blue;
 }
 
 .child-1{
@@ -216,7 +212,7 @@ body{
     align-items: center;
     justify-content: center;
 
-    /* Responsive sies, placements and distances */
+    /* Responsive slides, placements and distances */
     width: 100%;
     aspect-ratio: 45 / 28;
     margin-left: 3px;
@@ -290,7 +286,6 @@ body{
     height: 100%;
     min-height: 0;
 
-    border: 2px dashed yellow;
     display: grid;
     grid-template-columns: auto auto;
     justify-items: center;
@@ -306,7 +301,6 @@ body{
 .colorboxcontainer {
     width: 100%;
     aspect-ratio: 100 / 50;
-    border: 2px dashed black;
     justify-items: center;
 
 
@@ -316,26 +310,16 @@ h3{
 }}
 
 .colorBox {
-    width: 80%;
+    width: 100%;
     aspect-ratio: 150 / 50;
-    border-style: solid;
-    border-width: 1px;
     border-radius: 5px;
-}
-#guessBox{
-    display: flex;
-    flex-direction: row;
-}
-#targetBox{
     display: flex;
     flex-direction: row;
 }
 
 .partialColorBox{
-    width: 50px;
-    height: 50px;
-    border-style: solid;
-    border-width: 1px;
+    width: 33.3333%;
+    aspect-ratio: 1 / 1;
 }
 
 #mysteryBox{
@@ -362,18 +346,17 @@ h3{
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
 }
 
-#guessBoxR{
+#guessBoxR{ /*corner radius on outer corners */
     border-radius: 5px 0 0 5px;
 }
 
-#guessBoxB{
+#guessBoxB{ /*corner radius on outer corners */
     border-radius: 0 5px 5px 0;
 }
 
 .slideform {
     grid-column: span 2;
     min-height: 0;
-    outline: 2px solid red;
 }
 
 .slider {
