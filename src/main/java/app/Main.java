@@ -3,6 +3,7 @@ package app;
 import app.configuration.ThymeleafConfig;
 import app.controllers.MainController;
 import app.controllers.teamc.CommentController;
+import app.controllers.teamc.PollController;
 import app.controllers.teamc.UserEventController;
 import app.controllers.teamd.PerfectFitController;
 import app.controllers.teama.GameController;
@@ -36,6 +37,7 @@ public class Main {
             new PerfectFitController(connectionPool).setRoutes(config);
             new MemoController(connectionPool).setRoutes(config); //Team b app Controller
             new UserEventController(connectionPool).setRoutes(config); // Team c
+            new PollController(connectionPool).setRoutes(config); // Team c
             new PasswordController(connectionPool).setRoutes(config);//team e app Controller
             new TaskController(connectionPool).setRoutes(config); // Team f
             new CommentController(connectionPool).setRoutes(config);

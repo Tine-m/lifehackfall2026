@@ -1,4 +1,18 @@
 /* ---------- Result ---------- */
+.content .white-box {
+    padding: 20px 24px;
+    margin-bottom: 12px;
+}
+
+.content > p {
+    margin-bottom: 2px;
+}
+
+.content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
 .centered {
     text-align: center;
 }
@@ -11,7 +25,7 @@
 
 .size {
     font-family: 'Jost', sans-serif;
-    font-size: 6rem;
+    font-size: 3rem;
     font-weight: 300;
     color: var(--pf-pink);
     margin: 0;
@@ -25,7 +39,7 @@
     font-size: 0.85rem;
     padding: 4px 16px;
     border-radius: var(--pf-radius-button);
-    margin: 16px 0;
+    margin: 6px 0;
 }
 
 .measurements {
@@ -36,16 +50,17 @@
 
 .sister-list {
     display: flex;
-    gap: 16px;
-    margin: 12px 0 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 12px;
 }
 
 .sister {
     font-family: 'Jost', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: 300;
     color: var(--pf-pink);
-    padding: 8px 28px;
+    padding: 6px 14px;
     border: 1px solid var(--pf-border);
     border-radius: var(--pf-radius-small);
 }
@@ -60,6 +75,7 @@
 
 .buttons .button {
     margin: 0;
+    padding: 12px 28px;
 }
 
 /* ---------- Light button: border only, no fill ---------- */
@@ -111,4 +127,71 @@
 .info:focus .info-text {
     opacity: 1;
     visibility: visible;
+}
+
+/* ---------- Sister sizes and tips side by side ---------- */
+.box-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.box-row .white-box {
+    margin-bottom: 0;
+    padding: 20px;
+}
+
+.box-row p {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+.box-row .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+}
+
+/* ---------- Tips ---------- */
+.tips-list {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: tip;
+}
+
+.tips-list li {
+    counter-increment: tip;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: start;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.tips-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- Round circle with the tip number ---------- */
+.tips-list li::before {
+    content: counter(tip);
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--pf-pink);
+    color: var(--pf-white);
+    font-size: 0.75rem;
+}
+
+/* ---------- Stack the boxes on small screens ---------- */
+@media (max-width: 480px) {
+    .box-row {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,5 +1,4 @@
 BEGIN;
-ALTER TABLE public.teamb_pair ALTER COLUMN description TYPE TEXT;
 
 -- Ryd pair, card og game_pair og nulstil ID'erne.
 -- Tabellen game røres ikke, så leaderboardet bevares.

@@ -1,39 +1,39 @@
-/* Universal selector, og gælder for alle elementer på siden */
-* {
-    box-sizing: border-box;
-}
+/* Spilside: farver og fonte kommer fra common.css, som skal indlæses først */
 
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
     margin: 0;
+    padding: 20px;
     min-height: 100vh;
-    color: #1f1233;
-    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
-    color: #a855f7;
+    color: var(--raincloud);
     text-align: center;
     font-size: 2.4rem;
+    font-weight: 800;
     letter-spacing: -0.5px;
     margin: 32px 0 40px;
-    -webkit-text-stroke: 6px #581c87;
-    paint-order: stroke fill;
 }
 
-/* Layout: gitter til venstre, sidebar til højre */
+/*--- Layout ---*/
+
+.container {
+    width: min(100%, 900px);
+}
+
 .layout {
     display: flex;
     justify-content: center;
-    gap: 60px;
     align-items: flex-start;
-    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
 }
 
 .board-area {
-    width: 100%;
-    max-width: 456px;
+    width: min(440px, 60vw);
 }
 
 /* 4 kolonner med kort */
@@ -43,9 +43,14 @@ h1 {
     gap: 12px;
 }
 
+.sidebar {
+    width: min(240px, 30vw);
+}
+
+/*--- Kort ---*/
+
 /* Et kort: kvadratisk og fylder sin kolonne */
 .card {
-    width: 100%;
     aspect-ratio: 1 / 1;
     perspective: 600px;
     cursor: pointer;
@@ -53,8 +58,16 @@ h1 {
     transition: transform 0.15s ease;
 }
 
+/* Hover og tastaturfokus: én ramme, kun på kort der ikke er vendt */
 .card:not(.flipped):hover {
     transform: translateY(-3px);
+    outline: 3px solid var(--raincloud);
+    outline-offset: 2px;
+}
+
+.card:focus-visible {
+    outline: 3px solid var(--raincloud);
+    outline-offset: 2px;
 }
 
 .card-inner {
@@ -85,33 +98,33 @@ h1 {
     overflow: hidden;
 }
 
-/* Forsiden: lilla med LH */
+/* Forsiden: den lilla side, der ses i starten */
 .card-front {
-    background: #a855f7;
-    color: white;
+    background: var(--puce);
+    color: var(--white);
     font-size: 1.6rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
+    box-shadow: var(--shadow-soft);
 }
 
-/* Bagsiden: hvid, indhold stablet lodret */
+/* Bagsiden: hvid, med billede og tekst stablet lodret */
 .card-back {
-    background: white;
-    border: 2px solid #a855f7;
+    background: var(--white);
+    border: 2px solid var(--puce);
     transform: rotateY(180deg);
     flex-direction: column;
     gap: 4px;
     padding: 8px;
     text-align: center;
+
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Billede øverst, tekst nederst på bagsiden */
+/* Standatd spil: større billede */
 .card-back img {
-    height: 65%;
-    width: auto;
-    max-width: 100%;
+    height: 75%;
+    width: 100%;
     object-fit: contain;
     display: block;
 }
@@ -123,29 +136,22 @@ h1 {
     text-align: center;
 }
 
-/* Fundet par får grøn baggrund */
+/* Life hack: mindre billede, så teksten har plads */
+#board[data-mode="lifehack"] .card-back img {
+    height: 55%;
+}
+
+#board[data-mode="lifehack"] .card-back span {
+    font-size: 11px;
+}
+
+/* Fundet par: lavender baggrund og raincloud-kant */
 .card.matched .card-back {
-    background: #bbf7d0;
-    border-color: #4ade80;
+    background: var(--white);
+    border: 3px solid var(--raincloud);
 }
 
-/* Hover: blå ramme kun på kort, der ikke er vendt */
-.card:not(.flipped):hover {
-    outline: 3px solid #3b82f6;
-    outline-offset: 2px;
-}
-
-/* Tastatur fokus */
-.card:focus-visible {
-    outline: 3px solid #3b82f6;
-    outline-offset: 2px;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 100%;
-    max-width: 240px;
-}
+/*--- Sidebar ---*/
 
 .stat,
 .finish-button {
@@ -153,7 +159,8 @@ h1 {
 }
 
 .stat {
-    background: #d8b4fe;
+    background: var(--lavender);
+    color: var(--twilight);
     padding: 12px;
     margin-bottom: 12px;
     text-align: center;
@@ -163,7 +170,8 @@ h1 {
 
 .hack-panel {
     width: 100%;
-    background: #d8b4fe;
+    background: var(--lavender);
+    color: var(--twilight);
     padding: 16px;
     min-height: 150px;
     margin-bottom: 12px;
@@ -188,21 +196,28 @@ h1 {
     border-radius: 10px;
     font-size: 1rem;
     font-weight: bold;
-    background: #d8b4fe;
-    color: #070707;
+    background: var(--raincloud);
+    color: var(--white);
     cursor: pointer;
-    box-shadow: 0 4px 0 #7e3fd1;
+    box-shadow: 0 4px 0 var(--twilight);
     transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
 }
 
 .finish-button:not(:disabled):hover {
-    background: #9b4ae8;
+    background: var(--twilight);
     transform: translateY(-1px);
-    box-shadow: 0 5px 0 #7e3fd1;
+    box-shadow: 0 5px 0 #000;
 }
 
 .finish-button:not(:disabled):active {
     transform: translateY(3px);
-    background: #ece6f3;
-    color: #8b7aa3;
+    background: var(--puce);
+    box-shadow: 0 1px 0 var(--twilight);
+}
+
+.finish-button:disabled {
+    background: var(--lavender);
+    color: var(--puce);
+    box-shadow: 0 4px 0 var(--puce);
+    cursor: not-allowed;
 }
