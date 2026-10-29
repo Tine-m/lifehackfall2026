@@ -30,11 +30,12 @@ public class CommentMapper {
                 "                JOIN teamc_userevent e ON e.event_id = i.event_id\n" +
                 "                JOIN teamc_user u ON u.user_id = e.user_id\n" +
                 "                join public.teamc_response tr on i.response_id = tr.response_id\n" +
-                "                WHERE i.user_id = ? and start_date >= now() ORDER BY e.start_date desc, e.event_id";
+                "                WHERE i.user_id = ? and e.user_id <> ? and start_date >= now() ORDER BY e.start_date desc, e.event_id";
         List<UserAndInvitation> events = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, user.getUser_id());
+            stm.setInt(2, user.getUser_id());
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     User owner = new User(rs.getInt("user_id"), rs.getString("username"),

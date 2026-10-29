@@ -1,16 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Oi&display=swap');
+/* Forside: farver og skrifttype kommer fra common.css, som skal indlæses først */
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
     min-height: 100vh;
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
-
+    background-color: var(--white);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +18,7 @@ body {
     width: min(100%, 900px);
     aspect-ratio: 865 / 628;
     overflow: hidden;
-    background-color: white;
+    background-color: var(--white);
 }
 
 .background {
@@ -48,14 +45,14 @@ body {
     top: 10%;
     left: 50%;
     transform: translateX(-50%);
-
+    color: var(--raincloud);
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    font-family: 'Oi', cursive;
+    font-family: var(--font);
     font-size: clamp(40px, 9vw, 82px);
-    font-weight: 400;
+    font-weight: 900;
     line-height: 1.35;
     text-align: center;
 
@@ -68,24 +65,16 @@ body {
     white-space: nowrap;
 }
 
-.blue {
-    color: #57a0d4;
-}
-
-.red {
-    color: #d16479;
-}
-
-.green {
-    color: #86c295;
-}
-
+/* Ordene i titlen får farver fra paletten */
+.blue,
+.red,
+.green,
 .yellow {
-    color: #edcb7b;
+    color: var(--raincloud);
 }
 
 .title-word span {
-    -webkit-text-stroke: 1.5px #222222;
+    -webkit-text-stroke: 1.5px var(--twilight);
     paint-order: stroke fill;
 }
 
@@ -109,14 +98,15 @@ body {
 
     padding: 8px 12px;
 
-    border: 1px solid #9c51d9;
+    border: none;
     border-radius: 16px;
 
-    background-color: #d46ed0;
-    color: black;
+    background-color: var(--raincloud);
+    color: var(--white);
 
+    font-family: var(--font);
     font-size: clamp(14px, 2.2vw, 20px);
-    font-weight: 600;
+    font-weight: 800;
 
     cursor: pointer;
 
@@ -126,10 +116,17 @@ body {
 }
 
 .menu-button:hover {
-    background-color: #e18cdd;
+    background-color: var(--twilight);
     transform: scale(1.04);
 }
 
+.menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--white);
+}
 
 @media (max-width: 500px) {
 

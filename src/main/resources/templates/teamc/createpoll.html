@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Opret afstemning</title>
+  <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+</head>
+<body>
+
+<div class="page-wrapper">
+  <div class="register-card">
+    <h2>Ny afstemning</h2>
+    <p class="muted" th:text="${event.eventName}">Biograftur</p>
+
+    <form class="register-form" th:action="@{/eventPlanner/event/{id}/poll/new(id=${event.event_id})}" method="post">
+
+      <label for="question">Spørgsmål:</label>
+      <input type="text" id="question" name="question" placeholder="Fx Hvor skal vi spise?"
+             required>
+
+      <label>Svarmuligheder (mindst 2):</label>
+      <input type="text" name="options" placeholder="Svar 1">
+      <input type="text" name="options" placeholder="Svar 2">
+      <input type="text" name="options" placeholder="Svar 3 (valgfri)">
+      <input type="text" name="options" placeholder="Svar 4 (valgfri)">
+
+      <p class="invite-title">Hvem må stemme?</p>
+      <div class="invite-list">
+        <p class="muted" th:if="${#lists.isEmpty(invitations)}">Du har ikke inviteret nogen til eventet endnu.</p>
+        <label class="checkbox-label" th:each="inv : ${invitations}">
+          <input type="checkbox" name="voters" th:value="${inv.user.user_id}" checked>
+          <span th:text="${inv.user.username}">Navn</span>
+        </label>
+      </div>
+
+      <label for="visibility">Hvem må se resultatet?</label>
+      <select id="visibility" name="visibility" class="poll-select">
+        <option value="OWNER">Kun mig</option>
+        <option value="VOTERS">Dem der må stemme</option>
+        <option value="INVITED">Alle inviterede</option>
+      </select>
+
+      <input class="btn" type="submit" value="Opret afstemning">
+    </form>
+
+    <a class="back-link" th:href="@{/eventPlanner/event/{id}/polls(id=${event.event_id})}">← Tilbage</a>
+  </div>
+</div>
+
+</body>
+</html>

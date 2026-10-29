@@ -1,4 +1,4 @@
-/* US10: Se timer */
+// US10: Se timer
 let seconds = 0;
 let timerInterval = null;
 
@@ -22,7 +22,13 @@ function startTimer() {
     }, 1000);
 }
 
-/* US5: Antal forsøg */
+// Stop timeren når spillet er slut
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+// US5: Antal forsøg
 let moves = 0;
 
 function increaseMoves() {
@@ -32,14 +38,7 @@ function increaseMoves() {
         `Moves: ${moves}`;
 }
 
-
-/* Stop timeren når spillet er slut */
-function stopTimer() {
-    clearInterval(timerInterval);
-    timerInterval = null;
-}
-
-/* US: Matched pairs */
+// US: Matched pairs
 let matchedPairs = 0;
 
 function increaseMatchedPairs() {
@@ -54,8 +53,13 @@ function increaseMatchedPairs() {
     return matchedPairs === totalPairs; // true når alle par er fundet
 }
 
-// "Afslut spil" knap fører til resultatsiden
-  /* document.getElementById("finish-game").addEventListener("click", () => {
-    window.location.href = "/frontpage";
-});*/
+// "Afslut spil" knap fører til forsiden
+document.getElementById("finish-game").addEventListener("click", () => {
+    stopTimer();
+
+    document.getElementById("finish-time").value = seconds;
+    document.getElementById("finish-moves").value = moves;
+
+    document.getElementById("finish-form").submit();
+});
 

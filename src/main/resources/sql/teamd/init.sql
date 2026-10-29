@@ -1,11 +1,11 @@
--- Perfect Fit (teamd): tabeller til BH-størrelsesberegneren
--- Placering i projektet: src/main/resources/sql/teamd/init.sql
--- Scriptet kan køres flere gange: det sletter og opretter tabellerne igen
+-- Perfect Fit (teamd): tables for the bra size calculator
+-- Location in the project: src/main/resources/sql/teamd/init.sql
+-- The script can be run several times: it drops and recreates the tables
 
 DROP TABLE IF EXISTS teamd_size_guide;
 DROP TABLE IF EXISTS teamd_brand;
 
--- Mærker, fx Hunkemøller, Lindex og Triumph
+-- Brands, e.g. Hunkemøller, Lindex and Triumph
 CREATE TABLE teamd_brand
 (
     brand_id SERIAL PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE teamd_brand
     website VARCHAR(255)
 );
 
--- Hvert mærkes størrelsesguide: én række pr. størrelse (fx 75C)
+-- Each brand's size guide: one row per size (e.g. 75C)
 CREATE TABLE teamd_size_guide
 (
     size_guide_id    SERIAL PRIMARY KEY,
@@ -28,10 +28,9 @@ CREATE TABLE teamd_size_guide
     UNIQUE (brand_id, band_size, cup_size, size_system)
 );
 
--- Intervallerne hænger sammen uden huller: max i én række = min i den næste.
--- Mapperen bruger >= min og < max, så et mål hører altid til præcis én størrelse.
-
--- Data: mærker og deres størrelsesguides (tastet ind fra mærkernes egne guides 19/10-2026)
+-- The intervals connect without gaps: max in one row = min in the next.
+-- The mapper uses >= min and < max, so a measurement always belongs to exactly one size.
+-- Data: brands and their size guides (entered from the brands' own guides 19/10-2026)
 INSERT INTO teamd_brand (name, website)
 VALUES ('Hunkemøller', 'https://www.hunkemoller.dk/'),
        ('Lindex', 'https://www.lindex.com/dk/undertoj/bher?hl=da'),
@@ -40,7 +39,7 @@ VALUES ('Hunkemøller', 'https://www.hunkemoller.dk/'),
        ('Lounge', 'https://dk.lounge.com/'),
        ('H&M', 'https://www2.hm.com/da_dk/dame/produkt/lingeri.html');
 
--- Hunkemøller (71 størrelser)
+-- Hunkemøller (71 sizes)
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
 VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Hunkemøller'), 60, 'AA', 'EU', 58, 63, 61.5, 65),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Hunkemøller'), 60, 'A', 'EU', 58, 63, 65, 66.5),
@@ -114,7 +113,7 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Hunkemøller'), 60, 'AA'
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Hunkemøller'), 100, 'G', 'EU', 98, 103, 139, 141.5),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Hunkemøller'), 100, 'H', 'EU', 98, 103, 141.5, 144);
 
--- Lindex (80 størrelser)
+-- Lindex (80 sizes)
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
 VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Lindex'), 65, 'AA', 'EU', 63, 68, 75, 77),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Lindex'), 65, 'A', 'EU', 63, 68, 77, 79),
@@ -197,7 +196,7 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Lindex'), 65, 'AA', 'EU'
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Lindex'), 105, 'G', 'EU', 103, 108, 129, 132),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Lindex'), 105, 'H', 'EU', 103, 108, 132, 135);
 
--- Triumph (47 størrelser)
+-- Triumph (47 sizes)
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
 VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 70, 'A', 'EU', 68, 73, 82, 84),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 70, 'B', 'EU', 68, 73, 84, 86),
@@ -247,12 +246,12 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 70, 'A', 'EU'
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'F', 'EU', 98, 103, 122, 124),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Triumph'), 100, 'G', 'EU', 98, 103, 124, 126);
 
--- Victoria's Secret (42 størrelser), udledt af VS' måleguide 22/10-2026:
+-- Victoria's Secret (42 sizes), derived from VS' measuring guide 22/10-2026:
 -- https://www.victoriassecret.co.uk/measure-your-bra-size
--- VS viser ingen cm-tabel, kun en regel i tommer, så tallene er regnet om (1" = 2,54 cm):
---   Bånd: undermålet i tommer, ulige tal rundes ned til lige (fx 31" -> 30).
---   Skål: brystmål minus bånd, 1" = A, 2" = B, 3" = C, 4" = D, 5" = DD, 6" = DDD, 7" = G.
--- Gemt som EU via VS' omregningstabel: US 32 -> 70 ... 40 -> 90 (30 -> 65 er forlænget), DD -> E, DDD -> F.
+-- VS shows no cm table, only a rule in inches, so the numbers are converted (1" = 2.54 cm):
+-- Band: the underbust in inches, odd numbers rounded down to even (e.g. 31" -> 30).
+-- Cup: bust minus band, 1" = A, 2" = B, 3" = C, 4" = D, 5" = DD, 6" = DDD, 7" = G.
+-- Stored as EU using VS' conversion table: US 32 -> 70 ... 40 -> 90 (30 -> 65 is extended), DD -> E, DDD -> F.
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
 VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'A', 'EU', 76.2, 81.3, 78.7, 81.3),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65, 'B', 'EU', 76.2, 81.3, 81.3, 83.8),
@@ -297,13 +296,13 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 65
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'F', 'EU', 101.6, 106.7, 116.8, 119.4),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Victoria''s Secret'), 90, 'G', 'EU', 101.6, 106.7, 119.4, 121.9);
 
--- Lounge (60 størrelser), udledt af Lounges måleguide 22/10-2026:
+-- Lounge (60 sizes), derived from Lounge's measuring guide 22/10-2026:
 -- https://helphub.loungeunderwear.com/hc/da/articles/28724273433617
--- Lounge viser ingen cm-tabel, kun en regel i tommer, så tallene er regnet om (1" = 2,54 cm):
---   Bånd: undermålet i hele tommer, ulige tal rundes op til lige (fx 31" -> 32).
---   Skål: brystmål minus bånd, 1" = A, 2" = B, 3" = C, 4" = D, 5" = DD, 6" = E, 7" = F, 8" = FF, 9" = G.
--- Resultatet er en UK-størrelse. Gemt som EU via Lounges størrelsesguide (dk.lounge.com/pages/size-guide):
---   UK 28 -> 60 ... 40 -> 90, DD -> E, E -> F, F -> G, FF -> H, G -> J. Kun størrelser Lounge fører.
+-- Lounge shows no cm table, only a rule in inches, so the numbers are converted (1" = 2.54 cm):
+-- Band: the underbust in whole inches, odd numbers rounded up to even (e.g. 31" -> 32).
+-- Cup: bust minus band, 1" = A, 2" = B, 3" = C, 4" = D, 5" = DD, 6" = E, 7" = F, 8" = FF, 9" = G.
+-- The result is a UK size. Stored as EU using Lounge's size guide (dk.lounge.com/pages/size-guide):
+--   UK 28 -> 60 ... 40 -> 90, DD -> E, E -> F, F -> G, FF -> H, G -> J. Only sizes Lounge carries.
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
 VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'A', 'EU', 67.3, 72.4, 72.4, 74.9),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'B', 'EU', 67.3, 72.4, 74.9, 77.5),
@@ -366,10 +365,10 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 60, 'A', 'EU',
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'H', 'EU', 97.8, 102.9, 120.7, 123.2),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'Lounge'), 90, 'J', 'EU', 97.8, 102.9, 123.2, 125.7);
 
--- H&M (30 størrelser), fra H&Ms størrelsesguide 22/10-2026 (hm.com/.../customer-service/sizeguide/ladies):
---   Bånd: tallet er undermålet i cm, rundet til nærmeste størrelse (fx 72,5-77,5 cm -> 75). H&M fører bånd 65-85 og skål A-F.
---   Skål: H&M giver ingen cm for brystmålet, så skålene følger EU-standarden EN 13402
---   (brystmål minus bånd: A = 12-14 cm, B = 14-16 cm, osv. 2 cm pr. skål, samme som Lindex og Triumph).
+-- H&M (30 sizes), from H&M's size guide 22/10-2026 (hm.com/.../customer-service/sizeguide/ladies):
+-- Band: the number is the underbust in cm, rounded to the nearest size (e.g. 72.5-77.5 cm -> 75). H&M carries band 65-85 and cup A-F.
+-- Cup: H&M gives no cm for the bust, so the cups follow the EU standard EN 13402
+-- (bust minus band: A = 12-14 cm, B = 14-16 cm, etc. 2 cm per cup, same as Lindex and Triumph).
 INSERT INTO teamd_size_guide (brand_id, band_size, cup_size, size_system, underbust_min_cm, underbust_max_cm, bust_min_cm, bust_max_cm)
 VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'A', 'EU', 62.5, 67.5, 77, 79),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'B', 'EU', 62.5, 67.5, 79, 81),
@@ -401,5 +400,3 @@ VALUES ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 65, 'A', 'EU', 62
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'D', 'EU', 82.5, 87.5, 103, 105),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'E', 'EU', 82.5, 87.5, 105, 107),
        ((SELECT brand_id FROM teamd_brand WHERE name = 'H&M'), 85, 'F', 'EU', 82.5, 87.5, 107, 109);
-
-

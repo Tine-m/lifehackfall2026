@@ -1,58 +1,56 @@
-.side {
+/* ---------- Page layout ---------- */
+.page {
     flex: 2;
     display: flex;
     flex-direction: column;
 }
 
-.side-top {
-    padding: 40px 0 24px;
-}
-
-.side-top {
+.page-top {
     padding: 40px 8% 24px;
 }
 
-
-.kort {
-    background-color: var(--pf-hvid);
-    border-radius: var(--pf-hjoerne-stor);
+/* ---------- Cards with measuring tips ---------- */
+.card {
+    background-color: var(--pf-white);
+    border-radius: var(--pf-radius-large);
     padding: 24px;
     margin-bottom: 16px;
 }
 
-.kort h3 {
+.card h3 {
     margin: 0 0 8px;
     font-size: 1rem;
-    color: var(--pf-moerk);
+    color: var(--pf-dark);
 }
 
-.kort p {
+.card p {
     margin: 0;
 }
-.kort--trin {
+
+/* ---------- Card with a step number on the left ---------- */
+.card--step {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 16px;
     align-items: start;
 }
 
-.nummer {
+/* ---------- Round circle with the step number ---------- */
+.number {
     display: grid;
     place-items: center;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: var(--pf-rosa);
-    color: var(--pf-hvid);
+    background-color: var(--pf-pink);
+    color: var(--pf-white);
     font-size: 0.9rem;
 }
 
-.kort--trin h3 {
+.card--step h3 {
     margin: 0 0 6px;
 }
 
-
-
-.indhold .knap {
+.content .button {
     margin-top: 8px;
 }

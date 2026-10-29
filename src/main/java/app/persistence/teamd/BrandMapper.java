@@ -18,7 +18,7 @@ public class BrandMapper {
         this.connectionPool = connectionPool;
     }
 
-    // Henter alle mærker fra databasen, sorteret efter navn
+    // Gets all brands from the database, sorted by name
     public List<Brand> getAllBrands() throws DatabaseException {
         List<Brand> brands = new ArrayList<>();
         String sql = "SELECT brand_id, name, website FROM teamd_brand ORDER BY name";
@@ -39,7 +39,8 @@ public class BrandMapper {
         }
         return brands;
     }
-    // Henter ét mærke ud fra id
+
+    // Gets one brand by id
     public Brand getBrandById(int brandId) throws DatabaseException {
         String sql = "SELECT brand_id, name, website FROM teamd_brand WHERE brand_id = ?";
 
