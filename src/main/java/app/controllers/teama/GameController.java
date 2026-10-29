@@ -1,5 +1,6 @@
 package app.controllers.teama;
 
+import app.entities.teama.AttackModeScore;
 import app.entities.teama.Colour;
 import app.entities.teama.Game;
 import app.entities.teama.Highscore;
@@ -71,15 +72,17 @@ public class GameController {
             case 2:
                 ctx.redirect("/rcade/niveau3");
                 break;
-			default:
+            default:
                 ctx.redirect("/rcade");
         }
     }
 
-    public void renderFrontpage(Context ctx){
+    public void renderFrontpage(Context ctx) {
         setHighscoreAttributes(ctx);
 
         ctx.sessionAttribute("niveau1Status", "active");
+        ctx.sessionAttribute("isAttackMode", false);
+
         ctx.render("teama/frontpage.html");
     }
 
@@ -94,7 +97,7 @@ public class GameController {
         }
     }
 
-    public void renderNiveau1(Context ctx){
+    public void renderNiveau1(Context ctx) {
         Game game = new Game(colourService.getRandomColour(), 1);
 
         ctx.sessionAttribute("game", game);
@@ -104,7 +107,7 @@ public class GameController {
         ctx.render("teama/niveau1.html");
     }
 
-    public void renderNiveau2(Context ctx){
+    public void renderNiveau2(Context ctx) {
         Game game = new Game(colourService.getRandomColour(), 2);
 
         ctx.sessionAttribute("game", game);
@@ -114,7 +117,7 @@ public class GameController {
         ctx.render("teama/niveau2.html");
     }
 
-    public void renderNiveau3(Context ctx){
+    public void renderNiveau3(Context ctx) {
         Game game = new Game(colourService.getRandomColour(), 3);
 
         ctx.sessionAttribute("game", game);
@@ -124,12 +127,13 @@ public class GameController {
         ctx.render("teama/niveau3.html");
     }
 
-    public void renderAttackmode(Context ctx){
-        Game game = new Game(colourService.getRandomColour(), 0);
+    public void renderAttackmode(Context ctx) {
+        ctx.sessionAttribute("isAttackMode", true);
 
-        ctx.sessionAttribute("game", game);
+        AttackModeScore scores = new AttackModeScore();
+        ctx.sessionAttribute("attackModeScores", scores);
 
-        ctx.render("teama/attackmode.html");
+        ctx.redirect("/rcade/niveau1");
     }
 
     //Handling when a user submits a guess, grabbing their stored guess values and comparing with set minimum scores for unlocking the next level
@@ -139,31 +143,50 @@ public class GameController {
         int redGuess = Integer.parseInt(ctx.formParam("redGuess"));
         int greenGuess = Integer.parseInt(ctx.formParam("greenGuess"));
         int blueGuess = Integer.parseInt(ctx.formParam("blueGuess"));
+
         game.setGuess(new Colour(redGuess, greenGuess, blueGuess));
 
         game.setScore(colourService.getScore(game.getGuess(), game.getTarget()));
 
+        // If playing attackmode save score and go to next level
+        if (ctx.sessionAttribute("isAttackMode")) {
+            AttackModeScore scores = ctx.sessionAttribute("attackModeScores");
+            switch (game.getLevel()) {
+                case 1:
+                    scores.setScore1(game.getScore());
+                    break;
+                case 2:
+                    scores.setScore2(game.getScore());
+                    break;
+                case 3:
+                    scores.setScore3(game.getScore());
+            }
+            ctx.sessionAttribute("attackModeScores", scores);
 
-        String msg = scoreService.highscoreCheck(game);;
+            if (!(game.getLevel() == 3)) ctx.redirect("/rcade/nextLevel");
 
-        boolean onHighscore = !msg.equals("Error: Highscores could not be loaded") && !msg.equals("You did not make the leaderboard");
+            String msg = scoreService.highscoreCheck(game);
+            ;
+            boolean onHighscore = !msg.equals("Error: Highscores could not be loaded") && !msg.equals("You did not make the leaderboard");
 
-        ctx.attribute("highscoreMessage", msg);
-        ctx.attribute("onHighscore", onHighscore);
+            ctx.attribute("highscoreMessage", msg);
+            ctx.attribute("onHighscore", onHighscore);
+        }
 
-
-        if (scoreService.unlockNextLevel(game)){
-            switch (game.getLevel()){
+        if (scoreService.unlockNextLevel(game)) {
+            switch (game.getLevel()) {
                 case 1:
                     ctx.sessionAttribute("niveau2Status", "active");
                     break;
                 case 2:
                     ctx.sessionAttribute("niveau3Status", "active");
                     break;
+                case 3:
+                    ctx.sessionAttribute("attackModeStatus", "active");
+                    break;
             }
             ctx.attribute("isNextLevelOpen", true);
         }
-
         ctx.render("teama/result.html");
     }
 
