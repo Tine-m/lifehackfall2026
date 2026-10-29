@@ -38,11 +38,13 @@ public class ScoreService {
         return game.getScore() > game.getBenchmarkScore();
     }
 
+    //Checking a users scored score against the current leaderboard, to determine if their score should be available to save
     public String highscoreCheck(Game game) {
         List <Highscore> todayList = new ArrayList<>();
         List <Highscore> weekList = new ArrayList<>();
         List <Highscore> allTimeList = new ArrayList<>();
 
+        //Grabbing current highscores
         try {
             allTimeList = getTopAllTime(10);
             weekList = getTopWeek(5);
@@ -51,6 +53,7 @@ public class ScoreService {
             System.out.println("Error: Highscores could not be loaded");
         }
 
+        //Checks if any of our lists aren't "full" i.e. if there aren't 10, 5, and 5 entires for All-time, weekly, and daily highscores respectively
         for (int i = 0; i < 10; i++) {
             if (i == allTimeList.size()){
                 return "Congratulations! You got the number " + (i+1) + " highscore of all time!";
