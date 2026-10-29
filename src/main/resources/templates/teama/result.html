@@ -91,7 +91,7 @@
                             </button>
                         </form>
 
-                        <form th:unless="${session.isAttackMode}" action="/rcade/nextLevel" method="get">
+                        <form th:unless="${session.isAttackMode || session.game.getLevel() == 3}" action="/rcade/nextLevel" method="get">
                             <button type="submit" class="resultScreenButton" id="playNextLevel"
                                     th:classappend="${!isNextLevelOpen} ? 'buttonLocked'"
                                     th:disabled="${!isNextLevelOpen} ? 'buttonLocked'">
