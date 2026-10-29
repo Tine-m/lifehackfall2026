@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Afstemninger</title>
+  <link rel="stylesheet" th:href="@{/css/teamc/styles.css}">
+</head>
+<body>
+
+<div class="page-wrapper">
+  <div class="register-card">
+    <h2>Afstemninger</h2>
+    <p class="muted" th:text="${event.eventName}">Biograftur</p>
+
+    <p class="flash" th:if="${msg != null}" th:text="${msg}"></p>
+
+    <a class="btn" th:if="${isOwner}"
+       th:href="@{/eventPlanner/event/{id}/poll/new(id=${event.event_id})}">+ Ny afstemning</a>
+
+    <p th:if="${#lists.isEmpty(polls)}">Der er ingen afstemninger endnu.</p>
+
+    <div class="poll-card" th:each="poll : ${polls}">
+      <h3 th:text="${poll.question}">Hvor skal vi spise?</h3>
+
+      <!-- Stem: kun hvis man må og ikke har stemt endnu -->
+      <form th:if="${poll.canVote}" method="post"
+            th:action="@{/eventPlanner/poll/{pid}/vote(pid=${poll.poll_id})}">
+        <label class="checkbox-label" th:each="option : ${poll.pollOptionList}">
+          <input type="radio" name="optionId" th:value="${option.option_id}" required>
+          <span th:text="${option.option_text}">Pizza</span>
+        </label>
+        <input class="btn" type="submit" value="Stem">
+      </form>
+
+      <!-- Resultat: kun hvis man må se det -->
+      <p class="muted" th:if="${!poll.canVote and poll.canSeeResults}">
+        Resultat indtil videre:
+      </p>
+      <ul class="poll-results" th:if="${poll.canSeeResults}">
+        <li th:each="option : ${poll.pollOptionList}">
+          <span th:text="${option.option_text}">Pizza</span>
+          <strong th:text="${option.votes} + ' stemmer'">3 stemmer</strong>
+        </li>
+      </ul>
+
+      <p class="muted" th:unless="${poll.canVote or poll.canSeeResults}">
+        Du kan ikke stemme eller se resultatet i denne afstemning.
+      </p>
+    </div>
+
+    <a class="back-link" href="/eventPlanner/mainpage">← Tilbage til forsiden</a>
+  </div>
+</div>
+
+</body>
+</html>

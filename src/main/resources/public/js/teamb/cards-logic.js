@@ -1,70 +1,25 @@
-
 // loading game board
-async function loadGameBoard() {
+// Kortene er lavet af Thymeleaf i game.html, så her kobler vi kun klik på dem
+function loadGameBoard() {
 
     const board = document.getElementById('board');
 
-    try {
-        const res = await fetch('/cards');
-        if (!res.ok) throw new Error('Status ' + res.status);
+    board.querySelectorAll('.card').forEach(el => {
 
-        const cards = await res.json();
-        board.innerHTML = '';
-        cards.forEach(card => board.appendChild(createCard(card)));
-    } catch (err) {
-        console.error(err);
-        board.textContent = 'Kort kunne ikke læses!';
-    }
-}
-
-function createCard(card) {
-
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.dataset.cardId = card.cardId;
-    el.dataset.pairId = card.pairId;
-
-    const inner = document.createElement('div');
-    inner.className = 'card-inner';
-
-    // Kortets forside
-    const front = document.createElement('div');
-    front.className = 'card-front';
-    front.textContent = 'LH';
-
-    // Kortets bagside (indholdet ses her)
-    const back = document.createElement('div');
-    back.className = 'card-back';
-
-    if (card.imageURL) {
-        const img = document.createElement('img');
-        img.src = card.imageURL;
-        back.appendChild(img);
-    }
-    if (card.text) {
-        const span = document.createElement('span');
-        span.textContent = card.text;
         // emoji-kort får en ekstra klasse, så de vises større
-        if (/\p{Extended_Pictographic}/u.test(card.text)) {
-            back.classList.add('emoji');
+        const span = el.querySelector('.card-back span');
+        if (span && /\p{Extended_Pictographic}/u.test(span.textContent)) {
+            el.querySelector('.card-back').classList.add('emoji');
         }
-        back.appendChild(span);
-    }
-
-    inner.appendChild(front);
-    inner.appendChild(back);
-    el.appendChild(inner);
-
-    el.addEventListener('click', () => handleCardClick(el));
-    return el;
+        el.addEventListener('click', () => handleCardClick(el));
+    });
 }
-
 
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 
-// game logic methods: us2
+// game logic methods: US2
 function handleCardClick(el) {
     //US2: vende to kort ad gangen.
 
@@ -86,31 +41,56 @@ function handleCardClick(el) {
 
 }
 
+
 function checkForMatch() {
     lockBoard = true;
 
-    const isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+    const isMatch =
+        firstCard.dataset.pairId === secondCard.dataset.pairId;
+
     increaseMoves();
-    console.log("matched cards: ", isMatch);
+
+    console.log("Match:", isMatch);
 
     if (isMatch) {
-        // US3: Matchende kort forbliver vendt
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
+
+        const gameWon = increaseMatchedPairs();
+
+        // Check whether every card has been matched
+        const allCards = document.querySelectorAll('#board .card');
+        const matchedCards = document.querySelectorAll('#board .card.matched');
+
         resetBoard();
 
-        if (increaseMatchedPairs()) {
+        if (gameWon && allCards.length > 0 &&
+            matchedCards.length === allCards.length) {
+
             stopTimer();
+            lockBoard = true; // ingen flere klik mens vi venter
+
+            document.getElementById("finish-time").value = seconds;
+            document.getElementById("finish-moves").value = moves;
+            document.getElementById("finish-completed").value = "true";
+
+            console.log("YOU WON! All pairs found.");
+
+            // Kort pause, så man når at se det sidste par
+            setTimeout(() => {
+                document.getElementById("finish-form").submit();
+            }, 1000);
         }
     } else {
         setTimeout(() => {
-            // US4: Ikke-matchende kort vendes tilbage
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
+
             resetBoard();
         }, 1000);
     }
 }
+
 
 function resetBoard() {
     firstCard = null;
@@ -118,4 +98,34 @@ function resetBoard() {
     lockBoard = false;
 }
 
+function saveLifehackCards() {
+    const board = document.getElementById('board');
+
+    if (!board || board.dataset.mode !== 'lifehack') {
+        sessionStorage.removeItem('gameCards');
+        return;
+    }
+
+    const cards = Array.from(board.querySelectorAll('.card'))
+        .filter((card, index, allCards) =>
+            allCards.findIndex(other =>
+                other.dataset.pairId === card.dataset.pairId
+            ) === index
+        )
+        .map(card => {
+            const image = card.querySelector('.card-back img');
+            const span = card.querySelector('.card-back span');
+
+            return {
+                imageURL: image ? image.getAttribute('src') : '',
+                text: span ? span.textContent.trim() : '',
+                lifehackDescription: card.dataset.hack || ''
+            };
+        });
+
+    sessionStorage.setItem('gameCards', JSON.stringify(cards));
+    console.log('Gemte lifehack-kort:', cards);
+}
+
+saveLifehackCards();
 loadGameBoard();

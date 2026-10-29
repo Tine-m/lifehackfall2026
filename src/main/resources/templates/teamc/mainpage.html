@@ -29,15 +29,19 @@
 
         <div class="welcome">
             <h1 class="welcome-heading">Velkommen</h1>
-            <p class="welcome-username" th:text="${username}"></p>
+            <p class="welcome-username" th:text="${user.username}"></p>
         </div>
 
         <div class="controls">
             <form class="search-bar" action="/eventPlanner/mainpage" method="post" >
-                <input class="search-input" type="search" name="search" placeholder="Søg arrangementer..." oninput="Search()">
+                <input
+                        class="search-input"
+                        type="search"
+                        name="search"
+                        placeholder="Søg arrangementer...">
             </form>
 
-            <div class="sort-bar">
+            <!--<div class="sort-bar">
                 <label for="sort">Sortér efter:</label>
                 <select id="sort" class="sort-select" name="sort">
                     <option value="date-asc">Dato (nyeste først)</option>
@@ -47,7 +51,7 @@
                     <option value="attendees-desc">Flest deltagere</option>
                     <option value="attendees-asc">Færrest deltagere</option>
                 </select>
-            </div>
+            </div>-->
         </div>
 
         <div class="events">
@@ -62,6 +66,7 @@
                             <span class="muted" th:text="${#temporals.format(event.startDate, 'dd-MM-yyyy HH:mm')}">27-10-2026</span>
                         </div>
                         <a th:href="@{/eventPlanner/event/{id}/participants(id=${event.event_id})}">Se deltagere</a>
+                        <a th:href="@{/eventPlanner/event/{id}/polls(id=${event.event_id})}">Afstemninger</a>
                     </li>
                 </ul>
             </div>
@@ -70,11 +75,29 @@
     </main>
 
     <script>
-        function Search () {
-            const input = document.getElementById('search-input').value;
+        const searchInput = document.querySelector(".search-input");
+        searchInput.addEventListener("input", Search);
 
+        function Search() {
+            const input = searchInput.value.toLowerCase();
+            const events = document.querySelectorAll("ul.event-list li");
 
-        )}
+            events.forEach(event => {
+                const name = event.querySelector("strong").textContent.toLowerCase();
+
+                if (name.includes(input)) {
+                    event.style.display = "";
+                } else {
+                    event.style.display = "none";
+                }
+            });
+        }
+
+        const searchForm = document.querySelector(".search-bar");
+
+        searchForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
 
     </script>
 
