@@ -52,6 +52,10 @@ public class Game {
         return durationSeconds;
     }
 
+    public String getFormattedDuration() {
+        return String.format("%02d:%02d", durationSeconds / 60, durationSeconds % 60);
+    }
+
     public void setDurationSeconds(int durationSeconds) {
         this.durationSeconds = durationSeconds;
     }

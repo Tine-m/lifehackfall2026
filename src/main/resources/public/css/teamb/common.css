@@ -1,0 +1,74 @@
+/* Fælles farvepalette og stil for alle teamb-sider */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --twilight: #2c002f;     /* tekst og titler */
+    --raincloud: #5e6697;    /* knapper og kanter på fundne par */
+    --puce: #9f7aa5;         /* kanter og kortenes forside */
+    --lavender: #e3c6ec;     /* paneler og statistik */
+    --white: #ffffff;        /* baggrund */
+
+    --font: "Poppins", Arial, sans-serif;
+
+    --shadow-soft: 0 4px 10px rgba(159, 122, 165, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    color: var(--twilight);
+    background: var(--white);
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--raincloud);
+    outline-offset: 3px;
+}
+
+/* Fælles knap, bruges på alle sider */
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 16px;
+    background: var(--raincloud);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+    background: var(--twilight);
+    transform: translateY(-2px);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.btn:disabled {
+    background: var(--lavender);
+    color: var(--puce);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Sekundær knap: kun en kant */
+.btn.secondary {
+    background: transparent;
+    color: var(--twilight);
+    border: 2px solid var(--puce);
+}
