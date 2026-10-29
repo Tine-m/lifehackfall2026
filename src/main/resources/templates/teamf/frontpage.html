@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Hokus Fokus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/teamf/style.css">
+</head>
+<body>
+<h1>HOKUS FOKUS</h1>
+<div id="container">
+    <!-- Så lige nu har en form der POST'er men ikke noget der modtager? -->
+    <form action="/hokusfokus/create" method="POST">
+        <div class="field">
+            <label for="taskName" class="fieldtitle">TASK NAVN</label>
+            <input class="text-field" type="text" id="taskName" name="taskName" required>
+        </div>
+        <br>
+        <div class="field">
+            <label for="taskDescription" class="fieldtitle">TASK BESKRIVELSE </label>
+            <textarea class="text-field" id="taskDescription" name="taskDescription" rows="3" required></textarea>
+        </div>
+        <br>
+        <div class="field field-row">
+            <label for="tasksettime">SET TASK TIME</label>
+            <input type="number" id="tasksettime" name="tasksettime" min="1" max="60" required>
+        </div>
+        <br>
+        <div id="control">
+            <button type="submit" id="startButton">START</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

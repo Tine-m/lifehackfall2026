@@ -10,6 +10,7 @@ import app.controllers.teama.GameController;
 import app.controllers.teamc.EventController;
 import app.controllers.teamb.MemoController;
 import app.controllers.teame.PasswordController;
+import app.controllers.teamf.TaskController;
 import app.controllers.teamteachers.QuoteController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -38,6 +39,7 @@ public class Main {
             new UserEventController(connectionPool).setRoutes(config); // Team c
             new PollController(connectionPool).setRoutes(config); // Team c
             new PasswordController(connectionPool).setRoutes(config);//team e app Controller
+            new TaskController(connectionPool).setRoutes(config); // Team f
             new CommentController(connectionPool).setRoutes(config);
             // TODO: Husk også at registrere jeres forside i LifehackRegistry klassen
         }).start(7070);

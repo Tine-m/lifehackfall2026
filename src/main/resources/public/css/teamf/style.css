@@ -1,0 +1,88 @@
+body {
+    font-family: Pixel, serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    image-rendering: pixelated;
+    background-image: url("/images/teamf/pixelatedbackground.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: deepskyblue;
+
+
+}
+
+@font-face {
+    font-family: "Pixel";
+    src:
+            url("/fonts/teamf/Pixel.ttf") format("truetype");
+}
+
+#container{
+    width: 300px;
+    padding: 20px;
+    border-radius: 10%;
+    border: 10px solid forestgreen;
+    background-color: hsl(0 0% 100% / 0.6);
+    max-width: 90vw
+}
+
+#control {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.field {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#control button{
+
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 5px;
+    min-width: 125px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+
+}
+
+.fieldtitle{
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    font-size: 1.5rem;
+}
+
+.field-row{
+    flex-direction: row;
+    gap: 10px;
+}
+
+.text-field {
+    width: 80%
+}
+
+#startButton {
+    background-color: forestgreen;
+}
+
+#startButton:hover{
+    background-color: hsl(120 93% 71%);
+}
+
+h1 {
+    font-size: 3rem;
+    color: white;
+}

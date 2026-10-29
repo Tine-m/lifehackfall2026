@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Started</title>
+    <link rel="stylesheet" href="/css/teamf/taskstyle.css">
+</head>
+<body>
+    <div id="container">
+        <div id ="display">
+            00:00
+        </div>
+        <form method="post"
+              th:action="@{/hokusfokus/task/{taskid}/stopped(taskid=${task.taskId})}">
+            <div id="control">
+                <button type="submit" id="stopButton" onclick="stop()">STOP</button>
+            </div>
+        </form>
+    </div>
+    <script src="/js/teamf/index.js"></script>
+</body>
+</html>
