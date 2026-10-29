@@ -60,6 +60,14 @@ public class LifehackRegistry {
                         "Skab stærkere passwords",
                         "/securepass",
                         "/images/teame/securepass-logo.svg"
+                ),
+
+                // Team F
+                new LifehackSite(
+                        "Hokus Fokus",
+                        "Fokusér på én opgave ad gangen",
+                        "/hokusfokus",
+                        "/images/teamf/pixelatedbackground.png"
                 )
         );
 
