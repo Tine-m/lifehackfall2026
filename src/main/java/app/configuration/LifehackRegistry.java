@@ -65,7 +65,7 @@ public class LifehackRegistry {
                 // Team F
                 new LifehackSite(
                         "Hokus Fokus",
-                        "Fokusér på én opgave ad gangen",
+                        "Fokuser på en opgave ad gangen",
                         "/hokusfokus",
                         "/images/teamf/pixelatedbackground.png"
                 )
