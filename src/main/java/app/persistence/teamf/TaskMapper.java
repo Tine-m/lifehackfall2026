@@ -22,7 +22,7 @@ public class TaskMapper {
 
 
     public Task createTask(Task task) throws DatabaseException {
-        String query = "INSERT INTO teamf_tasks (taskName, taskDescription, tasksettime, taskDate, taskStartTime) " +
+        String query = "INSERT INTO teamf_tasks (taskname, taskdescription, tasksettime, taskdate, taskstarttime) " +
                 " VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = connectionPool.getConnection();
              // Det er her vi får taskID fra PostGres (som så bliver smidt ind i Stringen/PreparedStatement?)
@@ -56,7 +56,7 @@ public class TaskMapper {
     }
 
     public Task getTaskByID(int id) throws DatabaseException {
-        String query = "SELECT taskid, taskName, taskdescription, tasksettime, taskdate, taskstarttime FROM teamf_tasks WHERE taskid = ?";
+        String query = "SELECT taskid, taskname, taskdescription, tasksettime, taskdate, taskstarttime FROM teamf_tasks WHERE taskid = ?";
         Task task = null;
         try(Connection connection = connectionPool.getConnection();
             PreparedStatement stm = connection.prepareStatement(query)){
@@ -87,7 +87,7 @@ public class TaskMapper {
         LocalDate taskStopDate = task.getTaskStopDate();
         LocalTime taskStopTime = task.getTaskStopTime();
         /*
-        String query = "UPDATE teamf_tasks " + "SET taskStopTime = (?) " + "SET taskStopDate = (?)"+ "WHERE taskid = (?)";
+        String query = "UPDATE teamf_tasks SET taskstoptime = ?, taskstopdate = ? WHERE taskid = ?";
         try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement stm = connection.prepareStatement(query)){
             stm.setInt(1,id);
